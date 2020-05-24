@@ -22,11 +22,15 @@ exports.getAllEmployees = (req, res, next) => {
 
     console.log("get all employees");
     Employe.find()
-           .populate(
-            {
-                path: 'publications',
-                model: 'Publication'
-            }
+           .populate([
+                {
+                    path: 'publications',
+                    model: 'Publication'
+                },{
+                    path: 'agency',
+                    model: 'Agency'
+                }
+           ]
            )
            .exec((err, employees)=>{
                if(err){
@@ -39,21 +43,60 @@ exports.getAllEmployees = (req, res, next) => {
 }
 
 exports.getEmployeById = (req,res,next) => {
+
     console.log("get emplyee by id");
     Employe.findById(req.params.id)
            .populate(
-                {
-                    path: 'publications',
-                    model: 'Publication'
-                }
+                [
+                    {
+                        path: 'publications',
+                        model: 'Publication'
+                    },{
+                        path: 'agency',
+                        model: 'Agency'
+                    }
+            ]
             )
-            .exec((err, employees)=>{
+            .exec((err, employe)=>{
                 if(err){
                     res.status(500).json({ error: err});
                 }else{
-                    res.status(201).json({ message: "findbyId has been executed with success", employee: employees });
+                    res.status(201).json({ message: "findbyId has been executed with success", employee: employe });
                 }
             });
 
 
+}
+
+exports.getEmployeByFullName = (req,res,next) => {
+    console.log("get employee by fullName");
+
+    // to make the search case insensitive
+    let fullName = req.params.fullName.split(" ");
+    let firstName = new RegExp(`^${fullName[0]}$`, 'i');
+    let lastName = new RegExp(`^${fullName[1]}$`, 'i');
+    console.log(firstName+"--"+lastName);
+
+    // still to verify which name (first or last) is provided and make a search based on that 
+
+    Employe.findOne({firstName: firstName, lastName: lastName })
+           .populate(
+                [
+                    {
+                        path: 'publications',
+                        model: 'Publication'
+                    },{
+                        path: 'agency',
+                        model: 'Agency'
+                    }
+            ]
+            )
+           .exec((err, employe)=>{
+                if(err){
+                    res.status(500).json({ error: err});
+                }else{
+                    res.status(201).json({ message: "findByName has been executed with success", employee: employe });
+                }
+            });
+           
 }

@@ -80,3 +80,20 @@ exports.getPublicationById = (req, res, next) => {
                 });
 
 }
+
+/* exports.approvePublication = (req,res,next) => {
+    console.log("to approve a"+req.params.id+" pub : "+req.params.isApproved);
+
+    Publication.findByIdAndUpdate(
+                   req.params.id,
+                  { isApproved: req.params.isApproved },
+                  { safe: true, new: true}
+                )
+                .then((publication)=>{
+                    res.status(200).json({ message: "publication is examined with success", publication: publication });
+                })
+                .catch((err)=>{
+                    res.status(500).json({ error: err });
+                });
+
+} */

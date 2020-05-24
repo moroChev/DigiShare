@@ -5,6 +5,7 @@ const publicationSchema = new mongoose.Schema({
     date: { type: Date, default: Date.now },
     content: { type: String, required: true },
     imageUrl: { type: String, required: false },
+    isApproved : { type: Boolean, default: false },
     approvedBy : {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Employer"

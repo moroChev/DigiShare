@@ -5,6 +5,7 @@ const express                = require('express'),
 let router = express.Router();
 
 
+router.get("/rechercher/:fullName", employeeController.getEmployeByFullName);
 router.get("/", employeeController.getAllEmployees);
 router.post("/", employeeController.createEmploye);
 router.get("/:id", employeeController.getEmployeById);

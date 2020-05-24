@@ -2,11 +2,13 @@ const express             = require('express'),
       bodyParser          = require('body-parser'),
       mongoose            = require('mongoose'),
       routerPublications  = require('./routes/publications'),
-      routerEmployees     = require('./routes/employees') ;
+      routerEmployees     = require('./routes/employees'),
+      routerAgencies      = require('./routes/agencies'),
+      routerAuth          = require('./routes/auth');
 
 let app = express();
 
-mongoose.connect('mongodb://localhost/digi_share',{ useNewUrlParser: true });
+mongoose.connect('mongodb://localhost/digi_share',{ useNewUrlParser: true, useCreateIndex: true });
 
 app.use(bodyParser.json());
 
@@ -17,9 +19,10 @@ app.use((req, res, next) => {
     next();
   });
 
-
+app.use('/api/auth',routerAuth);
 app.use('/api/publications', routerPublications);  
 app.use('/api/employees', routerEmployees);
+app.use('/api/agencies', routerAgencies);
 
 
 
