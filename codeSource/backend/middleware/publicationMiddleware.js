@@ -1,7 +1,7 @@
 const jwt     = require('jsonwebtoken');
 const Employe = require('../models/Employe');
 
-exports.AprrovePublication = (req, res, next) => {
+exports.canAprrovePublication = (req, res, next) => {
 
     try {
       console.log(req.headers.authorization);
