@@ -5,7 +5,7 @@ const bcrypt  = require('bcrypt');
 
 exports.login = (req,res,next) => {
 
-  console.log("login reteched \n"+req.body.login);
+  console.log("login reteched \n"+req.body.login+req.body.password);
     Employe.findOne({ 'userAccount.login' : req.body.login })
            .then((user)=>{
              console.log(user);
