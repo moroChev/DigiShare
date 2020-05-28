@@ -10,8 +10,8 @@ const agencySchema = new mongoose.Schema({
             type: mongoose.Schema.Types.ObjectId,
             ref: "Employe"
         }
-    ] // list of employers of teh agence
-
+    ], // list of employers of teh agence
+    
 });
 
 module.exports = mongoose.model('Agency', agencySchema);

@@ -22,9 +22,11 @@ exports.getAllPublications = (req, res, next) => {
         .catch((err) => {
             res.status(401).json({ error: err });
         });
+
 }
 
 exports.createPublication = (req, res, next) => {
+
     console.log("create Publication is called ! ");
     delete req.body.id;
     let publication = new Publication(
@@ -54,6 +56,7 @@ exports.createPublication = (req, res, next) => {
                     .catch((err) => { console.log("error in finding the employee"); res.status(400).json({ error: err }) });
             })
         .catch((err) => { console.log("error in saving the pub" + err); res.status(400).json({ error: err }) });
+        
 }
 
 

@@ -1,14 +1,14 @@
 const express                = require('express'),
-      employeeController     = require('../controllers/employees.js');
-
+      employeeController     = require('../controllers/employees.js'),
+      auth                   = require('../middleware/auth');
 
 let router = express.Router();
 
 
-router.get("/rechercher/:fullName", employeeController.getEmployeByFullName);
-router.get("/", employeeController.getAllEmployees);
-router.post("/", employeeController.createEmploye);
-router.get("/:id", employeeController.getEmployeById);
+router.get("/rechercher/:fullName",auth, employeeController.getEmployeByFullName);
+router.get("/", auth, employeeController.getAllEmployees);
+router.post("/", auth, employeeController.createEmploye);
+router.get("/:id", auth, employeeController.getEmployeById);
 
 
 module.exports = router;

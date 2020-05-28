@@ -22,7 +22,8 @@ const employeSchema = new mongoose.Schema({
             type: mongoose.Schema.Types.ObjectId,
             ref: "Publication"  
         }
-    ] // list of publications
+    ],// list of publications
+    
 });
 
 
