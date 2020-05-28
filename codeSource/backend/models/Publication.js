@@ -13,8 +13,19 @@ const publicationSchema = new mongoose.Schema({
     postedBy: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Employer"
-    }  // the employed who posted the publication
-
+    },  // the employed who posted the publication
+    likes: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Employer"
+        }
+    ],
+    dislikes: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Employer"
+        }
+    ]
   //  title: { type: String, },
 
 });
