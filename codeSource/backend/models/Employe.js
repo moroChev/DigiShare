@@ -2,18 +2,16 @@ const mongoose = require('mongoose');
 const uniqueValidator = require('mongoose-unique-validator');
 
 const employeSchema = new mongoose.Schema({
-    
-    
-    
      
     firstName : { type:String, required: true },
     lastName : { type: String, required: true },
-    email: { type: String, required: true},
+    imageEmploye : { type: String, required: false},
+    email: { type: String, required: true },
     position: { type: String, required: true },   // the position occupied within the society
     canApprove: { type: Boolean, required: true }, // the right to approve a publication 
     userAccount: {
-                    login: { type: String, required: true, unique: true },
-                    password: { type: String, required: true}
+                login: { type: String, required: true, unique: true },
+                password: { type: String, required: true }
     },
     agency: {
         type: mongoose.Schema.Types.ObjectId,
