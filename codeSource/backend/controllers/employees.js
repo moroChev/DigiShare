@@ -1,11 +1,13 @@
-const Employe = require('../models/Employe'),
+
+const Employee = require('../models/Employee'),
       Publication = require('../models/Publication');
 
-exports.createEmploye = (req, res, next) => {
 
-    console.log("create employe");
+exports.createEmployee = (req, res, next) => {
+
+    console.log("create employee");
     delete req.body.id;
-    let employee = new Employe(
+    let employee = new Employee(
         {
             ...req.body
        }
@@ -23,7 +25,9 @@ exports.getAllEmployees = (req, res, next) => {
 
     console.log("get all employees");
     Employe.find()
-           .populate({
+           .populate(
+               {
+
                     path: 'agency',
                     model: 'Agency'
                 }
@@ -38,7 +42,7 @@ exports.getAllEmployees = (req, res, next) => {
 
 }
 
-exports.getEmployeById = (req,res,next) => {
+exports.getEmployeeById = (req,res,next) => {
 
     console.log("get emplyee by id "+req.params.id);
     Employe.findById(req.params.id)
@@ -58,15 +62,17 @@ exports.getEmployeById = (req,res,next) => {
                     console.log('error + '+err)
                     res.status(500).json({ error: err});
                 }else{
+
                     console.log('employee + '+employee);
                     res.status(200).json(employee);
+
                 }
             });
 
 
 }
 
-exports.getEmployeByFullName = (req,res,next) => {
+exports.getEmployeeByFullName = (req,res,next) => {
     console.log("get employee by fullName");
 
     // to make the search case insensitive
@@ -77,7 +83,7 @@ exports.getEmployeByFullName = (req,res,next) => {
 
     // still to verify which name (first or last) is provided and make a search based on that 
 
-    Employe.findOne({firstName: firstName, lastName: lastName })
+    Employee.findOne({firstName: firstName, lastName: lastName })
            .populate(
                 [
                     {
@@ -89,11 +95,12 @@ exports.getEmployeByFullName = (req,res,next) => {
                     }
             ]
             )
-           .exec((err, employe)=>{
+           .exec((err, employee)=>{
                 if(err){
                     res.status(500).json({ error: err});
                 }else{
                     res.status(201).json(employe);
+
                 }
             });
            

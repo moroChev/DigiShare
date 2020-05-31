@@ -1,12 +1,12 @@
 //const User    = require('../models/User');
-const Employe = require('../models/Employe');
+const Employee = require('../models/Employee');
 const jwt     = require('jsonwebtoken');
 const bcrypt  = require('bcrypt'); 
 
 exports.login = (req,res,next) => {
 
   console.log("login reteched \n"+req.body.login+req.body.password);
-    Employe.findOne({ 'userAccount.login' : req.body.login })
+    Employee.findOne({ 'userAccount.login' : req.body.login })
            .then((user)=>{
              console.log(user);
             if (!user) {
@@ -30,16 +30,17 @@ exports.login = (req,res,next) => {
                     })
                     .catch(error => {console.log("error in comparaison of the password");res.status(500).json({ error })});
            })
-           .catch(error => {console.log("error in finding the employe"); res.status(500).json({ error })})
+           .catch(error => {console.log("error in finding the employee"); res.status(500).json({ error })})
 };
 
 exports.signup = (req,res,next) => {
     
         console.log("sign up reteched \n");
+        console.log(req.body.firstName);
 
         bcrypt.hash(req.body.userAccount.password, 10)
               .then((hash) => {
-                        const employe = new Employe({
+                        const employee = new Employee({
                           userAccount:{
                             login: req.body.userAccount.login,
                             password: hash
@@ -48,12 +49,13 @@ exports.signup = (req,res,next) => {
                           lastName : req.body.lastName,
                           email: req.body.email,
                           position: req.body.position, 
-                          canApprove: req.body.canApprove
+                          canApprove: req.body.canApprove,
+                          imageEmployee: req.body.imageEmployee
                         })
-                         console.log(employe)
-                         employe.save()
-                                .then((employeSaved) => {
-                                    console.log("user created ! "+employeSaved);
+                         console.log(employee)
+                         employee.save()
+                                .then((employeeSaved) => {
+                                    console.log("user created ! "+employeeSaved);
                                     res.status(201).json({ message: 'User created !' });
                         
                                 })

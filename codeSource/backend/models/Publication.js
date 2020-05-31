@@ -8,22 +8,22 @@ const publicationSchema = new mongoose.Schema({
     isApproved : { type: Boolean, default: false },
     approvedBy : {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Employer"
-    },   // the employed who approved the publication
+        ref: "Employee"
+    },   // the employee who approved the publication
     postedBy: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Employer"
-    },  // the employed who posted the publication
+        ref: "Employee"
+    },  // the employee who posted the publication
     likes: [
         {
             type: mongoose.Schema.Types.ObjectId,
-            ref: "Employer"
+            ref: "Employee"
         }
     ],
     dislikes: [
         {
             type: mongoose.Schema.Types.ObjectId,
-            ref: "Employer"
+            ref: "Employee"
         }
     ]
   //  title: { type: String, },

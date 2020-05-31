@@ -9,7 +9,7 @@ const express             = require('express'),
 
 let app = express();
 
-mongoose.connect('mongodb://localhost/digi_share',{ useNewUrlParser: true, useCreateIndex: true });
+mongoose.connect('mongodb://localhost/digi_share',{ useNewUrlParser: true, useCreateIndex: true, useFindAndModify: false});
 
 app.use(bodyParser.json());
 app.use('/images', express.static(path.join(__dirname, 'images')));

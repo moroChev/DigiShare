@@ -6,10 +6,11 @@ let router = express.Router();
 
 
 router.get("/rechercher/:fullName",auth, employeeController.getEmployeByFullName);
-router.get("/", employeeController.getAllEmployees);
+router.get("/", auth,employeeController.getAllEmployees);
 router.post("/", auth, employeeController.createEmploye);
-router.get("/:id",  employeeController.getEmployeById);
-router.get("/:id/Publications", employeeController.getEmployePublications);
+router.get("/:id",  auth,employeeController.getEmployeById);
+router.get("/:id/Publications", auth,employeeController.getEmployePublications);
+
 
 
 module.exports = router;
