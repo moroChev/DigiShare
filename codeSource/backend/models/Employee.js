@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
 const uniqueValidator = require('mongoose-unique-validator');
 
-const employeSchema = new mongoose.Schema({
+const employeeSchema = new mongoose.Schema({
      
     firstName : { type:String, required: true },
     lastName : { type: String, required: true },
-    imageEmploye : { type: String, required: false},
+    imageEmployee : { type: String, required: false},
     email: { type: String, required: true },
     position: { type: String, required: true },   // the position occupied within the society
     canApprove: { type: Boolean, required: true }, // the right to approve a publication 
@@ -29,4 +29,4 @@ const employeSchema = new mongoose.Schema({
 
 
 
-module.exports = mongoose.model('Employe', employeSchema);
+module.exports = mongoose.model('Employee', employeeSchema);
