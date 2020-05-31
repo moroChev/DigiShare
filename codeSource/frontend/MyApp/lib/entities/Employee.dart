@@ -25,7 +25,7 @@ class Employee{
     
     
     factory Employee.fromJsonWithoutPostsAndAgency(Map<String, dynamic> json){
-      print("we are in Employe from json without posts and agency objects ");
+      print("we are in Employee from json without posts and agency objects ");
      return  Employee(
         id: json['_id'] as String,
         firstName: json['firstName'] as String,
@@ -38,7 +38,7 @@ class Employee{
     }
 
     factory Employee.fromJsonWithPostsAndAgencyObjects(Map<String,dynamic> json){
-       print("we are in Employe from json with posts and agency objects ");
+       print("we are in Employee from json with posts and agency objects ");
        return Employee(
               id: json['_id'] as String,   
               publicationsObjects: (json['publications'] as List)?.map((e) => Publication.fromJsonWithoutEmployees(e))?.toList(),
@@ -56,7 +56,7 @@ class Employee{
     }
 
     factory Employee.fromJsonWithPostsIdAndAgency(Map<String, dynamic> json) {
-      print("we are in Employe from json with posts IDs and agency object ");
+      print("we are in Employee from json with posts IDs and agency object ");
                 return Employee(
               id: json['_id'] as String,   
               publicationsIds: (json['publications'] as List)?.map((e) => e as String)?.toList(),

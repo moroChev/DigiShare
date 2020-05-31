@@ -13,9 +13,9 @@ exports.createEmployee = (req, res, next) => {
        }
     );
     employee.save()
-            .then((employe) => {
-                     console.log(employe);
-                     res.status(201).json( employe );
+            .then((emp) => {
+                     console.log(emp);
+                     res.status(201).json( emp );
              })
             .catch((err) => { res.status(400).json({ error: err }) });
 
@@ -24,7 +24,7 @@ exports.createEmployee = (req, res, next) => {
 exports.getAllEmployees = (req, res, next) => {
 
     console.log("get all employees");
-    Employe.find()
+    Employee.find()
            .populate(
                {
 
@@ -45,7 +45,7 @@ exports.getAllEmployees = (req, res, next) => {
 exports.getEmployeeById = (req,res,next) => {
 
     console.log("get emplyee by id "+req.params.id);
-    Employe.findById(req.params.id)
+    Employee.findById(req.params.id)
            .populate(
                 [
                     {
@@ -99,25 +99,25 @@ exports.getEmployeeByFullName = (req,res,next) => {
                 if(err){
                     res.status(500).json({ error: err});
                 }else{
-                    res.status(201).json(employe);
+                    res.status(201).json(employee);
 
                 }
             });
            
 }
 
-exports.getEmployePublications = (req,res,next) =>{
+exports.getEmployeePublications = (req,res,next) =>{
     
     console.log("get employee's publications");
     Publication.find({postedBy: req.params.id})
                .populate([
                    {
                        path:'postedBy',
-                       model: 'Employe'
+                       model: 'Employee'
                    },
                    {
                        path: 'approvedBy',
-                       model: 'Employe'
+                       model: 'Employee'
                    }
                ])
                .exec((err,publications)=>{

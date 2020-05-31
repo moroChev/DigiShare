@@ -7,7 +7,7 @@ exports.getAllAgencies = (req,res,next) => {
     Agency.find()
           .populate(
               {
-                  path: 'emplyees',
+                  path: 'employees',
                   model: 'Employee'
               }
           )

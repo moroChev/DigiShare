@@ -5,9 +5,9 @@ import '../Widgets/CustumAppBar.dart';
 import '../WebService/EmployeesController.dart';
 
 class Profil extends StatefulWidget {
-  String employeID;
+  String employeeID;
 
-  Profil({this.employeID});
+  Profil({this.employeeID});
 
   @override
   _ProfilState createState() => _ProfilState();
@@ -29,7 +29,7 @@ class _ProfilState extends State<Profil> {
     return new Scaffold(
         appBar: CustumAppBar.getAppBar(context),
         body:  FutureBuilder(
-                    future: EmployeesController.fetchProfilData(widget.employeID),
+                    future: EmployeesController.fetchProfilData(widget.employeeID),
                     builder: (context, snapshot) {
                       if (snapshot.hasError) {
                         print(snapshot.error);

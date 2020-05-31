@@ -103,7 +103,7 @@ class _SinglePublicationWidgetState extends State<SinglePublicationWidget> {
                       context,
                       MaterialPageRoute(
                           builder: (context) => Profil(
-                                employeID: poster.id,
+                                employeeID: poster.id,
                               )));
                 }),
         ),
