@@ -7,7 +7,7 @@ exports.getAllAgencies = (req,res,next) => {
     Agency.find()
           .populate(
               {
-                  path: 'emplyees',
+                  path: 'employees',
                   model: 'Employee'
               }
           )
@@ -57,7 +57,10 @@ exports.getAgencyById = (req,res,next) => {
                 if(err){
                     res.status(400).json({error : err});
                 }else{
-                    res.status(200).json(agencies);
+
+                    console.log("result returned");
+                    res.status(200).json({message : "find agencie by id executed with success", agency: agency});
+
                 }
            });
           
