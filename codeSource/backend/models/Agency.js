@@ -3,15 +3,27 @@ const mongoose = require('mongoose');
 const agencySchema = new mongoose.Schema({
 
     name: { type: String, required: true},
-    adress: { type: String, required: true},
+    address: { type: String, required: true},
     telephone: { type: String, required: true},
+    logo: {type: String, required: true},
+    email: {type: String, required: true},
+    location: {
+    	lat: {type: Number, required: true},
+    	lng: {type: Number, required: true}
+    },
+    Subsidiaries: [
+    	{
+    		type: mongoose.Schema.Types.ObjectId,
+    		ref: "Agency"
+    	}
+    ],
     employees:[
         {
             type: mongoose.Schema.Types.ObjectId,
-            ref: "Employe"
+            ref: "Employee"
         }
-    ] // list of employers of teh agence
-
+    ], // list of employers of teh agence
+    
 });
 
 module.exports = mongoose.model('Agency', agencySchema);
