@@ -23,11 +23,20 @@ exports.getAllAgencies = (req,res,next) => {
 //This action is designed to be used by the staff hwo will be in charge for getting the app initialized
 exports.createAgency = (req,res,next) => {
 
-    console.log("create agency");
+    console.log("create agency ... ");
 
+    let agence = req.file  ? 
+    {
+        logo: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
+        ...req.body
+    }
+    :
+    {
+        ...req.body
+    };
     let agency = new Agency(
         {
-            ...req.body
+            ...agence
         }
     );
     agency.save()
@@ -111,3 +120,15 @@ exports.addSubsidiaryToAgency = (req,res,next) =>{
            )
            .catch((err)=>{ res.status(400).json({error : err}); })
 } 
+
+
+
+exports.addLocationToAgency = (req,res,next)=>{
+
+    console.log("lat "+req.body.lat+" lan "+req.body.lng);
+    Agency.findByIdAndUpdate(req.params.id, { location: { lat: req.body.lat, lng: req.body.lng } },{ new: true })
+        .then((agency)=>{
+            res.status(201).json( agency );
+        })
+        .catch((err)=>{ res.status(400).json({error : err}); })
+}
