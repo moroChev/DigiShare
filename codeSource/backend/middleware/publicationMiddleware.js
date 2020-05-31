@@ -1,5 +1,5 @@
 const jwt     = require('jsonwebtoken');
-const Employe = require('../models/Employe');
+const Employee = require('../models/Employee');
 
 exports.canApprovePublication = (req, res, next) => {
 
@@ -8,8 +8,8 @@ exports.canApprovePublication = (req, res, next) => {
       const token = req.headers.authorization.split(' ')[1];
       const decodedToken = jwt.verify(token, 'Digi_Share_RONDOM_SECRET');
       const userId = decodedToken.userId;
-      Employe.findById(userId)
-             .populate('employe')
+      Employee.findById(userId)
+             .populate('employee')
              .then((user)=>{
                 if(user.canApprove)
                 {

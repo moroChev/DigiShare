@@ -5,11 +5,11 @@ const express                = require('express'),
 let router = express.Router();
 
 
-router.get("/rechercher/:fullName",auth, employeeController.getEmployeByFullName);
-router.get("/", employeeController.getAllEmployees);
-router.post("/", auth, employeeController.createEmploye);
-router.get("/:id",  employeeController.getEmployeById);
-router.get("/:id/Publications", employeeController.getEmployePublications);
+router.get("/rechercher/:fullName",auth, employeeController.getEmployeeByFullName);
+router.get("/", auth, employeeController.getAllEmployees);
+router.post("/", auth, employeeController.createEmployee);
+router.get("/:id", auth, employeeController.getEmployeeById);
+router.get("/:id/Publications", employeeController.getEmployeePublications);
 
 
 module.exports = router;

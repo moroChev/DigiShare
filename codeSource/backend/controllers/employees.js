@@ -1,11 +1,11 @@
-const Employe = require('../models/Employe'),
+const Employee = require('../models/Employee');
       Publication = require('../models/Publication');
 
-exports.createEmploye = (req, res, next) => {
+exports.createEmployee = (req, res, next) => {
 
-    console.log("create employe");
+    console.log("create employee");
     delete req.body.id;
-    let employee = new Employe(
+    let employee = new Employee(
         {
             ...req.body
        }
@@ -22,7 +22,7 @@ exports.createEmploye = (req, res, next) => {
 exports.getAllEmployees = (req, res, next) => {
 
     console.log("get all employees");
-    Employe.find()
+    Employee.find()
            .populate({
                     path: 'agency',
                     model: 'Agency'
@@ -38,10 +38,10 @@ exports.getAllEmployees = (req, res, next) => {
 
 }
 
-exports.getEmployeById = (req,res,next) => {
+exports.getEmployeeById = (req,res,next) => {
 
     console.log("get emplyee by id "+req.params.id);
-    Employe.findById(req.params.id)
+    Employee.findById(req.params.id)
            .populate(
                 [
                     {
@@ -66,7 +66,7 @@ exports.getEmployeById = (req,res,next) => {
 
 }
 
-exports.getEmployeByFullName = (req,res,next) => {
+exports.getEmployeeByFullName = (req,res,next) => {
     console.log("get employee by fullName");
 
     // to make the search case insensitive
@@ -77,7 +77,7 @@ exports.getEmployeByFullName = (req,res,next) => {
 
     // still to verify which name (first or last) is provided and make a search based on that 
 
-    Employe.findOne({firstName: firstName, lastName: lastName })
+    Employee.findOne({firstName: firstName, lastName: lastName })
            .populate(
                 [
                     {
@@ -89,7 +89,7 @@ exports.getEmployeByFullName = (req,res,next) => {
                     }
             ]
             )
-           .exec((err, employe)=>{
+           .exec((err, employee)=>{
                 if(err){
                     res.status(500).json({ error: err});
                 }else{
