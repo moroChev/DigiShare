@@ -106,6 +106,24 @@ exports.getEmployeeByFullName = (req,res,next) => {
            
 }
 
+exports.modifyEmployee = (req,res,next)=>{
+    
+    console.log("modify just called");
+    let emp = req.file ?  {
+
+                 imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
+                ...req.body
+             }
+        :
+             {
+                 ...req.body
+             };
+    Employee.findByIdAndUpdate(req.params.id, {...emp, _id: req.params.id},{upsert:true, new: true})
+            .then((employee)=>{res.status(201).json(employee);})
+            .catch((err)=>{res.status(500).json(err);});
+
+}
+
 exports.getEmployeePublications = (req,res,next) =>{
     
     console.log("get employee's publications");
