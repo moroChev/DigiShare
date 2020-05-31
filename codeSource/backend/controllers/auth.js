@@ -50,13 +50,14 @@ exports.signup = (req,res,next) => {
                           email: req.body.email,
                           position: req.body.position, 
                           canApprove: req.body.canApprove,
-                          imageEmployee: req.body.imageEmployee
+                          imageUrl: req.body.imageUrl,
+                          agency: req.body.agency
                         })
                          console.log(employee)
                          employee.save()
                                 .then((employeeSaved) => {
                                     console.log("user created ! "+employeeSaved);
-                                    res.status(201).json({ message: 'User created !' });
+                                    res.status(201).json({ message: 'User created !', employee: employeeSaved });
                         
                                 })
                                 .catch((error) => {console.log("error in saving the user"); res.status(400).json({ error })});
