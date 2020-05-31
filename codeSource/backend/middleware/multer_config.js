@@ -8,13 +8,24 @@ const MIME_TYPES = {
 
 const storage = multer.diskStorage({
   destination: (req, file, callback) => {
-    callback(null, 'images');
+    callback(null, './images');
   },
   filename: (req, file, callback) => {
     const name = file.originalname.split(' ').join('_');
     const extension = MIME_TYPES[file.mimetype];
-    callback(null, name + Date.now() + '.' + extension);
+    const fullName = name + Date.now() + '.' + extension;
+    callback(null, fullName);
   }
 });
 
-module.exports = multer({storage: storage}).single('image');
+const fileFilter = (req,file,callback) => {
+  // in this method we want to filter the storage to store only the images files
+  if( MIME_TYPES.hasOwnProperty(file.mimetype) )
+  {
+    callback(null, true);
+  }else{
+    callback(new Error({message: "this file format isn't accepted"}), false);
+  }
+}
+
+module.exports = multer({ storage: storage, fileFilter: fileFilter}).single('imageUrl');

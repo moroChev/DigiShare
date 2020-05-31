@@ -13,7 +13,8 @@ exports.getAllPublications = (req, res, next) => {
             {
                 path: 'postedBy',
                 model: 'Employe'
-            }]
+            }
+        ]
         )
         .then((publications) => {
             console.log(publications);
@@ -28,10 +29,21 @@ exports.getAllPublications = (req, res, next) => {
 exports.createPublication = (req, res, next) => {
 
     console.log("create Publication is called ! ");
-    delete req.body.id;
+    console.log(`the host is : +${req.get('host')}`);
+    
+    delete req.body._id;
+    let pub = req.file ?  {
+
+                 imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
+                ...req.body
+             }
+        :
+             {
+                 ...req.body
+             };
     let publication = new Publication(
-        {
-            ...req.body
+        {  
+            ...pub
         }
     );
     console.log(publication);
