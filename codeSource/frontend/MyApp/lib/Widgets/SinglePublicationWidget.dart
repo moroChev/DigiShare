@@ -1,11 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:signup_ui/Screens/Profil.dart';
-import 'package:signup_ui/entities/Employee.dart';
 import 'package:strings/strings.dart';
 import '../entities/Publication.dart';
 import '../Screens/Profil.dart';
+import '../entities/Employee.dart';
 
 class SinglePublicationWidget extends StatefulWidget {
   Publication publication;

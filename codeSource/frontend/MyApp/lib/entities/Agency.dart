@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:signup_ui/entities/Employee.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 //part 'Agency.g.dart';

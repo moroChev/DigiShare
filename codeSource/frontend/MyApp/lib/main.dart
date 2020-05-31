@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:signup_ui/Screens/Home.dart';
 import 'Screens/SignInScreen.dart';
 import 'Screens/SignUPScreen.dart';
 import 'Screens/Profil.dart';

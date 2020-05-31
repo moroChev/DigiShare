@@ -1,10 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:signup_ui/entities/Employee.dart';
 import '../entities/Publication.dart';
 import 'package:strings/strings.dart';
 import '../Widgets/SinglePublicationWidget.dart';
 import '../WebService/EmployeesController.dart';
+import '../entities/Publication.dart';
+import '../entities/Employee.dart';
 
 class ProfilInformations extends StatefulWidget {
   Employee profil;

@@ -1,7 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:signup_ui/Screens/Home.dart';
-import 'package:signup_ui/WebService/AuthController.dart';
 import './Home.dart';
 import '../WebService/AuthController.dart';
 
