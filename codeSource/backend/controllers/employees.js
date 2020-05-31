@@ -1,4 +1,5 @@
 const Employee = require('../models/Employee');
+      Publication = require('../models/Publication');
 
 exports.createEmployee = (req, res, next) => {
 
@@ -10,9 +11,9 @@ exports.createEmployee = (req, res, next) => {
        }
     );
     employee.save()
-            .then((emp) => {
-                     console.log(emp);
-                     res.status(201).json( { message : " creation with success " } );
+            .then((employe) => {
+                     console.log(employe);
+                     res.status(201).json( employe );
              })
             .catch((err) => { res.status(400).json({ error: err }) });
 
@@ -22,21 +23,16 @@ exports.getAllEmployees = (req, res, next) => {
 
     console.log("get all employees");
     Employee.find()
-           .populate([
-                {
-                    path: 'publications',
-                    model: 'Publication'
-                },{
+           .populate({
                     path: 'agency',
                     model: 'Agency'
                 }
-           ]
            )
            .exec((err, employees)=>{
                if(err){
                    res.status(500).json({ error: err});
                }else{
-                res.status(201).json({ message: "findAll with success", employee: employees });
+                res.status(201).json( employees );
                }
            });
 
@@ -44,7 +40,7 @@ exports.getAllEmployees = (req, res, next) => {
 
 exports.getEmployeeById = (req,res,next) => {
 
-    console.log("get emplyee by id");
+    console.log("get emplyee by id "+req.params.id);
     Employee.findById(req.params.id)
            .populate(
                 [
@@ -59,9 +55,11 @@ exports.getEmployeeById = (req,res,next) => {
             )
             .exec((err, employee)=>{
                 if(err){
+                    console.log('error + '+err)
                     res.status(500).json({ error: err});
                 }else{
-                    res.status(201).json({ message: "findbyId has been executed with success", employee: employee });
+                    console.log('employee + '+employee);
+                    res.status(200).json(employee);
                 }
             });
 
@@ -95,8 +93,31 @@ exports.getEmployeeByFullName = (req,res,next) => {
                 if(err){
                     res.status(500).json({ error: err});
                 }else{
-                    res.status(201).json({ message: "findByName has been executed with success", employee: employee });
+                    res.status(201).json(employe);
                 }
             });
            
+}
+
+exports.getEmployePublications = (req,res,next) =>{
+    
+    console.log("get employee's publications");
+    Publication.find({postedBy: req.params.id})
+               .populate([
+                   {
+                       path:'postedBy',
+                       model: 'Employe'
+                   },
+                   {
+                       path: 'approvedBy',
+                       model: 'Employe'
+                   }
+               ])
+               .exec((err,publications)=>{
+                   if(err){
+                    res.status(500).json({ error: err});
+                }else{
+                    res.status(201).json(publications);
+                   }
+               });
 }

@@ -9,6 +9,7 @@ router.get("/rechercher/:fullName",auth, employeeController.getEmployeeByFullNam
 router.get("/", auth, employeeController.getAllEmployees);
 router.post("/", auth, employeeController.createEmployee);
 router.get("/:id", auth, employeeController.getEmployeeById);
+router.get("/:id/Publications", employeeController.getEmployeePublications);
 
 
 module.exports = router;

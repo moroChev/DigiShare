@@ -4,13 +4,15 @@ const express             = require('express'),
       routerPublications  = require('./routes/publications'),
       routerEmployees     = require('./routes/employees'),
       routerAgencies      = require('./routes/agencies'),
-      routerAuth          = require('./routes/auth');
+      routerAuth          = require('./routes/auth'),
+      path                = require('path');
 
 let app = express();
 
 mongoose.connect('mongodb://localhost/digi_share',{ useNewUrlParser: true, useCreateIndex: true, useFindAndModify: false});
 
 app.use(bodyParser.json());
+app.use('/images', express.static(path.join(__dirname, 'images')));
 
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');

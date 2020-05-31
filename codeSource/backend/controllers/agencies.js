@@ -15,7 +15,7 @@ exports.getAllAgencies = (req,res,next) => {
               if(err){
                   res.status(400).json({error : err});
               }else{
-                  res.status(200).json({message : "findAll agencies executed with success", agencies: agencies});
+                  res.status(200).json(agencies);
               }
           });
 }
@@ -31,7 +31,7 @@ exports.createAgency = (req,res,next) => {
         }
     );
     agency.save()
-          .then((agency)=>{ res.status(201).json({message: "agency created with success", agency: agency}); })
+          .then((agency)=>{ res.status(201).json(agency); })
           .catch((err)=>{ res.status(500).json({error : err}); })
 }
 
@@ -57,8 +57,7 @@ exports.getAgencyById = (req,res,next) => {
                 if(err){
                     res.status(400).json({error : err});
                 }else{
-                    console.log("result returned");
-                    res.status(200).json({message : "find agencie by id executed with success", agency: agency});
+                    res.status(200).json(agencies);
                 }
            });
           
@@ -77,7 +76,7 @@ exports.addEmployeeToAgency = (req,res,next) =>{
                          employee.save()
                                 .then((employeeAfterAddingAgency) => { 
                                     console.log("had been added with success "+employeeAfterAddingAgency); 
-                                    res.status(201).json({ message: "operation exucted with success", employee: employeeAfterAddingAgency, agency: agency });
+                                    res.status(201).json( employeeAfterAddingAgency );
                                  } )
                                 .catch((err)=>{ res.status(500).json({error : err}); })
                      }
