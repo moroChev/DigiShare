@@ -20,7 +20,7 @@ exports.login = (req,res,next) => {
                       }
                       console.log("yes auth with success !");
                       res.status(200).json({
-                        userId: user._id,
+                        user: user,
                         token: jwt.sign(
                             { userId : user._id },
                             'Digi_Share_RONDOM_SECRET',
