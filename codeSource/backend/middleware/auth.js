@@ -13,6 +13,7 @@ module.exports = (req, res, next) => {
         console.log("Invalid user ID");
       throw 'Invalid user ID';
     } else {
+      console.log("auth midelware user ID is ok you can pass ...");
       next();
     }
   } catch {
