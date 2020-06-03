@@ -106,6 +106,7 @@ exports.getEmployeeByFullName = (req,res,next) => {
            
 }
 
+<<<<<<< HEAD
 exports.modifyEmployee = (req,res,next)=>{
     
     console.log("modify just called");
@@ -124,6 +125,8 @@ exports.modifyEmployee = (req,res,next)=>{
 
 }
 
+=======
+>>>>>>> c49bb10ed707052ac9aed3e19b2d7cd9e93dfe46
 exports.getEmployeePublications = (req,res,next) =>{
     
     console.log("get employee's publications");

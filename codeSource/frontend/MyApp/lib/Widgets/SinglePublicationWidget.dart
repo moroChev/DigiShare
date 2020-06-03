@@ -49,6 +49,7 @@ class _SinglePublicationWidgetState extends State<SinglePublicationWidget> {
             //   child: Text("Random Text for description Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit..."),
           ),
           hasPostPicture(widget.publication?.imageUrl),
+
           Divider(
             indent: 20,
           ),
@@ -60,11 +61,13 @@ class _SinglePublicationWidgetState extends State<SinglePublicationWidget> {
                 FlatButton(
                   child: Text(
                       "${widget.publication?.likesIds == null ? 0 : widget.publication.likesIds?.length} Likes"),
+
                   onPressed: () {/* ... */},
                 ),
                 FlatButton(
                   child: Text(
                       "${widget.publication?.dislikesIds == null ? 0 : widget.publication.dislikesIds?.length} Dislikes"),
+
                   /*  */
                   onPressed: () {/* ... */},
                 ),
@@ -79,10 +82,12 @@ class _SinglePublicationWidgetState extends State<SinglePublicationWidget> {
   }
 
   static Widget postHeader(Employee poster, BuildContext context) {
+
     ImageProvider _imageProvider = (poster?.imageUrl!=null) ? NetworkImage(poster?.imageUrl) : AssetImage( "asset/img/person.png");
     return ListTile(
         leading: FadeInImage(
           image: _imageProvider,
+
           placeholder: AssetImage('asset/img/person.png'),
         ),
         title: RichText(
@@ -90,11 +95,13 @@ class _SinglePublicationWidgetState extends State<SinglePublicationWidget> {
               text: capitalize("${poster?.firstName}") +
                   " " +
                   capitalize("${poster?.lastName}"),
+
               style: TextStyle(color: Colors.black),
               recognizer: TapGestureRecognizer()
                 ..onTap = () {
                   print(
                       "trying to go the profil ... ${poster?.firstName} and my id is : ${poster?.id}");
+
 
                   Navigator.pop(context);
                   Navigator.push(
@@ -102,6 +109,7 @@ class _SinglePublicationWidgetState extends State<SinglePublicationWidget> {
                       MaterialPageRoute(
                           builder: (context) => Profil(poster?.id)
                           ));
+
                 }),
         ),
         subtitle: Text("Societe"),

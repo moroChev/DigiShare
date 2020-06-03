@@ -1,4 +1,6 @@
+
 import 'package:MyApp/entities/Employee.dart';
+
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -11,6 +13,7 @@ class AuthController{
 
   
   static Future<bool> attemptLogIn(String login, String password) async {
+
     String url    = "$API_URL_AUTH/login";
     Map body      = {
                     'login': login,
@@ -25,6 +28,7 @@ class AuthController{
             print(jwt);
             _storageMethod(jwt);
             print('storage Ok and request ok yes : '+res.body);
+
             return true;
           }else{
             print('request failed !!!!!!!!!!!!!!!!');

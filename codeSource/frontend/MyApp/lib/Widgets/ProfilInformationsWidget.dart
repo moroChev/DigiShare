@@ -45,6 +45,7 @@ class _ProfilInformationsState extends State<ProfilInformations> {
                           height: 60,
                         ),
                         rowForProfilPicture(imageUrl: widget.profil?.imageUrl ),
+
                         SizedBox(
                           height: 10,
                         ),
@@ -55,12 +56,14 @@ class _ProfilInformationsState extends State<ProfilInformations> {
                           height: 10,
                         ),
                         rowPosition(position: widget.profil?.position),
+
                         SizedBox(
                           height: 10,
                         ),
                         rowNbrPosts(
                             nbrPosts:
                                 widget.profil?.publicationsObjects?.length),
+
                         SizedBox(
                           height: 20,
                         ),
@@ -72,6 +75,7 @@ class _ProfilInformationsState extends State<ProfilInformations> {
                         Divider(),
                         publicationsList(
                             widget.profil?.publicationsObjects, widget.profil),
+
                       ]),
                 ),
               ],
@@ -81,9 +85,11 @@ class _ProfilInformationsState extends State<ProfilInformations> {
   }
 }
 
+
 Row rowForProfilPicture({String imageUrl}) {
   ImageProvider _imageProvider = (imageUrl!=null) ? NetworkImage(imageUrl) : AssetImage( "asset/img/person.png");
  
+
   return Row(
     mainAxisAlignment: MainAxisAlignment.center,
     children: [
@@ -95,6 +101,7 @@ Row rowForProfilPicture({String imageUrl}) {
             image: DecorationImage(
               fit: BoxFit.cover,
               image: _imageProvider,
+
             ),
             border: Border.all(color: Colors.white, width: 6.0)),
       ),
@@ -199,6 +206,7 @@ Column publicationsList(List<Publication> posts, Employee emp) {
                 poster: emp,
               ))
           ?.toList());
+
 }
 
 ListView postsList(List<Publication> posts, Employee emp) {

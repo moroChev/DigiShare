@@ -1,10 +1,12 @@
 
+
 import 'package:MyApp/Screens/Home.dart';
 import 'package:MyApp/Screens/AgencyScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../WebService/AuthController.dart';
 import './ToPostScreen.dart';
+
 
 
 class SignInScreen extends StatefulWidget {
@@ -44,6 +46,7 @@ class _SignInScreenState extends State<SignInScreen> {
             SizedBox(
             height: 20,
           ),
+
 
           Padding(
             padding: const EdgeInsets.all(20.0),
@@ -128,13 +131,9 @@ class _SignInScreenState extends State<SignInScreen> {
                     ]),
               ),
             ),
-          )
-     
+          ) 
         ],
       ),
     );
   }
 }
-
-
-/*    */

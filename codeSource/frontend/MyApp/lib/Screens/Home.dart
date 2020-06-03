@@ -25,11 +25,13 @@ class Home_State extends State<Home> {
   CustumAppBar appBar= new CustumAppBar();
   Future<List<Publication>> _publications;
 
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     _publications=PublicationsController.fetchPublications();
+
   }
   
 
@@ -40,6 +42,7 @@ class Home_State extends State<Home> {
       appBar: CustumAppBar.getAppBar(context),
       body: FutureBuilder<List<Publication>>(
                 future: _publications,
+
                 builder: (context, snapshot){
                   if (snapshot.hasError) print("error in passing data"+snapshot.error);
           

@@ -1,4 +1,5 @@
 
+
 import 'package:MyApp/Screens/AgencyScreen.dart';
 import 'package:flutter/material.dart';
 import 'Screens/SignInScreen.dart';
@@ -26,8 +27,6 @@ class MyApp extends StatelessWidget {
         'Home'            :(context)=>Home(),
         'ToPostScreen'    :(context)=>ToPostScreen(),
         'Agency': (context)=>AgencyScreen(),
-
-
       },
     );
   }

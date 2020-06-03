@@ -1,9 +1,11 @@
 const express                = require('express'),
       publicationsController = require('../controllers/publications'),
       auth                   = require('../middleware/auth'),
+
       multer                 = require('../middleware/multer_config'),
       publicationMiddelware  = require('../middleware/publicationMiddleware'),
-      path                	 = require('path');
+
+      path                   = require('path');
 
 
 
@@ -16,6 +18,7 @@ router.get("/", publicationsController.getAllPublications);
 router.post("/", auth, multer,publicationsController.createPublication);
 router.get("/:id", auth, publicationsController.getPublicationById);
 
+
 //modify a given publication, this action must be verified by a middelware called canModifyPublication
 router.put("/:id",auth,publicationMiddelware.canModifyPublication, publicationsController.modifyPublication);
 // add likes to a given publication
@@ -26,6 +29,7 @@ router.post("/:id/dislikes",auth, publicationsController.dislikePublication);
 router.get("/:id/likes", auth,  publicationsController.getPublicationLikes);
 //get all dislikes of a given publication
 router.get("/:id/dislikes"); 
+
 
 
 
