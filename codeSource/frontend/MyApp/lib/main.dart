@@ -1,5 +1,5 @@
+import 'package:MyApp/Screens/AgencyScreen.dart';
 import 'package:flutter/material.dart';
-import 'package:signup_ui/Screens/Home.dart';
 import 'Screens/SignInScreen.dart';
 import 'Screens/SignUPScreen.dart';
 import 'Screens/Profil.dart';
@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
       //  'SignUp':(context)=>SignUpScreen(),
         'Profil':(context)=>Profil(),
         'Home'   : (context)=>Home(),
-
+        'Agency': (context)=>AgencyScreen(),
       },
     );
   }

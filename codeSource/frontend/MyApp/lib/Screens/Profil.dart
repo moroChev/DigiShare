@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:signup_ui/Widgets/ProfilInformationsWidget.dart';
 import '../Widgets/CustumAppBar.dart';
 import '../WebService/EmployeesController.dart';
+import '../Widgets/ProfilInformationsWidget.dart';
 
 class Profil extends StatefulWidget {
   String employeeID;

@@ -21,6 +21,7 @@ exports.getAllAgencies = (req,res,next) => {
 }
 
 //This action is designed to be used by the staff hwo will be in charge for getting the app initialized
+//will be modifies to implement multter
 exports.createAgency = (req,res,next) => {
 
     console.log("create agency");
@@ -49,7 +50,7 @@ exports.getAgencyById = (req,res,next) => {
             )
           .populate(
                 {
-                    path: 'Subsidiaries',
+                    path: 'subsidiaries',
                     model: 'Agency'
                 }
             )
@@ -100,7 +101,7 @@ exports.addSubsidiaryToAgency = (req,res,next) =>{
     Agency.findById(req.params.idSubsidiary)
            .then((subsidiary) => {
                 console.log(subsidiary);
-               Agency.findByIdAndUpdate(req.params.idAgency,{ $push: { "Subsidiaries": subsidiary } },{ safe: true, new: true})
+               Agency.findByIdAndUpdate(req.params.idAgency,{ $push: { "subsidiaries": subsidiary } },{ safe: true, new: true})
                      .then((agency) =>{
                           console.log("had been added with success "+agency); 
                           res.status(201).json({ message: "operation executed with success", agency: agency });

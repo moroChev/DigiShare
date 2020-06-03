@@ -1,9 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:signup_ui/WebService/PublicationsController.dart';
-import 'package:signup_ui/Widgets/PublicationsList.dart';
-import 'package:signup_ui/entities/Publication.dart';
 import '../Widgets/CustumAppBar.dart';
+import '../WebService/PublicationsController.dart';
+import '../Widgets/PublicationsList.dart';
 
 
 
