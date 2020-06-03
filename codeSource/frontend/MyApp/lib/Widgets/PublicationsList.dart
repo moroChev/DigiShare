@@ -1,8 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:signup_ui/Widgets/SinglePublicationWidget.dart';
-import 'package:signup_ui/entities/Publication.dart';
-
+import 'SinglePublicationWidget.dart';
+import '../entities/Publication.dart';
 
 class PublicationsList extends StatefulWidget {
 
