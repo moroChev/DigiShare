@@ -11,7 +11,7 @@ const agencySchema = new mongoose.Schema({
     	lat: {type: Number, required: true},
     	lng: {type: Number, required: true}
     },
-    Subsidiaries: [
+    subsidiaries: [
     	{
     		type: mongoose.Schema.Types.ObjectId,
     		ref: "Agency"
