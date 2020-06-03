@@ -65,8 +65,10 @@ class _ProfilInformationsState extends State<ProfilInformations> {
                           height: 20,
                         ),
                         rowGeneralInfos(
+
                             email: widget.profil?.email,
                             workAdress: widget.profil?.agency?.address),
+
                         Divider(),
                         publicationsList(
                             widget.profil?.publicationsObjects, widget.profil),

@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
+
 import './Publication.dart';
 import './Agency.dart';
 
@@ -50,7 +52,7 @@ class Employee{
               canApprove: json['canApprove'] as bool,
               agency: json['agency'] == null
                   ? Agency()
-                  : Agency.fromJsonWithoutEmployees(json['agency'] as Map<String, dynamic>),
+                  : Agency.fromJsonWithoutEmployeesAndSubsidiaries(json['agency'] as Map<String, dynamic>),
             );
 
     }
@@ -68,7 +70,7 @@ class Employee{
               canApprove: json['canApprove'] as bool,
               agency: json['agency'] == null
                   ? Agency()
-                  : Agency.fromJsonWithoutEmployees(json['agency'] as Map<String, dynamic>),
+                  : Agency.fromJsonWithoutEmployeesAndSubsidiaries(json['agency'] as Map<String, dynamic>),
             );
     }
 

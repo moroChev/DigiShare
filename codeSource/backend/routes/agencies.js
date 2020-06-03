@@ -1,10 +1,19 @@
 const express                = require('express'),
       agencyController       = require('../controllers/agencies'),
+<<<<<<< HEAD
       auth                   = require('../middleware/auth'),
       multer                 = require('../middleware/multer_config');
+=======
+      auth                   = require('../middleware/auth');
+      path                	 = require('path');
+>>>>>>> 14408f049cd5211074339b175c8cd34d8b7f5d85
 
 let router = express.Router();
 
+//route to get agencies logos
+router.use('/logo', auth, express.static(path.join(__dirname, '../images/agenciesLogos')));
+
+//usual routes
 router.get("/", auth, agencyController.getAllAgencies);
 router.get("/:id", auth, agencyController.getAgencyById);
 

@@ -1,4 +1,6 @@
+
 import 'package:MyApp/Screens/Home.dart';
+import 'package:MyApp/Screens/AgencyScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../WebService/AuthController.dart';
@@ -88,7 +90,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     if(connectionSuccessed)
                     {
                        Navigator.pop(context);
-                       Navigator.push(context, MaterialPageRoute(builder: (context)=>Home()));
+                       Navigator.push(context, MaterialPageRoute(builder: (context)=>AgencyScreen(agencyId: "5ed12c96932dfd2328f8d6db")));
                     }else{
 
                     }
