@@ -1,4 +1,4 @@
-const Agency  = require('../models/Agency'),
+const Agency   = require('../models/Agency'),
       Employee = require('../models/Employee');
 
 exports.getAllAgencies = (req,res,next) => {
@@ -120,7 +120,6 @@ exports.addSubsidiaryToAgency = (req,res,next) =>{
            }
            )
            .catch((err)=>{ res.status(400).json({error : err}); })
-<<<<<<< HEAD
 } 
 
 
@@ -134,6 +133,4 @@ exports.addLocationToAgency = (req,res,next)=>{
         })
         .catch((err)=>{ res.status(400).json({error : err}); })
 }
-=======
-} 
->>>>>>> c49bb10ed707052ac9aed3e19b2d7cd9e93dfe46
+

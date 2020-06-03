@@ -1,5 +1,5 @@
-const multer = require('multer');
-const util = require('util')
+const multer   = require('multer'),
+      util     = require('util');
 
 const MIME_TYPES = {
   'image/jpg': 'jpg',

@@ -1,5 +1,5 @@
 
-const Employee = require('../models/Employee'),
+const Employee    = require('../models/Employee'),
       Publication = require('../models/Publication');
 
 
@@ -19,7 +19,7 @@ exports.createEmployee = (req, res, next) => {
              })
             .catch((err) => { res.status(400).json({ error: err }) });
 
-}
+};
 
 exports.getAllEmployees = (req, res, next) => {
 
@@ -40,7 +40,7 @@ exports.getAllEmployees = (req, res, next) => {
                }
            });
 
-}
+};
 
 exports.getEmployeeById = (req,res,next) => {
 
@@ -70,7 +70,7 @@ exports.getEmployeeById = (req,res,next) => {
             });
 
 
-}
+};
 
 exports.getEmployeeByFullName = (req,res,next) => {
     console.log("get employee by fullName");
@@ -104,9 +104,8 @@ exports.getEmployeeByFullName = (req,res,next) => {
                 }
             });
            
-}
+};
 
-<<<<<<< HEAD
 exports.modifyEmployee = (req,res,next)=>{
     
     console.log("modify just called");
@@ -123,10 +122,9 @@ exports.modifyEmployee = (req,res,next)=>{
             .then((employee)=>{res.status(201).json(employee);})
             .catch((err)=>{res.status(500).json(err);});
 
-}
+};
 
-=======
->>>>>>> c49bb10ed707052ac9aed3e19b2d7cd9e93dfe46
+
 exports.getEmployeePublications = (req,res,next) =>{
     
     console.log("get employee's publications");

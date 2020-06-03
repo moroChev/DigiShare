@@ -1,10 +1,8 @@
 const express                = require('express'),
       publicationsController = require('../controllers/publications'),
       auth                   = require('../middleware/auth'),
-
       multer                 = require('../middleware/multer_config'),
       publicationMiddelware  = require('../middleware/publicationMiddleware'),
-
       path                   = require('path');
 
 

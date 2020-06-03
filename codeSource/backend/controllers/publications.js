@@ -1,4 +1,4 @@
-const Publication = require('../models/Publication');
+const Publication  = require('../models/Publication');
 const Employee     = require('../models/Employee');
 
 exports.getAllPublications = (req, res, next) => {

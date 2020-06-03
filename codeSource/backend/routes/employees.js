@@ -1,9 +1,7 @@
 const express                = require('express'),
       employeeController     = require('../controllers/employees.js'),
-
       auth                   = require('../middleware/auth'),
       multer                 = require('../middleware/multer_config'),
-
       path                	 = require('path');
 
 
