@@ -30,3 +30,7 @@ exports.canApprovePublication = (req, res, next) => {
     }
 
 };
+
+exports.canModifyPublication = (req,res,next)=>{
+
+};
