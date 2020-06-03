@@ -1,18 +1,24 @@
-//const User    = require('../models/User');
-const Employee = require('../models/Employee');
-const jwt     = require('jsonwebtoken');
-const bcrypt  = require('bcrypt'); 
+const Employee  = require('../models/Employee'),
+      jwt       = require('jsonwebtoken'),
+      bcrypt    = require('bcrypt'),
+      Agency    = require('../models/Agency'); 
 
 exports.login = (req,res,next) => {
 
   console.log("login reteched \n"+req.body.login+req.body.password);
     Employee.findOne({ 'userAccount.login' : req.body.login })
-           .then((user)=>{
+            .populate(
+              {
+                path: 'agency',
+                model: 'Agency'
+              }
+            )
+            .exec((error,user)=>{
              console.log(user);
             if (!user) {
                 return res.status(401).json({ error: 'User unfound !' });
-              }
-                  bcrypt.compare(req.body.password, user.userAccount.password)
+              }else if(user)
+                {  bcrypt.compare(req.body.password, user.userAccount.password)
                     .then(valid => {
                       if (!valid) {
                         console.log("comparsing of the the password isn't correct")
@@ -20,7 +26,7 @@ exports.login = (req,res,next) => {
                       }
                       console.log("yes auth with success !");
                       res.status(200).json({
-                        user: user,
+                        user: user,         // I want to get since the login the most important informations e.g userId, firstName and lastName and AgencyName  
                         token: jwt.sign(
                             { userId : user._id },
                             'Digi_Share_RONDOM_SECRET',
@@ -29,10 +35,10 @@ exports.login = (req,res,next) => {
                       });
                     })
                     .catch(error => {console.log("error in comparaison of the password");res.status(500).json({ error })});
-           })
-           .catch(error => {console.log("error in finding the employee"); res.status(500).json({ error })})
+           }else
+           {console.log("error in finding the employee"); res.status(500).json({ error })};
+          });
 };
-
 exports.signup = (req,res,next) => {
     
         console.log("sign up reteched \n");
