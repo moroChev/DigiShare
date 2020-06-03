@@ -1,9 +1,14 @@
 const express                = require('express'),
       agencyController       = require('../controllers/agencies'),
       auth                   = require('../middleware/auth');
+      path                	 = require('path');
 
 let router = express.Router();
 
+//route to get agencies logos
+router.use('/logo', auth, express.static(path.join(__dirname, '../images/agenciesLogos')));
+
+//usual routes
 router.get("/", auth, agencyController.getAllAgencies);
 router.get("/:id", auth, agencyController.getAgencyById);
 
