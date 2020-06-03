@@ -45,10 +45,10 @@ class _SinglePublicationWidgetState extends State<SinglePublicationWidget> {
           postHeader(widget.poster, context),
           Padding(
             padding: const EdgeInsets.fromLTRB(18, 3, 18, 5),
-            child: Text("${widget.publication.content}"),
+            child: Text("${widget.publication?.content}"),
             //   child: Text("Random Text for description Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit..."),
           ),
-          hasPostPicture(widget.publication.imageUrl),
+          hasPostPicture(widget.publication?.imageUrl),
           Divider(
             indent: 20,
           ),
@@ -59,12 +59,12 @@ class _SinglePublicationWidgetState extends State<SinglePublicationWidget> {
                 makeLike(),
                 FlatButton(
                   child: Text(
-                      "${widget.publication.likesIds == null ? 0 : widget.publication.likesIds?.length} Likes"),
+                      "${widget.publication?.likesIds == null ? 0 : widget.publication.likesIds?.length} Likes"),
                   onPressed: () {/* ... */},
                 ),
                 FlatButton(
                   child: Text(
-                      "${widget.publication.dislikesIds == null ? 0 : widget.publication.dislikesIds?.length} Dislikes"),
+                      "${widget.publication?.dislikesIds == null ? 0 : widget.publication.dislikesIds?.length} Dislikes"),
                   /*  */
                   onPressed: () {/* ... */},
                 ),
@@ -79,31 +79,29 @@ class _SinglePublicationWidgetState extends State<SinglePublicationWidget> {
   }
 
   static Widget postHeader(Employee poster, BuildContext context) {
+    ImageProvider _imageProvider = (poster?.imageUrl!=null) ? NetworkImage(poster?.imageUrl) : AssetImage( "asset/img/person.png");
     return ListTile(
         leading: FadeInImage(
-          image: (poster.imageUrl == null)
-              ? NetworkImage("${poster.imageUrl}")
-              : Image.asset("asset/img/person.png"),
+          image: _imageProvider,
           placeholder: AssetImage('asset/img/person.png'),
         ),
         title: RichText(
           text: TextSpan(
-              text: capitalize("${poster.firstName}") +
+              text: capitalize("${poster?.firstName}") +
                   " " +
-                  capitalize("${poster.lastName}"),
+                  capitalize("${poster?.lastName}"),
               style: TextStyle(color: Colors.black),
               recognizer: TapGestureRecognizer()
                 ..onTap = () {
                   print(
-                      "trying to go the profil ... ${poster.firstName} and my id is : ${poster.id}");
+                      "trying to go the profil ... ${poster?.firstName} and my id is : ${poster?.id}");
 
                   Navigator.pop(context);
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => Profil(
-                                employeeID: poster.id,
-                              )));
+                          builder: (context) => Profil(poster?.id)
+                          ));
                 }),
         ),
         subtitle: Text("Societe"),

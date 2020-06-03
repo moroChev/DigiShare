@@ -73,7 +73,7 @@ class Employee{
     }
 
    @override
-   String toString() => "firstName : ${this.firstName} lastName: ${this.lastName} email: ${this.email} ";
+   String toString() => "firstName : ${this.firstName} lastName: ${this.lastName} email: ${this.email} and imageUrl : ${this.imageUrl} and agencyName: ${this.agency?.name}";
   
 
 

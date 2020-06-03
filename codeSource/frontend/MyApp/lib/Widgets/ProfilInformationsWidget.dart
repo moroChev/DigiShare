@@ -44,32 +44,32 @@ class _ProfilInformationsState extends State<ProfilInformations> {
                         SizedBox(
                           height: 60,
                         ),
-                        rowForProfilPicture(),
+                        rowForProfilPicture(imageUrl: widget.profil?.imageUrl ),
                         SizedBox(
                           height: 10,
                         ),
                         rowFullName(
-                            firstName: widget.profil.firstName,
-                            lastName: widget.profil.lastName),
+                            firstName: widget.profil?.firstName,
+                            lastName: widget.profil?.lastName),
                         SizedBox(
                           height: 10,
                         ),
-                        rowPosition(position: widget.profil.position),
+                        rowPosition(position: widget.profil?.position),
                         SizedBox(
                           height: 10,
                         ),
                         rowNbrPosts(
                             nbrPosts:
-                                widget.profil.publicationsObjects?.length),
+                                widget.profil?.publicationsObjects?.length),
                         SizedBox(
                           height: 20,
                         ),
                         rowGeneralInfos(
-                            email: widget.profil.email,
-                            workAdress: widget.profil.agency.adress),
+                            email: widget.profil?.email,
+                            workAdress: widget.profil?.agency?.address),
                         Divider(),
                         publicationsList(
-                            widget.profil.publicationsObjects, widget.profil),
+                            widget.profil?.publicationsObjects, widget.profil),
                       ]),
                 ),
               ],
@@ -79,7 +79,9 @@ class _ProfilInformationsState extends State<ProfilInformations> {
   }
 }
 
-Row rowForProfilPicture() {
+Row rowForProfilPicture({String imageUrl}) {
+  ImageProvider _imageProvider = (imageUrl!=null) ? NetworkImage(imageUrl) : AssetImage( "asset/img/person.png");
+ 
   return Row(
     mainAxisAlignment: MainAxisAlignment.center,
     children: [
@@ -90,7 +92,7 @@ Row rowForProfilPicture() {
             borderRadius: BorderRadius.circular(20),
             image: DecorationImage(
               fit: BoxFit.cover,
-              image: AssetImage("asset/img/person.png"),
+              image: _imageProvider,
             ),
             border: Border.all(color: Colors.white, width: 6.0)),
       ),
@@ -190,11 +192,11 @@ Container rowGeneralInfos({String email, String workAdress}) {
 Column publicationsList(List<Publication> posts, Employee emp) {
   return Column(
       children: posts
-          .map((post) => SinglePublicationWidget(
+          ?.map((post) => SinglePublicationWidget(
                 publication: post,
                 poster: emp,
               ))
-          .toList());
+          ?.toList());
 }
 
 ListView postsList(List<Publication> posts, Employee emp) {

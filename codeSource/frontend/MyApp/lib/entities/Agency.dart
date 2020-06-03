@@ -9,19 +9,19 @@ class Agency{
     
     String id;
     String name;
-    String adress;
+    String address;
     String telephone;
     List<String> employees;
 
    // Constructeur 
-    Agency({this.id,this.name,this.adress,this.telephone,this.employees});
+    Agency({this.id,this.name,this.address,this.telephone,this.employees});
 
  
     factory Agency.fromJsonWithoutEmployees(Map<String, dynamic> json){
       return Agency(
                  id: json['_id'],
                  name: json['name'] as String,
-                 adress: json['adress'] as String,
+                 address: json['address'] as String,
                  telephone: json['telephone'] as String);
     }
 

@@ -1,7 +1,9 @@
+import 'package:MyApp/Screens/Home.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import './Home.dart';
 import '../WebService/AuthController.dart';
+import './ToPostScreen.dart';
+
 
 class SignInScreen extends StatefulWidget {
   @override
@@ -24,17 +26,23 @@ class _SignInScreenState extends State<SignInScreen> {
       backgroundColor: Colors.white,
       body: ListView(
         children: <Widget>[
-          Container(
+
+           Container(
             height: 300,
             decoration: BoxDecoration(
+                borderRadius: BorderRadius.only(bottomLeft: Radius.circular(40.0), bottomRight: Radius.circular(40.0),),
                 image: DecorationImage(
                     fit: BoxFit.cover, image: AssetImage('asset/img/doIt.jpg')
+                  
                 )
             ),
           ),
-          SizedBox(
+
+       
+            SizedBox(
             height: 20,
           ),
+
           Padding(
             padding: const EdgeInsets.all(20.0),
             child: Row(
@@ -119,8 +127,12 @@ class _SignInScreenState extends State<SignInScreen> {
               ),
             ),
           )
+     
         ],
       ),
     );
   }
 }
+
+
+/*    */
