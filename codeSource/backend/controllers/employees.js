@@ -111,7 +111,7 @@ exports.modifyEmployee = (req,res,next)=>{
     console.log("modify just called");
     let emp = req.file ?  {
 
-                 imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
+                 imageUrl: `${req.protocol}://${req.get('host')}/api/employees/profilesImages/${req.file.filename}`,
                 ...req.body
              }
         :

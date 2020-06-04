@@ -8,7 +8,7 @@ const express                = require('express'),
 let router = express.Router();
 
 //route to get agencies logos
-router.use('/logo', auth, express.static(path.join(__dirname, '../images/agenciesLogos')));
+router.use('/logo',auth, express.static(path.join(__dirname, '../images/agenciesLogos')));
 
 //usual routes
 router.get("/", auth, agencyController.getAllAgencies);
@@ -17,7 +17,7 @@ router.get("/:id", auth, agencyController.getAgencyById);
 //those routes will be modified later to add access restrictions
 //to allow only the staff in charge of getting the database initialized 
 
-router.post("/", multer, agencyController.createAgency);
+router.post("/", multer.multerAgencies, agencyController.createAgency);
 
 router.post("/:idAgency/addSubsidiary_id::idSubsidiary",auth, agencyController.addSubsidiaryToAgency);
 

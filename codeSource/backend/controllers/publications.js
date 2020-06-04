@@ -8,11 +8,15 @@ exports.getAllPublications = (req, res, next) => {
         .populate([
             {
                 path: 'approvedBy',
-                model: 'Employee'
+                populate : {
+                    path : 'agency'
+                  }
             },
             {
                 path: 'postedBy',
-                model: 'Employee'
+                populate : {
+                    path : 'agency'
+                  }
             }]
         )
         .then((publications) => {
@@ -33,7 +37,7 @@ exports.createPublication = (req, res, next) => {
     delete req.body._id;
     let pub = req.file ?  {
 
-                 imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
+                 imageUrl: `${req.protocol}://${req.get('host')}/api/publications/postsImages/${req.file.filename}`,
                 ...req.body
              }
         :
@@ -96,11 +100,12 @@ exports.getPublicationById = (req, res, next) => {
 }
 
 exports.likePublication = (req,res,next)=>{
-
+    console.log("like is retched");
     Employee.findById(req.body.idEmployee)
             .then((employee)=>{
                     Publication.findByIdAndUpdate(req.params.id,{ $push: { "likes": employee } },{ safe: true, new: true})
                     .then((publication)=>{
+                        console.log("like is retched "+publication);
                         res.status(201).json(publication);
                     })
                     .catch((err)=>{res.status(500).json(publication);})
@@ -159,7 +164,7 @@ function returnPublicationFromRequest(req)
 {
   return req.file ?  {
 
-        imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
+        imageUrl: `${req.protocol}://${req.get('host')}/api/publications/postsImages/${req.file.filename}`,
        ...req.body
     }
 :

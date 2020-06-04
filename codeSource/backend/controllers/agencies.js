@@ -28,7 +28,7 @@ exports.createAgency = (req,res,next) => {
 
     let agence = req.file  ? 
     {
-        logo: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
+        logo: `${req.protocol}://${req.get('host')}/logo/${req.file.filename}`,
         ...req.body
     }
     :

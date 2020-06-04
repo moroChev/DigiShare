@@ -7,7 +7,7 @@ const MIME_TYPES = {
   'image/png': 'png'
 };
 
-const storage = multer.diskStorage({
+/* const storage = multer.diskStorage({
   destination: (req, file, callback) => {
     console.log("destination /images ok ! and "+req);
     callback(null, './images');
@@ -17,12 +17,10 @@ const storage = multer.diskStorage({
     const extension = MIME_TYPES[file.mimetype];
     const fullName = name + Date.now() + '.' + extension;
     console.log(util.inspect(file, false, null));
-    console.log("filename that will be sotred is"+fullName+" and the file is file :"+file);
-    
     callback(null, fullName);
   }
 }
-);
+); */
 
 /* const fileFilter = (req,file,callback) => {
   // in this method we want to filter the storage to store only the images files
@@ -37,4 +35,63 @@ const storage = multer.diskStorage({
   }
 } */
 
-module.exports = multer({ storage: storage}).single('imageUrl');
+//module.exports = multer({ storage: storage}).single('imageUrl');
+
+
+exports.multerPosts = multer(
+  {
+    storage: multer.diskStorage({
+      destination: (req, file, callback) => {
+        console.log("destination /images ok ! and "+req);
+        callback(null, './images/postsImages');
+      },
+      filename: (req, file, callback) => {
+        const name = file.originalname.split(' ').join('_');
+        const extension = MIME_TYPES[file.mimetype];
+        const fullName = name + Date.now() + '.' + extension;
+        console.log(util.inspect(file, false, null));
+        callback(null, fullName);
+      }
+    }
+    )
+  }
+).single("imageUrl");
+
+
+exports.multerAgencies = multer(
+  {
+    storage: multer.diskStorage({
+      destination: (req, file, callback) => {
+        console.log("destination /images ok ! and "+req);
+        callback(null, './images/agenciesLogos');
+      },
+      filename: (req, file, callback) => {
+        const name = file.originalname.split(' ').join('_');
+        const extension = MIME_TYPES[file.mimetype];
+        const fullName = name + Date.now() + '.' + extension;
+        console.log(util.inspect(file, false, null));
+        callback(null, fullName);
+      }
+    }
+    )
+  }
+).single("logo");
+
+exports.multerEmployees = multer(
+  {
+    storage: multer.diskStorage({
+      destination: (req, file, callback) => {
+        console.log("destination /images ok ! and "+req);
+        callback(null, './images/profilesImages');
+      },
+      filename: (req, file, callback) => {
+        const name = file.originalname.split(' ').join('_');
+        const extension = MIME_TYPES[file.mimetype];
+        const fullName = name + Date.now() + '.' + extension;
+        console.log(util.inspect(file, false, null));
+        callback(null, fullName);
+      }
+    }
+    )
+  }
+).single("imageUrl");

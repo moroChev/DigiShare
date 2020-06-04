@@ -10,15 +10,15 @@ const express                = require('express'),
 let router = express.Router();
 
 //route to get posts images (one by one)
-router.use('/image', auth, express.static(path.join(__dirname, '../images/postsImages')));
+router.use('/postsImages',auth, express.static(path.join(__dirname, '../images/postsImages')));
 
 router.get("/", publicationsController.getAllPublications);
-router.post("/", auth, multer,publicationsController.createPublication);
+router.post("/", auth, multer.multerPosts,publicationsController.createPublication);
 router.get("/:id", auth, publicationsController.getPublicationById);
 
 
 //modify a given publication, this action must be verified by a middelware called canModifyPublication
-router.put("/:id",auth,publicationMiddelware.canModifyPublication, publicationsController.modifyPublication);
+router.put("/:id",auth, publicationMiddelware.canModifyPublication, publicationsController.modifyPublication);
 // add likes to a given publication
 router.post("/:id/likes",auth, publicationsController.likePublication);
 //add dislike to a given publication
