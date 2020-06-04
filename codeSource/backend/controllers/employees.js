@@ -1,5 +1,5 @@
 
-const Employee = require('../models/Employee'),
+const Employee    = require('../models/Employee'),
       Publication = require('../models/Publication');
 
 
@@ -19,7 +19,7 @@ exports.createEmployee = (req, res, next) => {
              })
             .catch((err) => { res.status(400).json({ error: err }) });
 
-}
+};
 
 exports.getAllEmployees = (req, res, next) => {
 
@@ -40,7 +40,7 @@ exports.getAllEmployees = (req, res, next) => {
                }
            });
 
-}
+};
 
 exports.getEmployeeById = (req,res,next) => {
 
@@ -70,7 +70,7 @@ exports.getEmployeeById = (req,res,next) => {
             });
 
 
-}
+};
 
 exports.getEmployeeByFullName = (req,res,next) => {
     console.log("get employee by fullName");
@@ -104,7 +104,26 @@ exports.getEmployeeByFullName = (req,res,next) => {
                 }
             });
            
-}
+};
+
+exports.modifyEmployee = (req,res,next)=>{
+    
+    console.log("modify just called");
+    let emp = req.file ?  {
+
+                 imageUrl: `${req.protocol}://${req.get('host')}/api/employees/profilesImages/${req.file.filename}`,
+                ...req.body
+             }
+        :
+             {
+                 ...req.body
+             };
+    Employee.findByIdAndUpdate(req.params.id, {...emp, _id: req.params.id},{upsert:true, new: true})
+            .then((employee)=>{res.status(201).json(employee);})
+            .catch((err)=>{res.status(500).json(err);});
+
+};
+
 
 exports.getEmployeePublications = (req,res,next) =>{
     

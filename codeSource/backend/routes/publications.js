@@ -1,19 +1,35 @@
 const express                = require('express'),
       publicationsController = require('../controllers/publications'),
       auth                   = require('../middleware/auth'),
-      multer                 = require('../middleware/multer_config');
-      path                	 = require('path');
+      multer                 = require('../middleware/multer_config'),
+      publicationMiddelware  = require('../middleware/publicationMiddleware'),
+      path                   = require('path');
 
 
 
 let router = express.Router();
 
 //route to get posts images (one by one)
-router.use('/image', auth, express.static(path.join(__dirname, '../images/postsImages')));
+router.use('/postsImages',auth, express.static(path.join(__dirname, '../images/postsImages')));
 
 router.get("/", publicationsController.getAllPublications);
-router.post("/", auth, multer,publicationsController.createPublication);
+router.post("/", auth, multer.multerPosts,publicationsController.createPublication);
 router.get("/:id", auth, publicationsController.getPublicationById);
+
+
+//modify a given publication, this action must be verified by a middelware called canModifyPublication
+router.put("/:id",auth, publicationMiddelware.canModifyPublication, publicationsController.modifyPublication);
+// add likes to a given publication
+router.post("/:id/likes",auth, publicationsController.likePublication);
+//add dislike to a given publication
+router.post("/:id/dislikes",auth, publicationsController.dislikePublication);
+//get all likes of a given publictaion
+router.get("/:id/likes", auth,  publicationsController.getPublicationLikes);
+//get all dislikes of a given publication
+router.get("/:id/dislikes"); 
+
+
+
 
 // to approuve a publication by the employee who has the right (canApprove field)
 // we have to implement a middleware to examine the right

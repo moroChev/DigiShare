@@ -12,6 +12,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 class Employee{
     
+
     String id;
     List<String> publicationsIds;
     List<Publication> publicationsObjects;
@@ -23,12 +24,15 @@ class Employee{
     bool canApprove;
     Agency agency;
 
+
     Employee({this.id,this.publicationsObjects,this.publicationsIds,this.imageUrl,this.firstName,this.lastName,this.email,this.position,this.canApprove,this.agency});
     
     
     factory Employee.fromJsonWithoutPostsAndAgency(Map<String, dynamic> json){
+
       print("we are in Employee from json without posts and agency objects ");
-     return  Employee(
+
+     return Employee(
         id: json['_id'] as String,
         firstName: json['firstName'] as String,
         lastName: json['lastName'] as String,
@@ -37,6 +41,7 @@ class Employee{
         position: json['position'] as String,
         canApprove: json['canApprove'] as bool
         );
+
     }
 
     factory Employee.fromJsonWithPostsAndAgencyObjects(Map<String,dynamic> json){
@@ -58,7 +63,7 @@ class Employee{
     }
 
     factory Employee.fromJsonWithPostsIdAndAgency(Map<String, dynamic> json) {
-      print("we are in Employee from json with posts IDs and agency object ");
+      print("we are in Employee from json with posts IDs and agency object ${json['agency']['name']} ");
                 return Employee(
               id: json['_id'] as String,   
               publicationsIds: (json['publications'] as List)?.map((e) => e as String)?.toList(),
@@ -75,7 +80,8 @@ class Employee{
     }
 
    @override
-   String toString() => "firstName : ${this.firstName} lastName: ${this.lastName} email: ${this.email} ";
+   String toString() => "firstName : ${this.firstName} lastName: ${this.lastName} email: ${this.email} and imageUrl : ${this.imageUrl} and agencyName: ${this.agency?.name}";
+
   
 
 

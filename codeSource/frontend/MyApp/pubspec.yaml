@@ -26,6 +26,10 @@ dependencies:
   json_annotation: ^3.0.1
   flutter_map:
   font_awesome_flutter:
+  image_picker: ^0.6.7
+  http_parser: ^3.1.4
+  flutter_reaction_button: ^1.0.0
+
   
 
 

@@ -7,7 +7,7 @@ class PublicationsList extends StatefulWidget {
 
   List<Publication> publications;
 
-  PublicationsList({this.publications}){
+  PublicationsList({@required this.publications}){
   }
 
   @override
@@ -28,7 +28,7 @@ class _PublicationsListState extends State<PublicationsList> {
     return (widget.publications != null) ?  ListView.builder(
                                                           itemCount: widget.publications.length,
                                                           itemBuilder: (context,index){
-                                                            return SinglePublicationWidget( publication: widget.publications[index],poster: widget.publications[index].postedBy);
+                                                            return SinglePublicationWidget( publication: widget.publications[index],poster: widget.publications[index]?.postedBy);
                                                           }
                                                          )  
                                                             :

@@ -1,4 +1,4 @@
-const Agency  = require('../models/Agency'),
+const Agency   = require('../models/Agency'),
       Employee = require('../models/Employee');
 
 exports.getAllAgencies = (req,res,next) => {
@@ -24,11 +24,20 @@ exports.getAllAgencies = (req,res,next) => {
 //will be modifies to implement multter
 exports.createAgency = (req,res,next) => {
 
-    console.log("create agency");
+    console.log("create agency ... ");
 
+    let agence = req.file  ? 
+    {
+        logo: `${req.protocol}://${req.get('host')}/logo/${req.file.filename}`,
+        ...req.body
+    }
+    :
+    {
+        ...req.body
+    };
     let agency = new Agency(
         {
-            ...req.body
+            ...agence
         }
     );
     agency.save()
@@ -112,3 +121,16 @@ exports.addSubsidiaryToAgency = (req,res,next) =>{
            )
            .catch((err)=>{ res.status(400).json({error : err}); })
 } 
+
+
+
+exports.addLocationToAgency = (req,res,next)=>{
+
+    console.log("lat "+req.body.lat+" lan "+req.body.lng);
+    Agency.findByIdAndUpdate(req.params.id, { location: { lat: req.body.lat, lng: req.body.lng } },{ new: true })
+        .then((agency)=>{
+            res.status(201).json( agency );
+        })
+        .catch((err)=>{ res.status(400).json({error : err}); })
+}
+

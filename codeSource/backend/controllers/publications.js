@@ -1,4 +1,4 @@
-const Publication = require('../models/Publication');
+const Publication  = require('../models/Publication');
 const Employee     = require('../models/Employee');
 
 exports.getAllPublications = (req, res, next) => {
@@ -8,11 +8,15 @@ exports.getAllPublications = (req, res, next) => {
         .populate([
             {
                 path: 'approvedBy',
-                model: 'Employee'
+                populate : {
+                    path : 'agency'
+                  }
             },
             {
                 path: 'postedBy',
-                model: 'Employee'
+                populate : {
+                    path : 'agency'
+                  }
             }]
         )
         .then((publications) => {
@@ -27,13 +31,13 @@ exports.getAllPublications = (req, res, next) => {
 
 exports.createPublication = (req, res, next) => {
 
-    console.log("create Publication is called ! ");
+    console.log(`create Publication is called ! ${ req.file ==null } or ` );
     console.log(`the host is : +${req.get('host')}`);
     
     delete req.body._id;
     let pub = req.file ?  {
 
-                 imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
+                 imageUrl: `${req.protocol}://${req.get('host')}/api/publications/postsImages/${req.file.filename}`,
                 ...req.body
              }
         :
@@ -94,6 +98,82 @@ exports.getPublicationById = (req, res, next) => {
                 });
 
 }
+
+exports.likePublication = (req,res,next)=>{
+    console.log("like is retched");
+    Employee.findById(req.body.idEmployee)
+            .then((employee)=>{
+                    Publication.findByIdAndUpdate(req.params.id,{ $push: { "likes": employee } },{ safe: true, new: true})
+                    .then((publication)=>{
+                        console.log("like is retched "+publication);
+                        res.status(201).json(publication);
+                    })
+                    .catch((err)=>{res.status(500).json(publication);})
+            })
+            .catch((err)=>{res.status(400).json(err);})
+
+}
+
+exports.dislikePublication = (req,res,next)=>{
+
+    Employee.findById(req.body.idEmployee)
+            .then((employee)=>{
+                    Publication.findByIdAndUpdate(req.params.id,{ $push: { "dislikes": employee } },{ safe: true, new: true})
+                    .then((publication)=>{
+                        res.status(201).json(publication);
+                    })
+                    .catch((err)=>{res.status(500).json(publication);})
+            })
+            .catch((err)=>{res.status(400).json(err);})
+
+}
+
+exports.getPublicationLikes = (req,res,next)=>{
+
+    Publication.findById(req.params.id)
+               .populate(
+                    {
+                        path: 'likes',
+                        model: 'Employee'
+                    }
+                   )
+                .then((publication) => {
+                            console.log(publication);
+                            res.status(200).json(publication);
+                    })
+                .catch((err) => {
+                           res.status(401).json({ error: err });
+                    });
+
+}
+
+exports.modifyPublication = (req,res,next)=>{
+
+    Publication.findByIdAndUpdate(req.params.id, {...returnPublicationFromRequest(req)},{ safe: true, new: true})
+               .then((publication) => {
+                    console.log(publication);
+                    res.status(200).json(publication);
+            })
+               .catch((err) => {
+                        res.status(401).json({ error: err });
+                    });
+};
+
+// function return a publication object based on whether the received publication contains image or not  
+function returnPublicationFromRequest(req)
+{
+  return req.file ?  {
+
+        imageUrl: `${req.protocol}://${req.get('host')}/api/publications/postsImages/${req.file.filename}`,
+       ...req.body
+    }
+:
+    {
+        ...req.body
+    };
+}
+
+
 
 /* exports.approvePublication = (req,res,next) => {
     console.log("to approve a"+req.params.id+" pub : "+req.params.isApproved);
