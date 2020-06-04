@@ -7,7 +7,7 @@ import 'package:flutter/foundation.dart';
 import '../entities/Publication.dart';
 
 class EmployeesController {
-  static final String API_URL = "http://localhost:3000/api/employees";
+  static final String API_URL = "http://192.168.43.107:3000/api/employees";
   // secure storage api
   static FlutterSecureStorage storage = FlutterSecureStorage();
 
@@ -19,7 +19,7 @@ class EmployeesController {
       final response = await http.get(url,
           headers: {HttpHeaders.authorizationHeader: 'Bearer $token'});
 
-      if (response.statusCode == 200 || response.statusCode == 201) {
+      if (response.statusCode == 200) {
         print("request has been successedd ... ");
         return Employee.fromJsonWithPostsAndAgencyObjects(
             json.decode(response.body));
@@ -35,7 +35,7 @@ class EmployeesController {
     final response = await http
         .get(url, headers: {HttpHeaders.authorizationHeader: 'Bearer $token'});
 
-    if (response.statusCode == 200 || response.statusCode == 201) {
+    if (response.statusCode == 200) {
       print("request has been successedd ... ");
       return compute(parsePublications, response.body);
     } else {

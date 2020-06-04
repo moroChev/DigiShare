@@ -10,7 +10,7 @@ import 'dart:convert';
 
 class AgenciesController{
 
-  static final String API_URL = "http://localhost:3000/api/agencies";
+  static final String API_URL = "http://192.168.43.107:3000/api/agencies";
   // secure storage api
   static FlutterSecureStorage storage = FlutterSecureStorage();
 

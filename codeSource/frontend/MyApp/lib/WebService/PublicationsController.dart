@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
@@ -26,7 +25,7 @@ List<Publication> parsePublications(String response) {
 
 class PublicationsController {
   // our API adress
-  static final String API_URL         = "http://localhost:3000/api/publications";
+  static final String API_URL         = "http://192.168.43.107:3000/api/publications";
   // secure storage api
   static FlutterSecureStorage storage = FlutterSecureStorage();
 

@@ -8,9 +8,7 @@ import 'package:flutter/material.dart';
 
 class AgencyScreen extends StatefulWidget {
   final String agencyId;
-
-  AgencyScreen({this.agencyId});
-
+  AgencyScreen({@required this.agencyId});
   @override
   _AgencyScreenState createState() => _AgencyScreenState();
 }
