@@ -1,3 +1,4 @@
+import 'package:MyApp/Screens/ToPostScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../Widgets/CustumAppBar.dart';
@@ -40,9 +41,18 @@ class Home_State extends State<Home> {
     return Scaffold(
       drawer: SideMenuWidget(),
       appBar: CustumAppBar.getAppBar(context),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Color(0xFF0DC1DD),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15),
+        ),
+        child: Icon(Icons.add, color: Colors.blueGrey[100],),
+        onPressed: (){
+          Navigator.pop(context);
+          Navigator.push(context, MaterialPageRoute(builder: (context)=>ToPostScreen()));
+        }),
       body: FutureBuilder<List<Publication>>(
                 future: _publications,
-
                 builder: (context, snapshot){
                   if (snapshot.hasError) print("error in passing data"+snapshot.error);
           

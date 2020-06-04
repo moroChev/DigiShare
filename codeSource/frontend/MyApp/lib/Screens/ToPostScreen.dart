@@ -11,6 +11,8 @@ import 'package:flutter/material.dart';
 import './Home.dart';
 import '../Widgets/SideMenuWidget.dart';
 import 'dart:io';
+import '../Widgets/CustumAppBar.dart';
+import '../Widgets/floatingButton.dart';
 
 class ToPostScreen extends StatefulWidget {
   @override
@@ -71,6 +73,8 @@ class _ToPostScreenState extends State<ToPostScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: SideMenuWidget(),
+      appBar: CustumAppBar.getAppBar(context),
+      floatingActionButton: FloatingButton(),
       body: SingleChildScrollView(
           child: Column(
         children: <Widget>[

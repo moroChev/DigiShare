@@ -68,10 +68,10 @@ class _ProfilInformationsState extends State<ProfilInformations> {
                           height: 20,
                         ),
                         rowGeneralInfos(
-
                             email: widget.profil?.email,
-                            workAdress: widget.profil?.agency?.address),
-
+                            agencyName: widget.profil?.agency?.name,
+                            agencyAdress: widget.profil?.agency?.address
+                            ),
                         Divider(),
                         publicationsList(
                             widget.profil?.publicationsObjects, widget.profil),
@@ -135,8 +135,10 @@ Row rowPosition({String position}) {
 
 Container rowNbrPosts({int nbrPosts}) {
   return Container(
-    width: 370.0,
+   /*  width: 140.0,
+    height: 70.0, */
     height: 70.0,
+    margin: EdgeInsets.all(8.0),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: <Widget>[
@@ -150,21 +152,37 @@ Container rowNbrPosts({int nbrPosts}) {
       ],
     ),
     decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(20),
       color: Color(0xFFFF9F9F9),
-      borderRadius: BorderRadius.circular(10),
-    ),
+      boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.5),
+            spreadRadius: 5,
+            blurRadius: 7,
+            offset: Offset(0, 3), // changes position of shadow
+          ),
+        ],
+      ),
   );
 }
 
-Container rowGeneralInfos({String email, String workAdress}) {
+Container rowGeneralInfos({String email,String agencyName,  String agencyAdress}) {
+  String nameAgency = agencyName ?? " ";
+  String addressAgency = agencyAdress ?? " "; 
   return Container(
-    height: 140,
-    width: 370,
-    margin: EdgeInsets.all(12.0),
+    margin: EdgeInsets.all(8.0),
     decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(20),
       color: Color(0xFFFF9F9F9),
-    ),
+      boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.5),
+            spreadRadius: 5,
+            blurRadius: 7,
+            offset: Offset(0, 3), // changes position of shadow
+          ),
+        ],
+      ),
     child: Column(
       children: <Widget>[
         //SizedBox(height: 20,),
@@ -184,12 +202,14 @@ Container rowGeneralInfos({String email, String workAdress}) {
         ),
         ListTile(
           leading: Icon(
-            Icons.work,
+            Icons.business,
             color: Colors.blueGrey,
           ),
           title: Text(
-            //  " Work Address",
-            '$workAdress',
+            capitalize(nameAgency),
+            style: TextStyle(fontSize: 18.0),
+          ),
+          subtitle: Text('$addressAgency',
             style: TextStyle(fontSize: 18.0),
           ),
         ),

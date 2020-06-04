@@ -230,7 +230,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.9.0"
-<<<<<<< HEAD
   flutter_plugin_android_lifecycle:
     dependency: transitive
     description:
@@ -238,8 +237,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.8"
-=======
->>>>>>> c49bb10ed707052ac9aed3e19b2d7cd9e93dfe46
+  flutter_reaction_button:
+    dependency: "direct main"
+    description:
+      name: flutter_reaction_button
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.0"
   flutter_secure_storage:
     dependency: "direct main"
     description:
@@ -302,11 +306,7 @@ packages:
     source: hosted
     version: "2.2.0"
   http_parser:
-<<<<<<< HEAD
     dependency: "direct main"
-=======
-    dependency: transitive
->>>>>>> c49bb10ed707052ac9aed3e19b2d7cd9e93dfe46
     description:
       name: http_parser
       url: "https://pub.dartlang.org"
@@ -319,7 +319,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.12"
-<<<<<<< HEAD
   image_picker:
     dependency: "direct main"
     description:
@@ -334,8 +333,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.0"
-=======
->>>>>>> c49bb10ed707052ac9aed3e19b2d7cd9e93dfe46
   intl:
     dependency: transitive
     description:

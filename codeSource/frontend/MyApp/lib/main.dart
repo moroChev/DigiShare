@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
       routes: {
         'SignIn'          :(context)=>SignInScreen(),
       //  'SignUp'        :(context)=>SignUpScreen(),
-        'Profil'          :(context)=>Profil(" "),
+        'Profil'          :(context)=>Profil(),
         'Home'            :(context)=>Home(),
         'ToPostScreen'    :(context)=>ToPostScreen(),
         'Agency': (context)=>AgencyScreen(),

@@ -93,7 +93,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     if(connectionSuccessed)
                     {
                        Navigator.pop(context);
-                       Navigator.push(context, MaterialPageRoute(builder: (context)=>AgencyScreen(agencyId: "5ed12c96932dfd2328f8d6db")));
+                       Navigator.push(context, MaterialPageRoute(builder: (context)=>Home()));
                     }else{
 
                     }

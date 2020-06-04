@@ -1,4 +1,5 @@
 import 'package:MyApp/Screens/ToPostScreen.dart';
+import 'package:MyApp/WebService/AuthController.dart';
 import 'package:strings/strings.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter/material.dart';
@@ -15,30 +16,15 @@ class SideMenuWidget extends StatefulWidget {
 }
 
 class _SideMenuWidgetState extends State<SideMenuWidget> {
-  FlutterSecureStorage storage = FlutterSecureStorage();
-  String _idEmployee;
   Future<Employee> emp;
   
-  Future<Employee> _getEmplyeeFromStorage() async {
-   this._idEmployee   = await storage.read(key: 'userId');
-   String _firstName  = await storage.read(key: 'firstName');
-   String _lastName   = await storage.read(key: 'lastName');
-   String _imageUrl   = await storage.read(key: 'imageUrl');
-   String _email      = await storage.read(key: 'email');
-   String _AgencyName = await storage.read(key: 'AgencyName');
-   Agency agency      = Agency(name: _AgencyName);
-
-   Employee emp = Employee(id: this._idEmployee, firstName: _firstName, lastName: _lastName, imageUrl:_imageUrl, email: _email,agency: agency);
-   print("get Employee From Strorage $emp");
-   return emp;
-  }
 
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    emp = _getEmplyeeFromStorage();
+    emp = AuthController.getEmplyeeFromStorage();
   }
 
   @override
@@ -158,13 +144,13 @@ return   ListTile(
                     onPressed: () {
                       Navigator.pop(context);
                     Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => Profil(employee.id)));
+                    context, MaterialPageRoute(builder: (context) => Profil(employeeID: employee.id)));
                     },
                   ),
                   onTap: (){
                     Navigator.pop(context);
                     Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => Profil(employee.id)));
+                    context, MaterialPageRoute(builder: (context) => Profil(employeeID :employee.id)));
                   },
                
               ) ;

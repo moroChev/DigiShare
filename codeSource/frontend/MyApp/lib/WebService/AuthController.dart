@@ -4,6 +4,7 @@ import 'package:MyApp/entities/Employee.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import '../entities/Agency.dart';
 
 class AuthController{
    
@@ -26,7 +27,7 @@ class AuthController{
           {
             Map jwt = jsonDecode(res.body);
             print(jwt);
-            _storageMethod(jwt);
+            await setEmployeeInStorage(jwt);
             print('storage Ok and request ok yes : '+res.body);
 
             return true;
@@ -41,18 +42,34 @@ class AuthController{
   }
 
 
-   static _storageMethod(Map<String,dynamic> jwt) {
+   static setEmployeeInStorage(Map<String,dynamic> jwt) async {
 
         Employee employee = Employee.fromJsonWithPostsIdAndAgency(jwt['user']);
+        
         print("the employee who is auth is : $employee");
-        storage.write(key: 'userId', value: employee?.id);
-        storage.write(key: 'firstName', value: employee?.firstName);
-        storage.write(key: 'lastName', value: employee?.lastName);
-        storage.write(key: 'imageUrl', value: employee?.imageUrl);
-        storage.write(key: 'email', value: employee?.email);
-        storage.write(key: 'AgencyName', value: employee?.agency?.name );
-        storage.write(key: 'token', value: jwt['token']);
+      await storage.write(key: 'userId', value: employee?.id);
+      await storage.write(key: 'firstName', value: employee?.firstName);
+      await storage.write(key: 'lastName', value: employee?.lastName);
+      await storage.write(key: 'imageUrl', value: employee?.imageUrl);
+      await storage.write(key: 'email', value: employee?.email);
+      await storage.write(key: 'AgencyName', value: employee?.agency?.name );
+      await storage.write(key: 'token', value: jwt['token']);
 
+  }
+
+
+   static Future<Employee> getEmplyeeFromStorage() async {
+   String idEmployee   = await storage.read(key: 'userId');
+   String firstName  = await storage.read(key: 'firstName');
+   String lastName   = await storage.read(key: 'lastName');
+   String imageUrl   = await storage.read(key: 'imageUrl');
+   String email      = await storage.read(key: 'email');
+   String AgencyName = await storage.read(key: 'AgencyName');
+   Agency agency      = Agency(name: AgencyName);
+
+   Employee emp = Employee(id: idEmployee, firstName: firstName, lastName: lastName, imageUrl: imageUrl, email: email,agency: agency);
+   print("get Employee From Strorage $emp");
+   return emp;
   }
 
 

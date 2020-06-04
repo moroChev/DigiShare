@@ -8,6 +8,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 import '../entities/Publication.dart';
 import 'package:http_parser/http_parser.dart';
+import '../entities/Employee.dart';
 
 List<Publication> parsePublications(String response) {
   try {
@@ -47,7 +48,7 @@ class PublicationsController {
 
 
 // post http method to save the publication
-  static Future<bool> postPublication(Publication publication, File imageUrl)async {
+  static Future<bool> postPublication(Publication publication, File imageUrl) async {
      String token              = await storage.read(key: 'token');
      Map<String,String> header = {
        HttpHeaders.authorizationHeader: 'Bearer $token',
@@ -78,7 +79,7 @@ class PublicationsController {
   }
 
 // to a giving a publication
- static Future<bool> likePublication(String publicationId) async{
+ static Future<bool> likePublication(String publicationId) async {
    String token                 = await storage.read(key: 'token');
    String userId                = await storage.read(key: 'userId');
    String url                   = "$API_URL/$publicationId/likes";
@@ -90,7 +91,7 @@ class PublicationsController {
    final response               = await http.post(url,body: jsonEncode(body),headers: header);
    print(response.statusCode);
    if(response.statusCode==201 || response.statusCode==200){
-      print('Uploaded!');
+      print('Like added !');
       return true;
    }else{
       print("erreur in liking the publication ...");
@@ -118,10 +119,23 @@ class PublicationsController {
    }
  }
 
-/*  Future<List<Employees>> getPublicationLikes(String id) async{
-
-
-
+/* static Future<List<Employee>> getPublicationLikes(String publicationId) async{
+   String token                 = await storage.read(key: 'token');
+   String userId                = await storage.read(key: 'userId');
+   String url                   = "$API_URL/$publicationId/likes";
+   Map<String,String> header    = {
+       HttpHeaders.authorizationHeader: 'Bearer $token',
+       HttpHeaders.contentTypeHeader  : 'application/json'
+    }; 
+   final response               = await http.get(url, headers: header);
+   print(response.statusCode);
+   if(response.statusCode==201 || response.statusCode==200){
+      print('Uploaded!');
+      return true;
+   }else{
+      print("erreur in liking the publication ...");
+      return false;
+   }
  } */
 
 
