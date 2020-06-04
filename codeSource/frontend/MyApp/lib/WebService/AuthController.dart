@@ -5,7 +5,7 @@ import 'dart:convert';
 import '../entities/Agency.dart';
 
 class AuthController{
-   static String API_URL_AUTH = "http://192.168.43.107:3000/api/auth";
+   static String API_URL_AUTH = "http://localhost:3000/api/auth";
    static FlutterSecureStorage storage = FlutterSecureStorage();
   
   static Future<bool> attemptLogIn(String login, String password) async {
