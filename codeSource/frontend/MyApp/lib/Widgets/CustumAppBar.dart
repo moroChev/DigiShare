@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
-
-import 'package:flutter/gestures.dart';
 import '../Screens/SignInScreen.dart';
-import '../Screens/SignUPScreen.dart';
-import '../Screens/profil.dart';
-import '../Screens/Home.dart';
+import '../WebService/AuthController.dart';
 import './SideMenuWidget.dart';
-
 
 class CustumAppBar  {
 
+  static logout(BuildContext context){
+    AuthController.attemptLogOut();
+    Navigator.pushNamedAndRemoveUntil(context, '/SignIn', (Route<dynamic> route) => false);
+  }
   
  static Widget getAppBar(BuildContext context){
     return AppBar(
@@ -26,11 +25,7 @@ class CustumAppBar  {
       padding: EdgeInsets.only(right: 20.0),
       child: GestureDetector(    
         child: Icon( Icons.more_vert),
-         onTap: () { Navigator.pop(context);
-                    Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => SignInScreen()));
-                    },
-
+         onTap:  (){logout(context);},
       )
     ),
       ],);

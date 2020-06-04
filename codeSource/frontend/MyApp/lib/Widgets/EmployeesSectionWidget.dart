@@ -2,12 +2,12 @@ import 'package:MyApp/WebService/NetworkImageController.dart';
 import 'package:MyApp/entities/Employee.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import '../Screens/Profil.dart';
 
 class EmployeesSectionWidget extends StatefulWidget {
   final List<Employee> employees;
 
-  EmployeesSectionWidget({this.employees});
+  EmployeesSectionWidget({@required this.employees});
 
   @override
   _EmployeesSectionWidgetState createState() => _EmployeesSectionWidgetState();
@@ -69,7 +69,10 @@ class _EmployeesSectionWidgetState extends State<EmployeesSectionWidget> {
                 backgroundImage: image.data,
               ),
               title: Text(emp.firstName.toString() + " " + emp.lastName.toString()),
-              onTap: () {},
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>Profil(employeeID: emp.id)));
+              },
           );
         }
         else
