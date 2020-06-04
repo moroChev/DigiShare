@@ -1,13 +1,7 @@
-
-
 import 'package:MyApp/Screens/Home.dart';
-import 'package:MyApp/Screens/AgencyScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../WebService/AuthController.dart';
-import './ToPostScreen.dart';
-
-
 
 class SignInScreen extends StatefulWidget {
   @override
@@ -15,14 +9,17 @@ class SignInScreen extends StatefulWidget {
 }
 
 class _SignInScreenState extends State<SignInScreen> {
-
   TextEditingController _loginController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
 
-  
-
-
-  
+  signIn(BuildContext context) async {
+    bool connected = await AuthController.attemptLogIn(_loginController.text, _passwordController.text);
+    if(connected)
+      Navigator.pushNamedAndRemoveUntil(context,  '/Home', (Route<dynamic> route) => false);
+    else{
+      //display failed connection message
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -88,16 +85,7 @@ class _SignInScreenState extends State<SignInScreen> {
               child: Container(
                 height: 60,
                 child: RaisedButton(
-                  onPressed: () async{
-                   bool connectionSuccessed = await AuthController.attemptLogIn(_loginController.text, _passwordController.text);
-                    if(connectionSuccessed)
-                    {
-                       Navigator.pop(context);
-                       Navigator.push(context, MaterialPageRoute(builder: (context)=>Home()));
-                    }else{
-
-                    }
-                  },
+                  onPressed: (){signIn(context);},
                   color: Color(0xFF0DC1D4),
                   child: Text(
                     'SIGN IN',

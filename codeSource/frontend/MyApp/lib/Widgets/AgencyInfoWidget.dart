@@ -6,7 +6,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 class AgencyInfoWidget extends StatefulWidget {
   final Agency agency;
 
-  AgencyInfoWidget({this.agency});
+  AgencyInfoWidget({@required this.agency});
 
   @override
   _AgencyInfoWidgetState createState() => _AgencyInfoWidgetState();

@@ -36,7 +36,7 @@ exports.getAllEmployees = (req, res, next) => {
                if(err){
                    res.status(500).json({ error: err});
                }else{
-                res.status(201).json( employees );
+                res.status(200).json( employees );
                }
            });
 
@@ -99,7 +99,7 @@ exports.getEmployeeByFullName = (req,res,next) => {
                 if(err){
                     res.status(500).json({ error: err});
                 }else{
-                    res.status(201).json(employee);
+                    res.status(200).json(employee);
 
                 }
             });
@@ -143,7 +143,7 @@ exports.getEmployeePublications = (req,res,next) =>{
                    if(err){
                     res.status(500).json({ error: err});
                 }else{
-                    res.status(201).json(publications);
+                    res.status(200).json(publications);
                    }
                });
 }
