@@ -45,10 +45,11 @@ class Employee{
     }
 
     factory Employee.fromJsonWithPostsAndAgencyObjects(Map<String,dynamic> json){
+
        print("we are in Employee from json with posts and agency objects ");
        return Employee(
               id: json['_id'] as String,   
-              publicationsObjects: (json['publications'] as List)?.map((e) => Publication.fromJsonWithoutEmployees(e))?.toList(),
+              publicationsObjects: (json['publications'] as List)?.map((e) => Publication.fromJsonWithIdsNoObjects(e))?.toList(),
               imageUrl: json['imageUrl'] as String,
               firstName: json['firstName'] as String,
               lastName: json['lastName'] as String,
@@ -64,7 +65,7 @@ class Employee{
 
     factory Employee.fromJsonWithPostsIdAndAgency(Map<String, dynamic> json) {
       print("we are in Employee from json with posts IDs and agency object ${json['agency']['name']} ");
-                return Employee(
+          return Employee(
               id: json['_id'] as String,   
               publicationsIds: (json['publications'] as List)?.map((e) => e as String)?.toList(),
               imageUrl: json['imageUrl'] as String,
@@ -87,21 +88,3 @@ class Employee{
 
 }
 
-
-    
-// **************************************************************************
-// JsonSerializableGenerator
-// **************************************************************************
-
-
-/* 
-Map<String, dynamic> _$EmployeeToJson(Employee instance) => <String, dynamic>{
-      'publications': instance.publications,
-      'firstName': instance.firstName,
-      'lastName': instance.lastName,
-      'imageUrl': instance.imageUrl,
-      'email': instance.email,
-      'position': instance.position,
-      'canApprove': instance.canApprove,
-      'agency': instance.agency,
-    }; */

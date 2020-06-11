@@ -54,7 +54,9 @@ exports.getAgencyById = (req,res,next) => {
           .populate(
                 {
                     path: 'employees',
-                    model: 'Employee'
+                    populate : {
+                        path : 'agency'
+                      }
                 }
             )
           .populate(

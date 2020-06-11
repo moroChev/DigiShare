@@ -2,10 +2,12 @@ import 'package:MyApp/Widgets/floatingButton.dart';
 import 'package:MyApp/entities/Employee.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import '../Widgets/CustumAppBar.dart';
 import '../WebService/EmployeesController.dart';
 import '../Widgets/ProfilInformationsWidget.dart';
+import '../entities/Publication.dart';
+import '../publications/SinglePublicationWidget.dart';
+import '../Widgets/DividerWithTitleWidget.dart';
 
 class Profil extends StatefulWidget {
   String employeeID;
@@ -17,8 +19,7 @@ class Profil extends StatefulWidget {
 }
 
 class _ProfilState extends State<Profil> {
-  //our Custum Appbar
-  CustumAppBar appBar = new CustumAppBar();
+  
   Future<Employee> _employee;
   
 
@@ -32,24 +33,68 @@ class _ProfilState extends State<Profil> {
 
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-        appBar: CustumAppBar.getAppBar(context),
-        floatingActionButton: FloatingButton(),
-        body:  FutureBuilder<Employee>(
-                    future: _employee,
-                    builder: (context, snapshot) {
-                    if (snapshot.hasError) 
-                       return Container(width: 0.0, height: 0.0);
-                    else if( snapshot.hasData && snapshot.connectionState == ConnectionState.waiting )
+    return  Scaffold(
+          appBar: CustomAppBar.getAppBar(context),
+          floatingActionButton: FloatingButton(),
+          body: FutureBuilder<Employee>(
+                      future: _employee,
+                      builder: (context, snapshot) {
+                      if (snapshot.hasError) 
+                         return Container(width: 0.0, height: 0.0);
+                      else if( snapshot.hasData && snapshot.connectionState == ConnectionState.waiting )
+                         return Center(child: CircularProgressIndicator());
+                      else if( snapshot.hasData && snapshot.connectionState == ConnectionState.done ) 
+                     {  Employee employeA = snapshot.data;
+                         return snapshot.hasData!=null
+                            ?
+                            _theContainer(employeA)
+                            : Center(child: CircularProgressIndicator());
+                     }else{
                        return Center(child: CircularProgressIndicator());
-                    else if( snapshot.hasData && snapshot.connectionState == ConnectionState.done ) 
-                       return snapshot.hasData!=null
-                          ? ProfilInformations(
-                              profil: snapshot.data,
-                            )
-                          : Center(child: CircularProgressIndicator());
-                    }),
-        );
+                     }
+                }
+              ),
+        
+    );
       
   }
+
+
+
+Widget _theContainer(Employee employee){
+return  Container(
+
+              decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [Color(0xFFF7F7F7), Colors.blue[50]])),
+              child: Column(
+                children: <Widget>[
+                  Expanded(child:
+                  ListView(children:<Widget>[ 
+                  ProfilInformations( profil: employee,),   
+                  DividerWithTitle(title: "Publications"), 
+                  publicationsList(employee.publicationsObjects, employee),               
+                  ]
+                  ),
+                  ),        
+                ],
+              )
+              );
+}
+
+
+
+
+Widget publicationsList(List<Publication> posts, Employee emp) {
+  return posts?.length ==0 ?
+   Row( mainAxisAlignment: MainAxisAlignment.center,children: <Widget>[ 
+     Text("M. ${emp.lastName} n'\ a aucune publication",style: TextStyle(color: Colors.blueGrey,fontFamily:"Times"),)])
+   :
+   Column(children: posts?.map((post) => SinglePublicationWidget(publication: post,poster: emp,))?.toList());
+
+}
+
+
 }

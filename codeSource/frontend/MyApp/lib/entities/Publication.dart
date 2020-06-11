@@ -43,6 +43,35 @@ class Publication{
                 );
               }
 
+              
+           factory Publication.fromJsonWithIdsNoObjects(Map<String, dynamic> json) {
+                  
+                print("Publications From Json approuvedBy : ..... A .... ${json['_id']} and his index is : $nbrPosts");
+                   nbrPosts++;
+                return Publication(
+                  isApproved: json['isApproved'] as bool,
+                  id: json['_id'] as String,
+                  content: json['content'] as String,
+                  imageUrl: json['imageUrl'] as String,
+                  date: json['date'] as String,
+                  likesIds: (json['likes'] as List)?.map((e) => e as String)?.toList(),
+                  dislikesIds: (json['dislikes'] as List)?.map((e) => e as String)?.toList(),
+                );
+              }
+
+
+            factory Publication.fromJsonWithLikesObjects(Map<String,dynamic> json)
+            {
+               return Publication(
+                  isApproved: json['isApproved'] as bool,
+                  id: json['_id'] as String,
+                  content: json['content'] as String,
+                  imageUrl: json['imageUrl'] as String,
+                  date: json['date'] as String,
+                  likesEmployees: (json['likes'] as List)?.map((e) => Employee.fromJsonWithPostsIdAndAgency(e) )?.toList()
+                );
+            }  
+
 
 
             factory Publication.fromJsonWithoutEmployees(Map<String,dynamic> json){

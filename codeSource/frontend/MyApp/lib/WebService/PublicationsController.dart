@@ -9,20 +9,8 @@ import 'package:http/http.dart' as http;
 import '../entities/Publication.dart';
 import 'package:http_parser/http_parser.dart';
 import '../entities/Employee.dart';
+import '../Publications/Widgets/PostSettingsEnum.dart';
 
-List<Publication> parsePublications(String response) {
-  try {
-    List<dynamic> list       = jsonDecode(response);
-    List<Publication> myList = list.map((e) => Publication.fromJson(e)).toList();
-
-    print('After parsing Publications ....... ');
-    myList.forEach((element) => print(element));
-    print("presenting Publications is over .....");
-    return myList;
-  } catch (err) {
-    print(err.toString());
-  }
-}
 
 class PublicationsController {
   // our API adress
@@ -47,29 +35,43 @@ class PublicationsController {
   }
 
 
-// post http method to save the publication
-  static Future<bool> postPublication(Publication publication, File imageUrl) async {
+/// post http method to save the publication
+/// whether it's a create or update method and the type is specified in requestType
+  static Future<bool> postPublication({@required Publication publication,
+                                        File imageUrl,
+                                       @required  RequestChoices requestType
+                                       }) async {
      String token              = await storage.read(key: 'token');
      Map<String,String> header = {
        HttpHeaders.authorizationHeader: 'Bearer $token',
        HttpHeaders.contentTypeHeader : 'multipart/form-data'
        };
-    var uri = Uri.parse(API_URL);
-    var request = http.MultipartRequest('POST', uri, )
+     var request; 
+     var uri;  
+
+    if(requestType == RequestChoices.CREATE){
+      print(" its a new post so creation");
+      uri     = Uri.parse(API_URL);
+      request = http.MultipartRequest('POST', uri, );
+    }else if(requestType == RequestChoices.MODIFY){
+      print(" its an old post so modification ${publication.id}");
+      uri = Uri.parse("$API_URL/${publication.id}");
+      request = http.MultipartRequest('PUT', uri, );
+    }
+    request 
       ..fields['content'] =publication.content
       ..fields['postedBy']=publication.postedBy.id
       ..headers.addAll(header);
-      if(imageUrl!=null)
-     {   
+      if(imageUrl!=null){
           request.files.add(await http.MultipartFile.fromPath(
           'imageUrl', imageUrl.path,
            contentType: MediaType('image', 'jpg')
-          ));
-          }else{
+          ));  
+      }else{
             print("image is null so no need to send it");
           }
     var response = await request.send();
-    if (response.statusCode == 200){ 
+    if (response.statusCode == 200 || response.statusCode == 201){ 
       print('Uploaded!');
       return true;}
     else {
@@ -78,8 +80,11 @@ class PublicationsController {
       }
   }
 
+
+
+
 // to a giving a publication
- static Future<bool> likePublication(String publicationId) async {
+ static Future<bool> addLikePublication(String publicationId) async {
    String token                 = await storage.read(key: 'token');
    String userId                = await storage.read(key: 'userId');
    String url                   = "$API_URL/$publicationId/likes";
@@ -88,6 +93,7 @@ class PublicationsController {
        HttpHeaders.contentTypeHeader  : 'application/json'
     };
    Map body                     = {"idEmployee": userId};  
+   print("addLike method the user who liked is : $userId");
    final response               = await http.post(url,body: jsonEncode(body),headers: header);
    print(response.statusCode);
    if(response.statusCode==201 || response.statusCode==200){
@@ -98,48 +104,124 @@ class PublicationsController {
       return false;
    }
  }
-// to dislike a given publication
-   static Future<bool> dislikePublication(String publicationId) async{
+
+ static Future<bool> removeLikePublication(String publicationId) async {
    String token                 = await storage.read(key: 'token');
-   String userId                = await storage.read(key: 'userId');
-   String url                   = "$API_URL/$publicationId/dislikes";
+   String url                   = "$API_URL/$publicationId/likes";
    Map<String,String> header    = {
        HttpHeaders.authorizationHeader: 'Bearer $token',
        HttpHeaders.contentTypeHeader  : 'application/json'
     };
-   Map body                     = {"idEmployee": userId};  
-   final response               = await http.post(url, body: jsonEncode(body), headers: header);
+   final response               = await http.delete(url,headers: header);
    print(response.statusCode);
    if(response.statusCode==201 || response.statusCode==200){
-      print('Uploaded!');
+      print('Like added !');
       return true;
    }else{
       print("erreur in liking the publication ...");
       return false;
    }
+
  }
 
-/* static Future<List<Employee>> getPublicationLikes(String publicationId) async{
+static Future<Publication> getPublicationLikes(String publicationId) async{
    String token                 = await storage.read(key: 'token');
-   String userId                = await storage.read(key: 'userId');
    String url                   = "$API_URL/$publicationId/likes";
    Map<String,String> header    = {
        HttpHeaders.authorizationHeader: 'Bearer $token',
        HttpHeaders.contentTypeHeader  : 'application/json'
     }; 
+    print("publication id to get likes ....  $publicationId");
    final response               = await http.get(url, headers: header);
    print(response.statusCode);
-   if(response.statusCode==201 || response.statusCode==200){
+ try{ 
+  if(response.statusCode==201 || response.statusCode==200){
       print('Uploaded!');
+      return compute(parsePublicationsLikes, response.body);
+   }else{
+      print("erreur in liking the publication ...");
+      throw Exception('Failed to load publications Data');
+   }
+   }catch(err){
+     return new Publication();
+   }
+ }
+
+
+
+ static Future<bool> deletePublication(String publicationId) async {
+
+   String token                 = await storage.read(key: 'token');
+   String url                   = "$API_URL/$publicationId";
+   Map<String,String> header    = {
+       HttpHeaders.authorizationHeader: 'Bearer $token',
+       HttpHeaders.contentTypeHeader  : 'application/json'
+    };
+   final response               = await http.delete(url,headers: header);
+   print(response.statusCode);
+   if(response.statusCode==201 || response.statusCode==200){
+      print('Like added !');
       return true;
    }else{
       print("erreur in liking the publication ...");
       return false;
    }
- } */
+   
+ }
+
+ static Future<bool> approvePublication(String publicationId,bool isApproved) async {
+   print("approve Publication that been sended is ... to pub : $publicationId"); 
+   String token                 = await storage.read(key: 'token');
+   String url                   = "$API_URL/$publicationId/approve";
+   Map<String,String> header    = {
+       HttpHeaders.authorizationHeader: 'Bearer $token',
+       HttpHeaders.contentTypeHeader  : 'application/json'
+    };
+   Map<String,dynamic> body = {
+     "isApproved" : isApproved
+   };
+   final response               = await http.post(url, body: jsonEncode(body), headers: header);
+   print(response.statusCode);
+   if(response.statusCode==201 || response.statusCode==200){
+      print('Like added !');
+      return true;
+   }else{
+      print("erreur in liking the publication ...");
+      return false;
+   }
+   
+ }
+
+
+}
 
 
 
+List<Publication> parsePublications(String response) {
+  try {
+    List<dynamic> list       = jsonDecode(response);
+    List<Publication> myList = list.map((e) => Publication.fromJson(e)).toList();
 
+    print('After parsing Publications ....... ');
+    myList.forEach((element) => print(element));
+    print("presenting Publications is over .....");
+    return myList;
+  } catch (err) {
+    print(err.toString());
+    return new List<Publication>();
+  }
+}
 
+   Publication parsePublicationsLikes(String response){
+   try {
+    Map<String,dynamic> publicationDecoded       = jsonDecode(response);
+    print('publication decoded ... $publicationDecoded');
+    Publication myPublication =  Publication.fromJsonWithLikesObjects(publicationDecoded);
+    print('After parsing Publications ....... $myPublication');
+    print("presenting Publications is over .....");
+    return myPublication;
+  } catch (err) {
+    print(err.toString());
+    return Publication();
+  }
 }

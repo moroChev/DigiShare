@@ -12,6 +12,9 @@ class NetworkImageController{
   // We need this method because the api restrict access to it's data only to the authenticated users for security purposes
   static Future<NetworkImage> fetchImage(String imageUrl) async {
     String token = await storage.read(key: 'token');
+    print("token from network image controller $token");
     return NetworkImage(imageUrl, headers: {HttpHeaders.authorizationHeader: 'Bearer $token'});
   }
+
+  
 }

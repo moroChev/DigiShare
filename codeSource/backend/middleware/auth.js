@@ -1,14 +1,15 @@
 const jwt      = require('jsonwebtoken');
+const util     = require('util');
 
 module.exports = (req, res, next) => {
   try {
     
     console.log('Authentifcation midel user id sended in req.body.userId: '+req.body.userId);
-      console.log(req.headers.authorization);
+    console.log(util.inspect(req.headers.authorization));
     const token = req.headers.authorization.split(' ')[1];
     const decodedToken = jwt.verify(token, 'Digi_Share_RONDOM_SECRET');
     const userId = decodedToken.userId;
-    console.log('user id sended in req.body.userId: '+req.body.userId);
+    console.log('user id sended in req.body.userId: '+util.inspect(req.body.userId)+"userID from jwt : "+userId);
     if (req.body.userId && req.body.userId !== userId) {
         console.log("Invalid user ID");
       throw 'Invalid user ID';

@@ -51,7 +51,7 @@ class AgenciesController{
   static List<Employee> parseEmployees(List<dynamic> list){
     print('parseEmployees ******************************');
     print(list.toString());
-    return list?.map((e) => Employee.fromJsonWithoutPostsAndAgency(e))?.toList();
+    return list?.map((e) => Employee.fromJsonWithPostsIdAndAgency(e))?.toList();
   }
 
   // Method to fetch agency's subsidiaries only

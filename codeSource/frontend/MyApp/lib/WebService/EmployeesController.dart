@@ -42,6 +42,48 @@ class EmployeesController {
       throw Exception('Failed to load Profil Data');
     }
   }
+
+  
+static Future<List<Employee>> getEmployeesForSuggestions() async {
+  String url                = "$API_URL";
+  Map<String,String> header = {
+        HttpHeaders.contentTypeHeader  : 'application/json'
+      };
+  final response            = await http.get(url,headers: header); 
+
+  if (response.statusCode == 200 || response.statusCode == 201) {
+      print("request for suggestions has been successedd ... ");
+      return compute(parseEmployee, response.body);
+    } else {
+      throw Exception('Failed to load search Data');
+    }
+
+}
+
+  static Future<List<Employee>> searchQuery(String keyword) async {
+    print("search query method from controller query is $keyword");
+    String url                   = "$API_URL/search";
+    print("$url is ..");
+    Map<String,String> body      = { "firstName": keyword };
+    Map<String,String> header    = {
+       HttpHeaders.contentTypeHeader  : 'application/json'
+    };
+
+    final response               = await http.post(url, body: jsonEncode(body), headers: header);
+
+    print(response.body);
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      print("request has been successedd ... ");
+      return compute(parseEmployee, response.body);
+    } else {
+      throw Exception('Failed to load search Data');
+    }
+  }
+
+
+
+
+
 }
 
 List<Publication> parsePublications(String response) {
@@ -54,5 +96,21 @@ List<Publication> parsePublications(String response) {
     return myList;
   } catch (err) {
     print(err.toString());
+  }
+}
+
+
+List<Employee> parseEmployee(String response) {
+  List<dynamic> list = jsonDecode(response);
+  try {
+    
+    List<Employee> myList =
+        list.map((e) => Employee.fromJsonWithPostsIdAndAgency(e)).toList();
+
+    print('Publications parsed ....... a sample : ${myList[0].toString()} ');
+    return myList;
+  } catch (err) {
+    print(err.toString());
+    return list;
   }
 }

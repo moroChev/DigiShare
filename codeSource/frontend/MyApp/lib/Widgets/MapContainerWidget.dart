@@ -1,6 +1,4 @@
-import 'package:MyApp/WebService/NetworkImageController.dart';
 import 'package:MyApp/Widgets/AgencyHeaderWidget.dart';
-
 import '../Screens/AgencyScreen.dart';
 import '../entities/Agency.dart';
 import 'package:flutter/cupertino.dart';
@@ -21,10 +19,16 @@ class MapContainerWidget extends StatefulWidget {
 
 
 class _MapContainerWidgetState extends State<MapContainerWidget> {
+
+ 
+
+
   @override
   Widget build(BuildContext context) {
+    print("Map container .. les coordonnées sont : ${widget.agency.location['lat']}  ${widget.agency.location['lng']}");
+
     return Padding(
-      padding: EdgeInsets.only(left: 10, right: 10, top: 10),
+      padding: EdgeInsets.only(left: 10, right: 10, top: 5),
       child: Material(
         elevation: 15.0,
         color: Colors.white,

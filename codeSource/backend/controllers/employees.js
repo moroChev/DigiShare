@@ -1,6 +1,7 @@
 
 const Employee    = require('../models/Employee'),
-      Publication = require('../models/Publication');
+      Publication = require('../models/Publication'),
+      util        = require('util');
 
 
 exports.createEmployee = (req, res, next) => {
@@ -36,7 +37,7 @@ exports.getAllEmployees = (req, res, next) => {
                if(err){
                    res.status(500).json({ error: err});
                }else{
-                res.status(201).json( employees );
+                res.status(200).json( employees );
                }
            });
 
@@ -44,7 +45,7 @@ exports.getAllEmployees = (req, res, next) => {
 
 exports.getEmployeeById = (req,res,next) => {
 
-    console.log("get emplyee by id "+req.params.id);
+    console.log("get emplyee by id "+util.inspect( req.params.id));
     Employee.findById(req.params.id)
            .populate(
                 [
@@ -99,7 +100,7 @@ exports.getEmployeeByFullName = (req,res,next) => {
                 if(err){
                     res.status(500).json({ error: err});
                 }else{
-                    res.status(201).json(employee);
+                    res.status(200).json(employee);
 
                 }
             });
@@ -143,7 +144,28 @@ exports.getEmployeePublications = (req,res,next) =>{
                    if(err){
                     res.status(500).json({ error: err});
                 }else{
-                    res.status(201).json(publications);
+                    res.status(200).json(publications);
                    }
                });
+}
+
+exports.searchEmployee =(req,res,next)=>{
+
+    console.log("search for "+util.inspect( req.body.firstName ));
+    Employee.find({$text: { $search: req.body.firstName }})
+            .populate(
+                {
+                    path: 'agency',
+                    model: 'Agency'
+                }
+            )
+            .exec((err,employee)=>{
+                if(!err){
+                res.status(200).json(employee);
+                }else{
+                res.status(500).json(err);    
+                }
+              }
+            );
+
 }

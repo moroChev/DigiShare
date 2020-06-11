@@ -2,6 +2,7 @@ import 'package:MyApp/WebService/NetworkImageController.dart';
 import 'package:MyApp/entities/Employee.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import './EmployeeListTile.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class EmployeesSectionWidget extends StatefulWidget {
@@ -17,16 +18,16 @@ class _EmployeesSectionWidgetState extends State<EmployeesSectionWidget> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(left: 10, right: 10, top: 10.0),
-      child: (widget.employees.length == 0)? Text('No employees yet', style: TextStyle(fontSize: 18, color: Colors.grey[500])) : AspectRatio(
+      padding: EdgeInsets.only(left: 10, right: 10, top: 5.0),
+      child: (widget.employees.length == 0) ? Text('No employees yet', style: TextStyle(fontSize: 18, color: Colors.grey[500])) : AspectRatio(
         // 59 here refers to the approximate height of a single ListTile (employee)
         // So (agency['employees'].length * 59 is the approximate height of our Wrap widget ...
         // I think I made it clear enough here
-        aspectRatio: (MediaQuery.of(context).size.width/(widget.employees.length * 59) < 3/4)? 3/4 : MediaQuery.of(context).size.width/(widget.employees.length * 59),
+        aspectRatio: (MediaQuery.of(context).size.width/(widget.employees.length * 76) < 3/4)? 3/4 : MediaQuery.of(context).size.width/(widget.employees.length * 76),
         child: Material(
           elevation: 15.0,
-          color: Color(0xff535880),
-          borderRadius: BorderRadius.all(Radius.circular(30)),
+          color: Colors.white,
+          borderRadius: BorderRadius.all(Radius.circular(15)),
           child: SingleChildScrollView(
             child: Wrap(
               spacing: 5,
@@ -45,7 +46,8 @@ class _EmployeesSectionWidgetState extends State<EmployeesSectionWidget> {
     for(Employee emp in widget.employees){
       //Single employee section
       Widget employee = Column(children: [
-        buildCustomEmployee(emp),
+     //   buildCustomEmployee(emp),
+        EmployeeListTile(employee: emp),
         Divider(height: 1, color: Colors.blueGrey[200]),
       ]);
       list.add(employee);

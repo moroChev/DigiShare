@@ -12,20 +12,20 @@ const publicationSchema = new mongoose.Schema({
     },   // the employee who approved the publication
     postedBy: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Employee"
+        ref: "Employee",
     },  // the employee who posted the publication
     likes: [
         {
             type: mongoose.Schema.Types.ObjectId,
-            ref: "Employee"
+            ref: "Employee",
         }
     ],
-    dislikes: [
+  /*   dislikes: [
         {
             type: mongoose.Schema.Types.ObjectId,
-            ref: "Employee"
+            ref: "Employee",
         }
-    ]
+    ] */
   //  title: { type: String, },
 
 });

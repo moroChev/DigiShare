@@ -26,7 +26,7 @@ const employeeSchema = new mongoose.Schema({
     
 });
 
-
-
+// add indexs for search feature
+employeeSchema.index({firstName: 'text', lastName:'text', position: 'text', email:'text'});
 
 module.exports = mongoose.model('Employee', employeeSchema);
