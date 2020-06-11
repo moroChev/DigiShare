@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
 import '../Search/searchBar.dart';
+import '../WebService/AuthController.dart';
 
 
 class CustomAppBar  {
   
 
+
+  static logout(BuildContext context){
+    AuthController.attemptLogOut();
+    Navigator.pushNamedAndRemoveUntil(context, '/SignIn', (Route<dynamic> route) => false);
+  }
   
   static Widget getAppBar(BuildContext context) {
     return AppBar(
@@ -39,6 +45,7 @@ class CustomAppBar  {
       ), */
         ],
         );
+
 
   }
 }

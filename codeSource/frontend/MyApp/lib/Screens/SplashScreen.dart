@@ -17,6 +17,7 @@ class SplashScreen extends StatelessWidget {
       Navigator.pop(context);
       Navigator.pushNamedAndRemoveUntil(context, '/SignIn', (Route<dynamic> route) => false);
 
+
     }
   }
 

@@ -1,10 +1,10 @@
+
 import 'package:MyApp/InheritedWidgets/UserModel.dart';
+
 import 'package:MyApp/Screens/Home.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../WebService/AuthController.dart';
-
-
 
 
 class SignInScreen extends StatefulWidget {
@@ -15,11 +15,10 @@ class SignInScreen extends StatefulWidget {
 }
 
 class _SignInScreenState extends State<SignInScreen> {
-
   TextEditingController _loginController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
 
- 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -160,6 +159,7 @@ Widget signInButton(BuildContext context){
 Widget signUp(BuildContext context){
   return InkWell(
           onTap: (){
+
 
               Navigator.pushNamed(context, 'SignUp');
             },

@@ -15,6 +15,7 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
 <<<<<<< HEAD
+<<<<<<< HEAD
     version: "0.39.8"
   animated_text_kit:
     dependency: "direct main"
@@ -26,6 +27,9 @@ packages:
 =======
     version: "0.39.10"
 >>>>>>> 480f4ea8310a67eb86cb815a6da24dee7b2be9b3
+=======
+    version: "0.39.10"
+>>>>>>> f8f15140b5ac68716676b52835123344a0212482
   ansicolor:
     dependency: transitive
     description:

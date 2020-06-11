@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import './EmployeeListTile.dart';
 import '../Screens/Profil.dart';
 
+
 class EmployeesSectionWidget extends StatefulWidget {
   final List<Employee> employees;
 
@@ -71,6 +72,7 @@ class _EmployeesSectionWidgetState extends State<EmployeesSectionWidget> {
                 backgroundImage: image.data,
               ),
               title: Text(emp.firstName.toString() +" "+ emp.lastName.toString()),
+
               onTap: () {
                 Navigator.pop(context);
                 Navigator.push(context, MaterialPageRoute(builder: (context)=>Profil(employeeID: emp.id)));

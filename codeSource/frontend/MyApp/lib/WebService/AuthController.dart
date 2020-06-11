@@ -18,6 +18,7 @@ class AuthController{
            print("$login and $password");               
     final res = await http.post(url, body: jsonEncode(body),headers: { 'Content-type': 'application/json'});
         if(res.statusCode == 200 || res.statusCode==201)
+
           {
             Map jwt = jsonDecode(res.body);
             print('storage Ok and request ok yes : '+res.body);
@@ -43,10 +44,12 @@ class AuthController{
      storage.deleteAll();
    }
 
+
    static setEmployeeInStorage(Map<String,dynamic> jwt) {
       storage.write(key: 'userId', value: jwt['user']['_id']);
       storage.write(key: 'token', value: jwt['token']);
   }
+
 
 
 

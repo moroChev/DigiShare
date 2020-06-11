@@ -11,6 +11,7 @@ let router = express.Router();
 router.use('/profilesImages', express.static(path.join(__dirname, '../images/profilesImages')));
 
 
+
 router.get("/rechercher/:fullName",auth, employeeController.getEmployeeByFullName);
 
 router.get("/", employeeController.getAllEmployees);
