@@ -10,6 +10,7 @@ import '../publications/SinglePublicationWidget.dart';
 import '../Widgets/DividerWithTitleWidget.dart';
 
 class Profil extends StatefulWidget {
+  
   String employeeID;
   Profil({@required this.employeeID});
 
@@ -23,10 +24,8 @@ class _ProfilState extends State<Profil> {
   Future<Employee> _employee;
   
 
-
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
       _employee=EmployeesController.fetchProfilData(id: widget.employeeID);
   }

@@ -19,7 +19,7 @@ class EmployeesController {
       final response = await http.get(url,
           headers: {HttpHeaders.authorizationHeader: 'Bearer $token'});
 
-      if (response.statusCode == 200 || response.statusCode == 201) {
+      if (response.statusCode == 200) {
         print("request has been successedd ... ");
         return Employee.fromJsonWithPostsAndAgencyObjects(
             json.decode(response.body));
@@ -35,7 +35,7 @@ class EmployeesController {
     final response = await http
         .get(url, headers: {HttpHeaders.authorizationHeader: 'Bearer $token'});
 
-    if (response.statusCode == 200 || response.statusCode == 201) {
+    if (response.statusCode == 200) {
       print("request has been successedd ... ");
       return compute(parsePublications, response.body);
     } else {

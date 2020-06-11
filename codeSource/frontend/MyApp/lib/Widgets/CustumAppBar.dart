@@ -1,16 +1,10 @@
 import 'package:flutter/material.dart';
-
-import 'package:flutter/gestures.dart';
-import '../Screens/SignInScreen.dart';
-import '../Screens/SignUPScreen.dart';
-import '../Screens/profil.dart';
-import '../Screens/Home.dart';
-import './SideMenuWidget.dart';
 import '../Search/searchBar.dart';
 
 
 class CustomAppBar  {
   
+
   
   static Widget getAppBar(BuildContext context) {
     return AppBar(
@@ -30,7 +24,7 @@ class CustomAppBar  {
         /* this method in turn takes context and delegate as arguments                        */
         /* the delegate argument takes a class that extends the SearchDelegate abstract class*/ 
            SearchBar(),
-        /**********************************************************************************/ 
+        /***********************************************************************************/ 
            
       
      /*      Padding(
@@ -45,6 +39,7 @@ class CustomAppBar  {
       ), */
         ],
         );
+
   }
 }
 

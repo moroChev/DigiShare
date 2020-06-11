@@ -47,14 +47,18 @@ class _AgencyScreenState extends State<AgencyScreen> {
                         //Agency Info Container
                         AgencyInfoWidget(agency: agencySnapshot.data),
 
-                        /* //Map Label
+                        /*
+                        /* 
+                        //Map Label
                         Padding(
                           padding: const EdgeInsets.only(left: 10.0, right: 10, top: 30),
                           child: Container(
                             alignment: Alignment.centerLeft,
                             child: Text('Trouvez nous', style: TextStyle(fontSize: 18, color: Colors.grey[700])),
                           ),
-                        ), */
+                        ),
+                        */
+                        */
 
                         DividerWithTitle(title: "Trouvez Nous"),
 
@@ -70,13 +74,16 @@ class _AgencyScreenState extends State<AgencyScreen> {
                             }),
 
                         //Employees Section Label
-                      /*   Padding(
+                      /*  
+                       Padding(
                           padding: const EdgeInsets.only(left: 10, right: 10, top: 30.0),
                           child: Container(
                             alignment: Alignment.centerLeft,
                             child: Text('Nos Collaborateurs', style: TextStyle(fontSize: 18, color: Colors.grey[700])),
                           ),
-                        ), */
+                        ),
+                        
+                        */
 
                         DividerWithTitle(title: "Nos Collaborateurs"),
 

@@ -7,13 +7,14 @@ packages:
       name: _fe_analyzer_shared
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.0.0"
+    version: "4.0.0"
   analyzer:
     dependency: transitive
     description:
       name: analyzer
       url: "https://pub.dartlang.org"
     source: hosted
+<<<<<<< HEAD
     version: "0.39.8"
   animated_text_kit:
     dependency: "direct main"
@@ -22,6 +23,9 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.2.0"
+=======
+    version: "0.39.10"
+>>>>>>> 480f4ea8310a67eb86cb815a6da24dee7b2be9b3
   ansicolor:
     dependency: transitive
     description:
@@ -472,7 +476,14 @@ packages:
       name: path_provider
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.6.9"
+    version: "1.6.10"
+  path_provider_linux:
+    dependency: transitive
+    description:
+      name: path_provider_linux
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.1+1"
   path_provider_macos:
     dependency: transitive
     description:
@@ -529,6 +540,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.3"
+  process:
+    dependency: transitive
+    description:
+      name: process
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.0.13"
   proj4dart:
     dependency: transitive
     description:
@@ -744,6 +762,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.7"
+  xdg_directories:
+    dependency: transitive
+    description:
+      name: xdg_directories
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.0"
   xml:
     dependency: transitive
     description:

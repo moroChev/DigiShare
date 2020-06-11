@@ -71,7 +71,7 @@ void applySettings(SETTINGCHOICES choice){
 
   switch(choice){
     case SETTINGCHOICES.APPROVE  : { print("Approuver est appelé"); approvePublication(widget.publication.id, !widget.publication.isApproved); } break;
-    case SETTINGCHOICES.REMOVE   : { print("remove est appelé");    removePublication(widget.publication.id); } break;
+    case SETTINGCHOICES.REMOVE   : { print("remove est appelé");    removePublication(widget.publication.id);  } break;
     case SETTINGCHOICES.MODIFY   : { print("modify est appelé");    modifyPublication(); } break;
     case SETTINGCHOICES.HIDE     : {print("hide est appeale");    } break;
   }

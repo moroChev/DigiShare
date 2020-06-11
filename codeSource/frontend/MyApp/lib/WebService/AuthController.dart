@@ -1,19 +1,13 @@
-
 import 'package:MyApp/entities/Employee.dart';
-
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import '../entities/Agency.dart';
 import '../entities/Employee.dart';
 
 class AuthController{
-   
    static String API_URL_AUTH = "http://localhost:3000/api/auth";
    static FlutterSecureStorage storage = FlutterSecureStorage();
 
-
-  
   static Future<Employee> attemptLogIn(String login, String password) async {
 
     String url    = "$API_URL_AUTH/login";
@@ -38,11 +32,22 @@ class AuthController{
                 
   }
 
+  //method to check if the user is authenticated
+   static Future<bool> checkAuth() async {
+     String isAuthenticated = await storage.read(key: 'userId');
+     return (isAuthenticated != null);
+   }
+
+   //method to attempt logout and clear the user data
+   static void attemptLogOut() async {
+     storage.deleteAll();
+   }
 
    static setEmployeeInStorage(Map<String,dynamic> jwt) {
       storage.write(key: 'userId', value: jwt['user']['_id']);
       storage.write(key: 'token', value: jwt['token']);
   }
+
 
 
 

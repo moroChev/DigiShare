@@ -9,10 +9,8 @@ import '../entities/Publication.dart';
 import 'dart:async';
 
 
-
-
-
 class Home extends StatefulWidget {
+
   Home();
   @override
   Home_State createState() => Home_State();

@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 class AgencyHeaderWidget extends StatefulWidget {
   final Agency agency;
 
-  AgencyHeaderWidget({this.agency});
+  AgencyHeaderWidget({@required this.agency});
 
   @override
   _AgencyHeaderWidgetState createState() => _AgencyHeaderWidgetState();

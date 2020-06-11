@@ -1,20 +1,17 @@
-
-
 import 'package:MyApp/InheritedWidgets/UserModel.dart';
 import 'package:MyApp/Screens/Home.dart';
-import 'package:MyApp/Screens/AgencyScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../WebService/AuthController.dart';
-import '../entities/Employee.dart';
-import './ToPostScreen.dart';
-import 'package:animated_text_kit/animated_text_kit.dart';
+
 
 
 
 class SignInScreen extends StatefulWidget {
+
   @override
   _SignInScreenState createState() => _SignInScreenState();
+  
 }
 
 class _SignInScreenState extends State<SignInScreen> {
@@ -22,11 +19,7 @@ class _SignInScreenState extends State<SignInScreen> {
   TextEditingController _loginController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
 
-  
-
-
-  
-
+ 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,8 +47,6 @@ class _SignInScreenState extends State<SignInScreen> {
 
     );
   }
-
-
 
 
 BoxDecoration loginBoxDecoration(){
@@ -169,6 +160,7 @@ Widget signInButton(BuildContext context){
 Widget signUp(BuildContext context){
   return InkWell(
           onTap: (){
+
               Navigator.pushNamed(context, 'SignUp');
             },
                       child: Center(

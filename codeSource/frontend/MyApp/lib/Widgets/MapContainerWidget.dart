@@ -1,5 +1,6 @@
 import 'package:MyApp/Widgets/AgencyHeaderWidget.dart';
 import '../Screens/AgencyScreen.dart';
+
 import '../entities/Agency.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -96,8 +97,7 @@ class _MapContainerWidgetState extends State<MapContainerWidget> {
       builder: (builder) {
         return MaterialButton(
           onPressed: () {
-            Navigator.pop(context);
-            Navigator.push(context, MaterialPageRoute(builder: (context) => AgencyScreen(agencyId: model.id)));
+            Navigator.pushNamedAndRemoveUntil(context, '/Agency', ModalRoute.withName("/Home"), arguments: {'agencyId': model.id});
           },
           child: AgencyHeaderWidget(agency: model),
         );
