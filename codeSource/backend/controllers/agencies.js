@@ -48,7 +48,6 @@ exports.createAgency = (req,res,next) => {
 exports.getAgencyById = (req,res,next) => {
 
     console.log("get agency by Id : "+req.params.id);
-    console.log(typeof 31.923799);
 
     Agency.findById(req.params.id)
           .populate(

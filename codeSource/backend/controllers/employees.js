@@ -74,8 +74,8 @@ exports.getEmployeeById = (req,res,next) => {
 };
 
 exports.getEmployeeByFullName = (req,res,next) => {
+    
     console.log("get employee by fullName");
-
     // to make the search case insensitive
     let fullName = req.params.fullName.split(" ");
     let firstName = new RegExp(`^${fullName[0]}$`, 'i');

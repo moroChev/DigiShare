@@ -6,7 +6,7 @@ const Employee  = require('../models/Employee'),
 
 exports.login = (req,res,next) => {
 
-  console.log("login reteched \n"+req.body.login+req.body.password);
+    console.log("login reteched \n"+req.body.login+req.body.password);
     Employee.findOne({ 'userAccount.login' : req.body.login })
             .populate(
               {
@@ -61,17 +61,14 @@ exports.signup = (req,res,next) => {
                           canApprove: req.body.canApprove,
                           imageUrl: req.body.imageUrl,
                           agency: req.body.agency
-
-                        })
-                         console.log(employee)
-                         employee.save()
-                                .then((employeeSaved) => {
+                      })
+                      console.log(employee)
+                      employee.save()
+                              .then((employeeSaved) => {
                                     console.log("user created ! "+employeeSaved);
                                     res.status(201).json({ message: 'User created !', employee: employeeSaved });
-
-                        
                                 })
-                                .catch((error) => {console.log("error in saving the user"); res.status(400).json({ error })});
+                              .catch((error) => {console.log("error in saving the user"); res.status(400).json({ error })});
                })
               .catch((error) => { console.log("error in hashing the password");  res.status(500).json({ error })});
             

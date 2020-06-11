@@ -10,6 +10,8 @@ import 'InheritedWidgets/UserModel.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
+
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -19,19 +21,21 @@ class MyApp extends StatelessWidget {
               debugShowCheckedModeBanner: false,
               theme: ThemeData(
                 primarySwatch: Colors.teal,
-                textTheme: TextTheme(body1: TextStyle(fontFamily: "Times")),
+                textTheme: TextTheme(
+                              body1: TextStyle( fontFamily: "Times" )
+                            ),
               ),
               initialRoute: 'SignIn',
-                routes: {
-                  'SignIn'          :(context)=>SignInScreen(),
-                  'Profil'          :(context)=>Profil(employeeID: ModalRoute.of(context).settings.arguments,),
-                  'Home'            :(context)=>Home(),
-                  'ToPostScreen'    :(context)=>ToPostScreen(),
-                  'Agency'          :(context)=>AgencyScreen(agencyId: ModalRoute.of(context).settings.arguments),
-                  
-                },
+              routes: {
+                'SignIn'          :(context)=>SignInScreen(),
+                'Profil'          :(context)=>Profil(employeeID: ModalRoute.of(context).settings.arguments,),
+                'Home'            :(context)=>Home(),
+                'ToPostScreen'    :(context)=>ToPostScreen(),
+                'Agency'          :(context)=>AgencyScreen(agencyId: ModalRoute.of(context).settings.arguments),          
+              },
       ),
-
     );
   }
+
+
 }

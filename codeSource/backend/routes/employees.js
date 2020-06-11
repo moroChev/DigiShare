@@ -8,11 +8,8 @@ const express                = require('express'),
 let router = express.Router();
 
 //route to get profile image
-<<<<<<< HEAD
 router.use('/profilesImages', express.static(path.join(__dirname, '../images/profilesImages')));
-=======
-router.use('/profileImage',auth, express.static(path.join(__dirname, '../images/profilesImages')));
->>>>>>> 480f4ea8310a67eb86cb815a6da24dee7b2be9b3
+
 
 router.get("/rechercher/:fullName",auth, employeeController.getEmployeeByFullName);
 

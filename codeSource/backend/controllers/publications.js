@@ -178,6 +178,7 @@ exports.modifyPublication = (req,res,next)=>{
 
 
 exports.deletePublication = (req,res,next)=>{
+    
     console.log("delete publication .... "+req.params.id);
     Publication.findByIdAndDelete(req.params.id)
                .then(()=>{ console.log("everything is good ..."); res.status(200).json({message : "suppression ok !"}); })
