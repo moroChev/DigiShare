@@ -16,6 +16,7 @@
     "mongoose": "^5.9.15",
     "mongoose-unique-validator": "^2.0.3",
     "multer": "^1.4.2",
+    "node-dependency-injection": "^2.6.5",
     "util": "^0.12.3"
   },
   "devDependencies": {

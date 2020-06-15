@@ -1,7 +1,38 @@
-const Publication  = require('../models/Publication');
+const PublicationService = require('../services/publicationService');
+
+class PublicationController{
+
+    constructor(){
+        this.publicationService = new PublicationService();
+    }
+
+    getAllPublications = (req, res, next) => {
+        console.log("controller pub");
+        this.publicationService.getAllPublications()
+                               .then((publications) => {
+                                    res.status(200).json(publications);
+                                })
+                                .catch((err) => {
+                                    console.log('error in controller');
+                                    res.status(401).json({ error: err });
+                                });
+
+    }
+}
+
+module.exports = PublicationController;
+
+
+
+
+
+/* const Publication  = require('../models/Publication');
 const Employee     = require('../models/Employee');
 const util         = require('util');
 const jwt          = require('jsonwebtoken');
+
+
+
 
 exports.getAllPublications = (req, res, next) => {
 
@@ -246,4 +277,4 @@ exports.approvePublication = (req,res,next) => {
                     res.status(500).json({ error: err });
                 });
 
-}
+} */

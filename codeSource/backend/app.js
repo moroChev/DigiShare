@@ -5,8 +5,9 @@ const express             = require('express'),
       routerEmployees     = require('./routes/employees'),
       routerAgencies      = require('./routes/agencies'),
       routerAuth          = require('./routes/auth');
-
 let app = express();
+
+
 
 mongoose.connect('mongodb://localhost/digi_share',{ useNewUrlParser: true, useCreateIndex: true, useFindAndModify: false});
 
@@ -22,7 +23,7 @@ app.use((req, res, next) => {
 app.use('/api/auth',routerAuth);
 app.use('/api/publications', routerPublications);  
 app.use('/api/employees', routerEmployees);
-app.use('/api/agencies', routerAgencies);
+//app.use('/api/agencies', routerAgencies);
 
 
 
