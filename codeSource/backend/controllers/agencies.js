@@ -1,85 +1,167 @@
-const Agency   = require('../models/Agency'),
-      Employee = require('../models/Employee');
+//const agencyService = require('../services/ServiceAgency');
+class ControllerAgency{
 
-exports.getAllAgencies = (req,res,next) => {
-
-    console.log("get ALL agencies");
-    Agency.find()
-          .populate(
-              {
-                  path: 'employees',
-                  model: 'Employee'
-              }
-          )
-          .exec((err, agencies)=>{
-              if(err){
-                  res.status(400).json({error : err});
-              }else{
-                  res.status(200).json(agencies);
-              }
-          });
-}
-
-//This action is designed to be used by the staff hwo will be in charge for getting the app initialized
-//will be modifies to implement multter
-exports.createAgency = (req,res,next) => {
-
-    console.log("create agency ... ");
-
-    let agence = req.file  ? 
-    {
-        logo: `${req.protocol}://${req.get('host')}/logo/${req.file.filename}`,
-        ...req.body
+    constructor(agencySvc){
+        console.log('creating InStAnCe of ControllerAgency');
+        this._agencyService = agencySvc;
     }
-    :
-    {
-        ...req.body
-    };
-    let agency = new Agency(
-        {
-            ...agence
+
+
+       async getAgenciesWithEmployees(req,res,next){
+        console.log("get ALL agencies");
+        let result;
+        try{
+            result = await this._agencyService.getAgenciesWithEmployees();
+            if(result == undefined){
+                res.status(404).json({result : undefined});
+            }else{
+                res.status(200).json(result);
+            }
+        }catch(err){
+            res.status(500).json({error : err});
         }
-    );
-    agency.save()
-          .then((agency)=>{ res.status(201).json(agency); })
-          .catch((err)=>{ res.status(500).json({error : err}); })
+    }
+
+    //This action is designed to be used by the staff hwo will be in charge for getting the app initialized
+    //will be modifies to implement multter
+    async createAgency(req, res, next){
+        console.log("create agency ... ");
+
+        let agency = req.file  ? 
+        {
+            logo: `${req.protocol}://${req.get('host')}/logo/${req.file.filename}`,
+            ...req.body
+        }
+        :
+        {
+            ...req.body
+        };
+        let result;
+        try{
+            result = await this._agencyService.createAgency(agency);
+            res.status(201).json(result);
+        }catch(err){
+            res.status(500).json({error : err});
+        }
+    }
+
+    async getAgencyById(req, res, next){
+        console.log("get agency by Id : "+req.params.id);
+        let result;
+        try{
+            result = await this._agencyService.getAgencyByIdWithEmployeesAndSubsidiaries(req.params.id);
+            if(result == undefined){
+                res.status(400).json({error : err});
+            }else{
+                console.log("result returned");
+            res.status(200).json({message : "find agencie by id executed with success", agency: result});
+            }
+        }catch(err){
+            res.status(500).json({error : err});
+        }
+    }
+
+    async addLocationToAgency(req, res, next){
+        console.log("lat "+req.body.lat+" lan "+req.body.lng);
+        let result;
+        let location = { lat: req.body.lat, lng: req.body.lng };
+        let agencyId = req.param.id;
+        try{
+            result = await this._agencyService.addLocationToAgency(agencyId, location);
+            if(result){
+                res.status(201).json( agency );
+            }else{
+                res.status(400).json({error : err}); 
+            }
+        }catch(err){
+            res.status(500).json({error : err});
+        }
+    }
+
 }
 
-exports.getAgencyById = (req,res,next) => {
 
-    console.log("get agency by Id : "+req.params.id);
-    console.log(typeof 31.923799);
+module.exports = ControllerAgency;
 
-    Agency.findById(req.params.id)
-          .populate(
-                {
-                    path: 'employees',
-                    populate : {
-                        path : 'agency'
-                      }
-                }
-            )
-          .populate(
-                {
-                    path: 'subsidiaries',
-                    model: 'Agency'
-                }
-            )
-          .exec((err, agency)=>{
-                if(err){
-                    res.status(400).json({error : err});
-                }else{
 
-                    console.log("result returned");
-                    res.status(200).json({message : "find agencie by id executed with success", agency: agency});
 
-                }
-           });
-          
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // Should be implemented inside signup action
-exports.addEmployeeToAgency = (req,res,next) =>{
+/* exports.addEmployeeToAgency = (req,res,next) =>{
 
     console.log("add employee :"+req.params.idEmployee+"to agency "+req.params.idAgency);
 
@@ -100,12 +182,12 @@ exports.addEmployeeToAgency = (req,res,next) =>{
            }
            )
            .catch((err)=>{ res.status(500).json({error : err}); })
-} 
+}  */
 
 
 //This action is designed to be used by the staff hwo will be in charge for getting the app initialized
 //this action will be modified by later to specify how to get the required ids
-exports.addSubsidiaryToAgency = (req,res,next) =>{
+/* exports.addSubsidiaryToAgency = (req,res,next) =>{
 
     console.log("add agency :"+req.params.idSubsidiary+" to agency "+req.params.idAgency);
 
@@ -122,17 +204,4 @@ exports.addSubsidiaryToAgency = (req,res,next) =>{
            }
            )
            .catch((err)=>{ res.status(400).json({error : err}); })
-} 
-
-
-
-exports.addLocationToAgency = (req,res,next)=>{
-
-    console.log("lat "+req.body.lat+" lan "+req.body.lng);
-    Agency.findByIdAndUpdate(req.params.id, { location: { lat: req.body.lat, lng: req.body.lng } },{ new: true })
-        .then((agency)=>{
-            res.status(201).json( agency );
-        })
-        .catch((err)=>{ res.status(400).json({error : err}); })
-}
-
+}  */

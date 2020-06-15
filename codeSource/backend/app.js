@@ -8,7 +8,7 @@ const express             = require('express'),
 
 let app = express();
 
-mongoose.connect('mongodb://localhost/digi_share',{ useNewUrlParser: true, useCreateIndex: true, useFindAndModify: false});
+mongoose.connect('mongodb://localhost/digi_share',{ useNewUrlParser: true, useCreateIndex: true, useFindAndModify: false, useUnifiedTopology: true});
 
 app.use(bodyParser.json());
 
