@@ -27,12 +27,12 @@ router.get("/:id", auth, (req,res,next) => agencyController.getAgencyById(req,re
 
 router.post("/", multer.multerAgencies, (req,res,next) => agencyController.createAgency(req,res,next));
 
-//router.post("/:idAgency/addSubsidiary_id::idSubsidiary",auth, agencyController.addSubsidiaryToAgency);
+router.post("/:idCompany/addSubsidiary_id::idAgency",auth, (req,res,next) => agencyController.addAgencyToCompany(req,res,next));
 
 //No need for this because it will be implemented inside signup
 //add an employee to an agency
 
-//router.post("/:idAgency/addEmployee_id::idEmployee", auth,agencyController.addEmployeeToAgency);
+router.post("/:idAgency/addEmployee_id::idEmployee", auth, (req,res,next) => agencyController.addEmployeeToAgency(req, res, next));
 router.post("/:id/addLocationToAgency", auth, (req,res,next) => agencyController.addLocationToAgency(req,res,next));
 
 
