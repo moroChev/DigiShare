@@ -9,18 +9,18 @@ const agencySchema = new mongoose.Schema({
     email: {type: String, required: true},
     location: {
     	lat: {type: Number, required: true},
-    	lng: {type: Number, required: true}
+    	lng: {type: Number, required: true},
     },
     subsidiaries: [
     	{
     		type: mongoose.Schema.Types.ObjectId,
-    		ref: "Agency"
+    		ref: "Agency",
     	}
     ],
     employees:[
         {
             type: mongoose.Schema.Types.ObjectId,
-            ref: "Employee"
+            ref: "Employee",
         }
     ], // list of employers of teh agence
     

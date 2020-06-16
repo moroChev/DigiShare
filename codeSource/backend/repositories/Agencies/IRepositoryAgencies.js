@@ -1,14 +1,19 @@
 class IRepositoryAgency{
 
+	// fetch all agencies with their employees
     async getAgenciesWithEmployees(){};
 
+    // create a new agency
     async createAgency(agency){};
 
-    async getAgencyById(id){};
+    // fetch agency by its id with all its subobjects
+    async getAgencyByIdWithAllItsSubObjects(id){};
 
-    async addEmployeeToAgency(employeeId, agencyId){};
+    // fetch agency by its id without its subobjects
+    async getAgencyByIdWithoutItsSubObjects(id){};
 
-    async addLocationToAgency(agencyId, location){};
+    // make modification to the agency document
+    async updateAgency(agencyId, modification){};
     
 }
 
