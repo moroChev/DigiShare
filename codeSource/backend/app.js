@@ -5,11 +5,11 @@ const express             = require('express'),
       routerEmployees     = require('./routes/employees'),
       routerAgencies      = require('./routes/agencies'),
       routerAuth          = require('./routes/auth');
+
 let app = express();
 
+mongoose.connect('mongodb://localhost/digi_share',{ useNewUrlParser: true, useCreateIndex: true, useFindAndModify: false, useUnifiedTopology: true});
 
-
-mongoose.connect('mongodb://localhost/digi_share',{ useNewUrlParser: true, useCreateIndex: true, useFindAndModify: false});
 
 app.use(bodyParser.json());
 

@@ -11,7 +11,7 @@ import '../Widgets/DividerWithTitleWidget.dart';
 
 class Profil extends StatefulWidget {
   
-  String employeeID;
+  final String employeeID;
   Profil({@required this.employeeID});
 
 
@@ -32,6 +32,7 @@ class _ProfilState extends State<Profil> {
 
   @override
   Widget build(BuildContext context) {
+    print("profil for id :${widget.employeeID}");
     return  Scaffold(
           appBar: CustomAppBar.getAppBar(context),
           floatingActionButton: FloatingButton(),

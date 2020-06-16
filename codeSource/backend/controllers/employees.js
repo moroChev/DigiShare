@@ -1,171 +1,79 @@
-
 const Employee    = require('../models/Employee'),
       Publication = require('../models/Publication'),
       util        = require('util');
 
 
-exports.createEmployee = (req, res, next) => {
+class EmployeeController{
+    constructor(employeeService){
+        this._employeeService=employeeService;
+    }
 
-    console.log("create employee");
-    delete req.body.id;
-    let employee = new Employee(
-        {
-            ...req.body
-       }
-    );
-    employee.save()
-            .then((emp) => {
-                     console.log(emp);
-                     res.status(201).json( emp );
-             })
-            .catch((err) => { res.status(400).json({ error: err }) });
+    createEmployee = async (req,res,next)=>{
+        try {
+            let employee = await this.employeeFromRequest(req);
+            let newEmployee = this._employeeService.createEmployee(employee);
+            res.status(201).json(newEmployee);
+        } catch (error) {
+            res.status(500).json(error);
+        }
+    }
 
-};
+    ///Ok
+    getAllEmployees = async (req,res,next)=>{
+        try {
+            let employees = await this._employeeService.getAllEmployeesWithAgency();
+            res.status(200).json(employees);
+        } catch (error) {
+            res.status(500).json(error);
+        }
+    }
 
-exports.getAllEmployees = (req, res, next) => {
+    ///Ok
+    getEmployeeById = async (req,res,next)=>{
+        try {
+            let employee = await this._employeeService.getEmployeeById(req.params.id);
+            res.status(200).json(employee);
+        } catch (error) {
+            res.status(500).json(error);
+        }
+    }
 
-    console.log("get all employees");
-    Employee.find()
-           .populate(
-               {
+    ///Ok
+    getEmployeePublications = async (req,res,next)=>{
+        try {
+            let employee = await this._employeeService.getEmployeePublications(req.params.id);
+            res.status(200).json(employee);
+        } catch (error) {
+            res.status(500).json(error);
+        }
+    }
 
-                    path: 'agency',
-                    model: 'Agency'
-                }
-           )
-           .exec((err, employees)=>{
-               if(err){
-                   res.status(500).json({ error: err});
-               }else{
-                res.status(200).json( employees );
-               }
-           });
 
-};
 
-exports.getEmployeeById = (req,res,next) => {
+    modifyEmployee = async (req,res,next)=>{}
 
-    console.log("get emplyee by id "+util.inspect( req.params.id));
-    Employee.findById(req.params.id)
-           .populate(
-                [
-                    {
-                        path: 'publications',
-                        model: 'Publication'
-                    },{
-                        path: 'agency',
-                        model: 'Agency'
+    ///Ok
+    searchEmployee = async (req,res,next)=>{
+        try {
+            console.log(util.inspect(req.body.firstName));
+            let employee = await this._employeeService.searchEmployee(req.body.firstName);
+            res.status(200).json(employee);
+        } catch (error) {
+            res.status(500).json(error);
+        }
+    }
+
+    employeeFromRequest(req){
+        return req.file ?  {
+                        imageUrl: `${req.protocol}://${req.get('host')}/api/employees/profilesImages/${req.file.filename}`,
+                       ...req.body
                     }
-            ]
-            )
-            .exec((err, employee)=>{
-                if(err){
-                    console.log('error + '+err)
-                    res.status(500).json({ error: err});
-                }else{
-
-                    console.log('employee + '+employee);
-                    res.status(200).json(employee);
-
-                }
-            });
-
-
-};
-
-exports.getEmployeeByFullName = (req,res,next) => {
-    
-    console.log("get employee by fullName");
-    // to make the search case insensitive
-    let fullName = req.params.fullName.split(" ");
-    let firstName = new RegExp(`^${fullName[0]}$`, 'i');
-    let lastName = new RegExp(`^${fullName[1]}$`, 'i');
-    console.log(firstName+"--"+lastName);
-
-    // still to verify which name (first or last) is provided and make a search based on that 
-
-    Employee.findOne({firstName: firstName, lastName: lastName })
-           .populate(
-                [
+                : 
                     {
-                        path: 'publications',
-                        model: 'Publication'
-                    },{
-                        path: 'agency',
-                        model: 'Agency'
-                    }
-            ]
-            )
-           .exec((err, employee)=>{
-                if(err){
-                    res.status(500).json({ error: err});
-                }else{
-                    res.status(200).json(employee);
+                        ...req.body
+                    };
+    }
 
-                }
-            });
-           
-};
+}    
 
-exports.modifyEmployee = (req,res,next)=>{
-    
-    console.log("modify just called");
-    let emp = req.file ?  {
-
-                 imageUrl: `${req.protocol}://${req.get('host')}/api/employees/profilesImages/${req.file.filename}`,
-                ...req.body
-             }
-        :
-             {
-                 ...req.body
-             };
-    Employee.findByIdAndUpdate(req.params.id, {...emp, _id: req.params.id},{upsert:true, new: true})
-            .then((employee)=>{res.status(201).json(employee);})
-            .catch((err)=>{res.status(500).json(err);});
-
-};
-
-
-exports.getEmployeePublications = (req,res,next) =>{
-    
-    console.log("get employee's publications");
-    Publication.find({postedBy: req.params.id})
-               .populate([
-                   {
-                       path:'postedBy',
-                       model: 'Employee'
-                   },
-                   {
-                       path: 'approvedBy',
-                       model: 'Employee'
-                   }
-               ])
-               .exec((err,publications)=>{
-                   if(err){
-                    res.status(500).json({ error: err});
-                }else{
-                    res.status(200).json(publications);
-                   }
-               });
-}
-
-exports.searchEmployee =(req,res,next)=>{
-
-    console.log("search for "+util.inspect( req.body.firstName ));
-    Employee.find({$text: { $search: req.body.firstName }})
-            .populate(
-                {
-                    path: 'agency',
-                    model: 'Agency'
-                }
-            )
-            .exec((err,employee)=>{
-                if(!err){
-                res.status(200).json(employee);
-                }else{
-                res.status(500).json(err);    
-                }
-              }
-            );
-
-}
+module.exports = EmployeeController;

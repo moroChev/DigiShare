@@ -25,7 +25,8 @@ class _PublicationsListState extends State<PublicationsList> {
   Widget build(BuildContext context) {
     return (widget.publications != null) ?  
                 ListView.builder(
-                                  itemCount: widget.publications.length,
+                                 // shrinkWrap: true,
+                                  itemCount  : widget.publications.length,
                                   itemBuilder: (context,index){
                                     return SinglePublicationWidget( publication: widget.publications[index],poster: widget.publications[index]?.postedBy);
                                    }

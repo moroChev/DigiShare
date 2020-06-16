@@ -19,15 +19,7 @@ const publicationSchema = new mongoose.Schema({
             type: mongoose.Schema.Types.ObjectId,
             ref: "Employee",
         }
-    ],
-  /*   dislikes: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Employee",
-        }
-    ] */
-  //  title: { type: String, },
-
+    ]
 });
 
 

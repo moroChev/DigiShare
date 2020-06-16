@@ -108,17 +108,16 @@ class PublicationsController {
    Map<String,String> header    = {
        HttpHeaders.authorizationHeader: 'Bearer $token',
        HttpHeaders.contentTypeHeader  : 'application/json'
-    };
+   };
    final response               = await http.delete(url,headers: header);
    print(response.statusCode);
    if(response.statusCode==201 || response.statusCode==200){
-      print('Like added !');
+      print('Like removed !');
       return true;
    }else{
       print("erreur in liking the publication ...");
       return false;
    }
-
  }
 
 static Future<Publication> getPublicationLikes(String publicationId) async{
@@ -166,7 +165,7 @@ static Future<Publication> getPublicationLikes(String publicationId) async{
    
  }
 
- static Future<bool> approvePublication(String publicationId,bool isApproved) async {
+ static Future<bool> approvePublication(String publicationId,bool isApproved, String approvedBy) async {
    print("approve Publication that been sended is ... to pub : $publicationId"); 
    String token                 = await storage.read(key: 'token');
    String url                   = "$API_URL/$publicationId/approve";
@@ -175,7 +174,8 @@ static Future<Publication> getPublicationLikes(String publicationId) async{
        HttpHeaders.contentTypeHeader  : 'application/json'
     };
    Map<String,dynamic> body = {
-     "isApproved" : isApproved
+     "isApproved" : isApproved,
+     "approvedBy" : approvedBy
    };
    final response               = await http.post(url, body: jsonEncode(body), headers: header);
    print(response.statusCode);

@@ -91,7 +91,7 @@ void removePublication(String idPublication) async {
 
 void approvePublication(String idPublication, bool isApproved) async {
 
-  PublicationsController.approvePublication(idPublication, isApproved)
+  PublicationsController.approvePublication(idPublication, isApproved, user.id)
                         .then((result){                                                   
                               setState(() {
                               widget.publication.isApproved = !widget.publication.isApproved;

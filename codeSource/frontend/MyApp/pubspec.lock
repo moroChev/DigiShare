@@ -7,29 +7,14 @@ packages:
       name: _fe_analyzer_shared
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.0.0"
+    version: "3.0.0"
   analyzer:
     dependency: transitive
     description:
       name: analyzer
       url: "https://pub.dartlang.org"
     source: hosted
-<<<<<<< HEAD
-<<<<<<< HEAD
     version: "0.39.8"
-  animated_text_kit:
-    dependency: "direct main"
-    description:
-      name: animated_text_kit
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "2.2.0"
-=======
-    version: "0.39.10"
->>>>>>> 480f4ea8310a67eb86cb815a6da24dee7b2be9b3
-=======
-    version: "0.39.10"
->>>>>>> f8f15140b5ac68716676b52835123344a0212482
   ansicolor:
     dependency: transitive
     description:
@@ -252,13 +237,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.8"
-  flutter_reaction_button:
-    dependency: "direct main"
-    description:
-      name: flutter_reaction_button
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.0"
   flutter_secure_storage:
     dependency: "direct main"
     description:

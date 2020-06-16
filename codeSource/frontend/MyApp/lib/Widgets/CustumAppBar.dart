@@ -14,13 +14,16 @@ class CustomAppBar  {
   
   static Widget getAppBar(BuildContext context) {
     return AppBar(
-       /*  leading: GestureDetector(
+       /*  
+       leading: GestureDetector(
         child: Icon(Icons.menu,),
-         onTap: () {  Navigator.pop(context);
+         onTap: () {  
+                      Navigator.pop(context);
                       Navigator.push(
                       context, MaterialPageRoute(builder: (context) => SideMenuWidget()));
                        },
-  ),   */
+     ),  
+   */
         
         backgroundColor: Color(0xFFCFD8DC),
         actions: <Widget>[
