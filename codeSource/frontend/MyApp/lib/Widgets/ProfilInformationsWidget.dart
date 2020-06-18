@@ -1,9 +1,8 @@
-import 'package:MyApp/Screens/AgencyScreen.dart';
-import 'package:MyApp/entities/Agency.dart';
+import 'package:MyApp/core/models/agency.dart';
+import 'package:MyApp/core/models/employee.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:strings/strings.dart';
-import '../entities/Employee.dart';
 
 class ProfilInformations extends StatelessWidget {
   Employee profil;
@@ -128,7 +127,7 @@ Container rowGeneralInfos({String email,Agency agency , BuildContext context}) {
           title: Text(capitalize(nameAgency),style: TextStyle(fontSize: 17.0,fontFamily: "Times"),),
           subtitle: Text('$addressAgency',style: TextStyle(fontSize: 14.0,fontFamily: "Times"),),
           onTap: (){
-            Navigator.push(context, MaterialPageRoute(builder: (context) => AgencyScreen(agencyId: agency.id,)));
+            Navigator.pushNamed(context, '/Agency', arguments: agency.id);
           },
         ),
       ],

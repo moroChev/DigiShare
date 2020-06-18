@@ -1,11 +1,11 @@
 import 'package:MyApp/WebService/PublicationsController.dart';
-import 'package:MyApp/Widgets/EmployeeListTile.dart';
-import 'package:MyApp/entities/Employee.dart';
-import 'package:MyApp/entities/Publication.dart';
+import 'package:MyApp/core/models/employee.dart';
+import 'package:MyApp/core/models/publication.dart';
+import 'package:MyApp/ui/shared/employee_list_tile.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import '../InheritedWidgets/UserModel.dart';
+import 'package:provider/provider.dart';
 import './Home.dart';
 import '../Widgets/SideMenuWidget.dart';
 import 'dart:io';
@@ -119,7 +119,7 @@ Widget _rowFive(){
           width: 340,
           child: Wrap(
             children: <Widget>[
-              EmployeeListTile(employee: UserModel.of(context).employee),
+              EmployeeListTile(employee: Provider.of<Employee>(context)),
               _textBox(),
               _showImage(),
             ],
@@ -159,7 +159,7 @@ Widget _rowFive(){
               print("publier !");
               Publication publication = _constructPublicationObjectToPost(
                                                          content:_contentController.text,
-                                                         employee: UserModel.of(context).employee
+                                                         employee: Provider.of<Employee>(context)
                                                          );
               bool createdWithSuccess = await PublicationsController.postPublication(
                                                          publication: publication,

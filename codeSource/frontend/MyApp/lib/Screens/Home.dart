@@ -1,11 +1,11 @@
 import 'package:MyApp/Widgets/floatingButton.dart';
+import 'package:MyApp/core/models/publication.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../Widgets/CustumAppBar.dart';
 import '../WebService/PublicationsController.dart';
 import '../publications/PublicationsList.dart';
 import '../Widgets/SideMenuWidget.dart';
-import '../entities/Publication.dart';
 import 'dart:async';
 
 

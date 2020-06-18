@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:json_annotation/json_annotation.dart';
-import './Employee.dart';
+import 'employee.dart';
 
 //part 'Publication.g.dart';
 

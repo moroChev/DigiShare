@@ -1,11 +1,11 @@
-import 'package:MyApp/InheritedWidgets/UserModel.dart';
 import 'package:MyApp/WebService/PublicationsController.dart';
+import 'package:MyApp/core/models/employee.dart';
+import 'package:MyApp/core/models/publication.dart';
+import 'package:provider/provider.dart';
 import './Widgets/LikesWidget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import '../entities/Publication.dart';
-import '../entities/Employee.dart';
 import './Widgets/EmployeeListTilePub.dart';
 import '../WebService/NetworkImageController.dart';
 
@@ -48,9 +48,9 @@ class _SinglePublicationWidgetState extends State<SinglePublicationWidget> {
   @override
   Widget build(BuildContext context) {
     // receiving the user id here from the inherited widget
-    isCheked = widget.publication?.likesIds?.contains(UserModel.of(context).employee.id);
+    isCheked = widget.publication?.likesIds?.contains(Provider.of<Employee>(context).id);
 
-    print('---------------Single publications widget called------- publication gived is : ${widget.publication.id} and the guy who posted that is : ${widget.publication.postedBy} and  the user id is : ${UserModel.of(context).employee.id}');
+    print('---------------Single publications widget called------- publication gived is : ${widget.publication.id} and the guy who posted that is : ${widget.publication.postedBy} and  the user id is : ${Provider.of<Employee>(context).id}');
     return Container(
       margin: EdgeInsets.all(8.0),
       decoration: BoxDecoration(
@@ -116,17 +116,17 @@ class _SinglePublicationWidgetState extends State<SinglePublicationWidget> {
                       print("this post isn't reacted yet !");
                       setState(() {
                      if(!isCheked){ 
-                       print("isChecked is not true so it s a new like ... and who is liking it is ${UserModel.of(context).employee.id}");
+                       print("isChecked is not true so it s a new like ... and who is liking it is ${Provider.of<Employee>(context).id}");
                        PublicationsController.addLikePublication(widget.publication?.id); 
                           nbrOfLikes++;
                           isCheked=true;
-                          widget.publication?.likesIds?.add(UserModel.of(context).employee.id);
+                          widget.publication?.likesIds?.add(Provider.of<Employee>(context).id);
                     } else{
                          print("isChecked is true so it s a dislike ...");
                        PublicationsController.removeLikePublication(widget.publication?.id); 
                           nbrOfLikes--;
                           isCheked=false;
-                          widget.publication?.likesIds?.removeWhere((element) => element==UserModel.of(context).employee.id);
+                          widget.publication?.likesIds?.removeWhere((element) => element==Provider.of<Employee>(context).id);
                         }
                          });
                   }

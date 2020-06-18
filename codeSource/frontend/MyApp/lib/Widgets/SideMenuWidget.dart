@@ -1,16 +1,7 @@
-import 'package:MyApp/Screens/AgencyScreen.dart';
-import 'package:MyApp/Screens/ToPostScreen.dart';
-import 'package:MyApp/WebService/AuthController.dart';
+import 'package:MyApp/core/models/employee.dart';
+import 'package:provider/provider.dart';
 import 'package:strings/strings.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter/material.dart';
-import '../Screens/SignInScreen.dart';
-import '../Screens/Profil.dart';
-import '../Screens/Home.dart';
-import '../entities/Employee.dart';
-import '../InheritedWidgets/UserModel.dart';
-import '../entities/Agency.dart';
-
 class SideMenuWidget extends StatefulWidget {
 
   @override
@@ -27,9 +18,9 @@ class _SideMenuWidgetState extends State<SideMenuWidget> {
 
   @override
   Widget build(BuildContext context) {
-    print("in SideMenu so ${UserModel.of(context).employee?.agency?.id}");
+    print("in SideMenu so ${Provider.of<Employee>(context)?.agency?.id}");
     return  Drawer(
-              child:rootContainer(UserModel.of(context).employee, context)
+              child:rootContainer(Provider.of<Employee>(context), context)
         );
   }
 
@@ -105,14 +96,14 @@ Widget _home({BuildContext context}){
             color: Color(0xFF455A64),
             onPressed: () {
             Navigator.pop(context);
-            Navigator.push(
-            context, MaterialPageRoute(builder: (context) => Home()));
+            Navigator.pushNamed(
+            context, '/Home');
             },
           ),
           onTap: (){
             Navigator.pop(context);
-            Navigator.push(
-            context, MaterialPageRoute(builder: (context) => Home()));
+            Navigator.pushNamed(
+            context,'/Home');
           },  
       );
 
@@ -127,14 +118,14 @@ return   ListTile(
             color: Color(0xFF455A64),
             onPressed: () {
               Navigator.pop(context);
-            Navigator.push(
-            context, MaterialPageRoute(builder: (context) => Profil(employeeID: employee.id)));
+            Navigator.pushNamed(
+            context, '/Profile' , arguments: employee.id);
             },
           ),
-          onTap: (){
+          onTap: () {
             Navigator.pop(context);
-            Navigator.push(
-            context, MaterialPageRoute(builder: (context) => Profil(employeeID :employee.id)));
+            Navigator.pushNamed(
+                context, '/Profile' , arguments: employee.id);
           },
                
               ) ;
@@ -182,13 +173,12 @@ Widget _publier({BuildContext context,Employee employee}){
                     color: Color(0xFF455A64),
                     onPressed: () {
                       Navigator.pop(context);
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => ToPostScreen()));
+                      Navigator.pushNamed(context, '/ToPostScreen');
                     },
                     ),
-                    onTap: (){
+                    onTap: () {
                       Navigator.pop(context);
-                      Navigator.push(
-                      context, MaterialPageRoute(builder: (context) => ToPostScreen()));
+                      Navigator.pushNamed(context, '/ToPostScreen');
                   },
                
               );
@@ -219,17 +209,18 @@ Widget _mySociete({BuildContext context,Employee employee})
             leading: IconButton(
                     icon: Icon(Icons.group_work),
                     color: Color(0xFF455A64),
-                    onPressed: () {
-                      print("go to agency");
-      /*            Navigator.pushNamed(context, 'Agency', arguments: [employee.agency.id]);
-                    Navigator.pushNamed(context, 'Agency', arguments: { "agencyId": employee.agency.id }); */
+                    onPressed: (){
+                      print("go to agency ${employee.agency.id}");
+                      Navigator.pop(context);
+                      Navigator.pushNamed(
+                          context, '/Agency', arguments: employee.agency.id);
                     },
                   ),
                   onTap: (){
                              print("go to agency ${employee.agency.id}");
                     Navigator.pop(context);
-                    Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => AgencyScreen(agencyId: employee.agency.id,)));
+                    Navigator.pushNamed(
+                    context, '/Agency', arguments: employee.agency.id);
                   },
               
               );
@@ -253,8 +244,8 @@ Widget _createFooterItem({BuildContext context}){
       ),
       onTap: (){
           Navigator.pop(context);
-          Navigator.push(
-          context, MaterialPageRoute(builder: (context) => SignInScreen()));
+          Navigator.pushNamed(
+          context, '/SignIn');
       },
     );
   }

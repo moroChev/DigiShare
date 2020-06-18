@@ -1,7 +1,7 @@
-import 'package:MyApp/entities/Employee.dart';
+import 'package:MyApp/core/models/employee.dart';
+import 'package:MyApp/ui/shared/employee_list_tile.dart';
 import 'package:flutter/material.dart';
 import '../WebService/EmployeesController.dart';
-import '../Widgets/EmployeeListTile.dart';
 
 class SearchEmployee extends SearchDelegate<Employee>{
 

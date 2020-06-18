@@ -1,21 +1,17 @@
-import 'package:MyApp/entities/Employee.dart';
+import 'package:MyApp/core/models/employee.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import '../entities/Employee.dart';
 
 class AuthController{
-   static String API_URL_AUTH = "http://localhost:3000/api/auth";
+   static String API_URL_AUTH = "http://192.168.43.107:3000/api/auth";
    static FlutterSecureStorage storage = FlutterSecureStorage();
 
   static Future<Employee> attemptLogIn(String login, String password) async {
 
-    String url    = "$API_URL_AUTH/login";
-    Map body      = {
-                    'login': login,
-                    'password': password
-                  };      
-           print("$login and $password");               
+    String url = "$API_URL_AUTH/login";
+    Map body = {'login': login, 'password': password};
+    print("$login and $password");
     final res = await http.post(url, body: jsonEncode(body),headers: { 'Content-type': 'application/json'});
         if(res.statusCode == 200 || res.statusCode==201)
           {

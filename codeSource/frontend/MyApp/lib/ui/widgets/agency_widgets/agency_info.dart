@@ -1,18 +1,12 @@
-import 'package:MyApp/entities/Agency.dart';
+import 'package:MyApp/core/models/agency.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class AgencyInfoWidget extends StatefulWidget {
+class AgencyInfo extends StatelessWidget {
   final Agency agency;
+  AgencyInfo({@required this.agency});
 
-  AgencyInfoWidget({@required this.agency});
-
-  @override
-  _AgencyInfoWidgetState createState() => _AgencyInfoWidgetState();
-}
-
-class _AgencyInfoWidgetState extends State<AgencyInfoWidget> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -25,7 +19,7 @@ class _AgencyInfoWidgetState extends State<AgencyInfoWidget> {
           //Address Tile
           ListTile(
             leading: Icon(FontAwesomeIcons.mapMarkerAlt, color: Colors.blueGrey[600]),
-            title: Text(widget.agency.address, style: TextStyle(fontSize: 15, color: Colors.black,fontFamily: "Times")),
+            title: Text(agency.address, style: TextStyle(fontSize: 15, color: Colors.black,fontFamily: "Times")),
           ),
           Divider(height: 1, color: Colors.blueGrey[200],indent: 20,endIndent: 20,),
 
@@ -39,14 +33,14 @@ class _AgencyInfoWidgetState extends State<AgencyInfoWidget> {
           //Email Tile
           ListTile(
             leading: Icon(FontAwesomeIcons.mailBulk, color: Colors.blueGrey[600]),
-            title: Text(widget.agency.email, style: TextStyle(fontSize: 15, color: Colors.black,fontFamily: "Times")),
+            title: Text(agency.email, style: TextStyle(fontSize: 15, color: Colors.black,fontFamily: "Times")),
           ),
           Divider(height: 1, color: Colors.blueGrey[200],indent: 20,endIndent: 20,),
 
           //Telephone Tile
           ListTile(
             leading: Icon(FontAwesomeIcons.phoneAlt, color: Colors.blueGrey[600]),
-            title: Text(widget.agency.telephone, style: TextStyle(fontSize: 15, color: Colors.black,fontFamily: "Times")),
+            title: Text(agency.telephone, style: TextStyle(fontSize: 15, color: Colors.black,fontFamily: "Times")),
           ),
         ]),
       ),

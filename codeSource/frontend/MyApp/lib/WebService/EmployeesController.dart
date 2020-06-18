@@ -1,13 +1,13 @@
+import 'package:MyApp/core/models/employee.dart';
+import 'package:MyApp/core/models/publication.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:io';
-import '../entities/Employee.dart';
 import 'package:flutter/foundation.dart';
-import '../entities/Publication.dart';
 
 class EmployeesController {
-  static final String API_URL = "http://localhost:3000/api/employees";
+  static final String API_URL = "http://192.168.43.107:3000/api/employees";
   // secure storage api
   static FlutterSecureStorage storage = FlutterSecureStorage();
 

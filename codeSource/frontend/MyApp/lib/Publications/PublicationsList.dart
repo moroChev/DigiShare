@@ -1,7 +1,7 @@
+import 'package:MyApp/core/models/publication.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../publications/SinglePublicationWidget.dart';
-import '../entities/Publication.dart';
 
 class PublicationsList extends StatefulWidget {
 

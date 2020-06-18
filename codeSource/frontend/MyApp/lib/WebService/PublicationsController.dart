@@ -1,17 +1,17 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:MyApp/core/models/publication.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
-import '../entities/Publication.dart';
 import 'package:http_parser/http_parser.dart';
 import '../Publications/Widgets/PostSettingsEnum.dart';
 
 
 class PublicationsController {
   // our API adress
-  static final String API_URL         = "http://localhost:3000/api/publications";
+  static final String API_URL         = "http://192.168.43.107:3000/api/publications";
   // secure storage api
   static FlutterSecureStorage storage = FlutterSecureStorage();
 

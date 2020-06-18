@@ -13,7 +13,7 @@ let employeeService              = new EmployeeService(employeeRepo);
 let employeeController           = new EmployeeController(employeeService);
 
 //route to get profile image
-router.use('/profilesImages', express.static(path.join(__dirname, '../images/profilesImages')));
+router.use('/profileImage', express.static(path.join(__dirname, '../images/profilesImages')));
 
 router.get("/", employeeController.getAllEmployees);
 // not tested yet ...

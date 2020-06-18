@@ -1,11 +1,11 @@
 import 'package:MyApp/Screens/Home.dart';
 import 'package:MyApp/Screens/ToPostScreen.dart';
 import 'package:MyApp/WebService/PublicationsController.dart';
+import 'package:MyApp/core/models/employee.dart';
+import 'package:MyApp/core/models/publication.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import './PostSettingsEnum.dart';
-import '../../entities/Employee.dart';
-import '../../entities/Publication.dart';
-import '../../InheritedWidgets/UserModel.dart';
 
 class PostSettingsWidget extends StatefulWidget {
 
@@ -30,7 +30,7 @@ class _MyPopMenuForPostState extends State<PostSettingsWidget> {
   @override
   Widget build(BuildContext context) {
     // receiving the user object from the inhreted widget  //
-          user = UserModel.of(context).employee;
+          user = Provider.of<Employee>(context);
     ////////////////////////////////////////////////////////
     return PopupMenuButton<SETTINGCHOICES>(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),

@@ -1,11 +1,11 @@
+import 'package:MyApp/Widgets/ProfilInformationsWidget.dart';
 import 'package:MyApp/Widgets/floatingButton.dart';
-import 'package:MyApp/entities/Employee.dart';
+import 'package:MyApp/core/models/employee.dart';
+import 'package:MyApp/core/models/publication.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../Widgets/CustumAppBar.dart';
 import '../WebService/EmployeesController.dart';
-import '../Widgets/ProfilInformationsWidget.dart';
-import '../entities/Publication.dart';
 import '../publications/SinglePublicationWidget.dart';
 import '../Widgets/DividerWithTitleWidget.dart';
 

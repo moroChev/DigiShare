@@ -1,5 +1,5 @@
-import 'package:MyApp/entities/Employee.dart';
-import 'package:MyApp/entities/Publication.dart';
+import 'package:MyApp/core/models/employee.dart';
+import 'package:MyApp/core/models/publication.dart';
 import 'package:flutter/material.dart';
 import '../../Screens/Profil.dart';
 import 'package:flutter/cupertino.dart';

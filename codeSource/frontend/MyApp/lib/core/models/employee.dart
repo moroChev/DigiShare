@@ -2,8 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 
-import './Publication.dart';
-import './Agency.dart';
+import 'publication.dart';
+import 'agency.dart';
 
 import 'package:json_annotation/json_annotation.dart';
 
@@ -26,12 +26,17 @@ class Employee{
 
 
     Employee({this.id,this.publicationsObjects,this.publicationsIds,this.imageUrl,this.firstName,this.lastName,this.email,this.position,this.canApprove,this.agency});
-    
-    
+
+    Employee.initial()
+        :  id = '',
+        firstName = '',
+        lastName = '',
+        imageUrl = '',
+        email = '',
+        position = '',
+        canApprove = false;
+
     factory Employee.fromJsonWithoutPostsAndAgency(Map<String, dynamic> json){
-
-      print("we are in Employee from json without posts and agency objects ");
-
      return Employee(
         id: json['_id'] as String,
         firstName: json['firstName'] as String,
@@ -45,8 +50,6 @@ class Employee{
     }
 
     factory Employee.fromJsonWithPostsAndAgencyObjects(Map<String,dynamic> json){
-
-       print("we are in Employee from json with posts and agency objects ");
        return Employee(
               id: json['_id'] as String,   
               publicationsObjects: (json['publications'] as List)?.map((e) => Publication.fromJsonWithIdsNoObjects(e))?.toList(),
@@ -58,13 +61,12 @@ class Employee{
               canApprove: json['canApprove'] as bool,
               agency: json['agency'] == null
                   ? Agency()
-                  : Agency.fromJsonWithoutEmployeesAndSubsidiaries(json['agency'] as Map<String, dynamic>),
+                  : Agency.fromJsonWithIdsInLists(json['agency'] as Map<String, dynamic>),
             );
 
     }
 
     factory Employee.fromJsonWithPostsIdAndAgency(Map<String, dynamic> json) {
-      print("we are in Employee from json with posts IDs and agency object ${json['agency']['name']} ");
           return Employee(
               id: json['_id'] as String,   
               publicationsIds: (json['publications'] as List)?.map((e) => e as String)?.toList(),
@@ -76,7 +78,7 @@ class Employee{
               canApprove: json['canApprove'] as bool,
               agency: json['agency'] == null
                   ? Agency()
-                  : Agency.fromJsonWithoutEmployeesAndSubsidiaries(json['agency'] as Map<String, dynamic>),
+                  : Agency.fromJsonWithIdsInLists(json['agency'] as Map<String, dynamic>),
             );
     }
 

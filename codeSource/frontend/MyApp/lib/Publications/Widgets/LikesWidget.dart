@@ -1,11 +1,11 @@
 import 'package:MyApp/Widgets/CustumAppBar.dart';
 import 'package:MyApp/Widgets/SideMenuWidget.dart';
 import 'package:MyApp/Widgets/floatingButton.dart';
-import 'package:MyApp/entities/Employee.dart';
+import 'package:MyApp/core/models/employee.dart';
+import 'package:MyApp/core/models/publication.dart';
+import 'package:MyApp/ui/shared/employee_list_tile.dart';
 import 'package:flutter/material.dart';
-import '../../entities/Publication.dart';
 import '../../WebService/PublicationsController.dart';
-import '../../Widgets/EmployeeListTile.dart';
 
 class LikesWidget extends StatefulWidget {
 
