@@ -91,7 +91,7 @@ class _ToPostScreenState extends State<ToPostScreen> {
 
 Widget _rowOne(){
   return Row(
-            mainAxisAlignment: MainAxisAlignment.end,   
+            mainAxisAlignment: MainAxisAlignment.center,   
             children: <Widget>[
               _erreurMessage(_hasError),
               _selectImageButton(),
@@ -119,7 +119,7 @@ Widget _rowFive(){
           width: 340,
           child: Wrap(
             children: <Widget>[
-              EmployeeListTile(employee: UserModel.of(context).employee),
+              EmployeeListTileA(employee: UserModel.of(context).employee, agencyName: UserModel.of(context).employee.agency.name ),
               _textBox(),
               _showImage(),
             ],
@@ -138,7 +138,7 @@ Widget _rowFive(){
             height: 50,
             width: 160,
             child: RaisedButton(
-              color: Color(0xFF454F63),
+              color: Color(0xFF303960),
               textColor: Colors.white,
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
               onPressed: () { _getImage(ImageSource.gallery);},
@@ -256,16 +256,17 @@ Widget _rowFive(){
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: SideMenuWidget(),
+      backgroundColor: Color(0xFFddf3f5),
       appBar: CustomAppBar.getAppBar(context),
-      body: SingleChildScrollView(
+      body: SingleChildScrollView(      
         child: Column(
           children: <Widget>[
             SizedBox(height: 60.0,),
-            _rowOne(),
-            SizedBox(height: 25.0,),
             _postBox(),
             SizedBox(height: 40.0,),
-            _rowFive(),
+            _rowFive(), 
+            SizedBox(height: 25.0,),
+            _rowOne(),
             SizedBox(height: 40.0,), 
         ],
       )),

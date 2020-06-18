@@ -18,9 +18,9 @@ class AgenciesController{
   static Future<Agency> fetchAgencyData(String id) async {
     String token = await storage.read(key: 'token');
     String url = "$API_URL/$id";
-
+    print(url);
     final response = await http.get(url, headers: {HttpHeaders.authorizationHeader: 'Bearer $token'});
-
+    print(response.statusCode);
     if(response.statusCode == 200)
     {
       print("request has been succeeded... ");
@@ -36,11 +36,11 @@ class AgenciesController{
     String url = "$API_URL/$id";
 
     final response = await http.get(url, headers: {HttpHeaders.authorizationHeader: 'Bearer $token'});
-
+    print(" ***** ${response.body} ou response body ");
     if(response.statusCode == 200)
     {
-      print("request has been succeeded... ");
-      return compute(parseEmployees,json.decode(response.body)['agency']['employees'] as List);
+      print("request has been succeeded Fetch Employees ... ");
+      return compute(parseEmployees, json.decode(response.body)['agency']['employees'] as List);
     }else{
       throw Exception("Failed to load Agency's Employees Data");
     }
@@ -51,7 +51,10 @@ class AgenciesController{
   static List<Employee> parseEmployees(List<dynamic> list){
     print('parseEmployees ******************************');
     print(list.toString());
-    return list?.map((e) => Employee.fromJsonWithPostsIdAndAgency(e))?.toList();
+    print('before deserrialize  ******************************');
+    List<Employee> myList = list?.map((e) => Employee.fromJsonWithoutPostsAndAgency(e))?.toList();
+    print("deserialze is good !!!${myList.toString()}");
+    return myList;
   }
 
   // Method to fetch agency's subsidiaries only

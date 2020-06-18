@@ -75,16 +75,7 @@ class _AgencyScreenState extends State<AgencyScreen> {
                             }),
 
                         //Employees Section Label
-                      /*  
-                       Padding(
-                          padding: const EdgeInsets.only(left: 10, right: 10, top: 30.0),
-                          child: Container(
-                            alignment: Alignment.centerLeft,
-                            child: Text('Nos Collaborateurs', style: TextStyle(fontSize: 18, color: Colors.grey[700])),
-                          ),
-                        ),
-                        
-                        */
+                 
 
                         DividerWithTitle(title: "Nos Collaborateurs"),
 
@@ -95,7 +86,7 @@ class _AgencyScreenState extends State<AgencyScreen> {
                           builder: (context, employeesSnapshot) {
                             if(employeesSnapshot.hasError){print(employeesSnapshot.error);}
                             return employeesSnapshot.hasData
-                                ? EmployeesSectionWidget(employees: employeesSnapshot.data)
+                                ? EmployeesSectionWidget(employees: employeesSnapshot.data, agencyName: agencySnapshot.data.name ,)
                                 :  Center(child: CircularProgressIndicator());
                           },
                         ),

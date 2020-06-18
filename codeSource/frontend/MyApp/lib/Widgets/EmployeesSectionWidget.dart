@@ -8,8 +8,9 @@ import '../Screens/Profil.dart';
 
 class EmployeesSectionWidget extends StatefulWidget {
   final List<Employee> employees;
+  final String agencyName;
 
-  EmployeesSectionWidget({@required this.employees});
+  EmployeesSectionWidget({@required this.employees, @required this.agencyName});
 
   @override
   _EmployeesSectionWidgetState createState() => _EmployeesSectionWidgetState();
@@ -48,7 +49,7 @@ class _EmployeesSectionWidgetState extends State<EmployeesSectionWidget> {
       //Single employee section
       Widget employee = Column(children: [
      //   buildCustomEmployee(emp),
-        EmployeeListTile(employee: emp),
+        EmployeeListTileA(employee: emp, agencyName: widget.agencyName ),
         Divider(height: 1, color: Colors.blueGrey[200]),
       ]);
       list.add(employee);

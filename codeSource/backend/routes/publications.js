@@ -26,7 +26,7 @@ router.get("/",auth, publicationsController.getAllPublications);
 router.post("/", auth, multer.multerPosts, publicationsController.createPublication);
 
 /// delete a publication has a middelware to verify the rights
-router.delete("/:id", auth, publicationsController.deletePublication);
+router.delete("/:id", publicationsController.deletePublication);
 
 /// get a single publication
 router.get("/:id", auth, publicationsController.getPublicationById);

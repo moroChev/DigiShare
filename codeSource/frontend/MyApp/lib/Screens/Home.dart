@@ -35,6 +35,7 @@ class Home_State extends State<Home> {
     return  Scaffold(
         drawer: SideMenuWidget(),
         appBar: CustomAppBar.getAppBar(context),
+        backgroundColor: Color(0xFFf4f6ff),
         floatingActionButton: FloatingButton(),
         body: FutureBuilder<List<Publication>>(
                   future: _publications,

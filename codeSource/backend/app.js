@@ -23,7 +23,7 @@ app.use((req, res, next) => {
 app.use('/api/auth',routerAuth);
 app.use('/api/publications', routerPublications);  
 app.use('/api/employees', routerEmployees);
-//app.use('/api/agencies', routerAgencies);
+app.use('/api/agencies', routerAgencies);
 
 
 

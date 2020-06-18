@@ -20,7 +20,7 @@ router.use('/logo', express.static(path.join(__dirname, '../images/agenciesLogos
 
 //usual routes
 router.get("/", (req,res,next) => agencyController.getAgenciesWithEmployees(req,res,next));
-router.get("/:id", auth, (req,res,next) => agencyController.getAgencyById(req,res,next));
+router.get("/:id",  (req,res,next) => agencyController.getAgencyById(req,res,next));
 
 //those routes will be modified later to add access restrictions
 //to allow only the staff in charge of getting the database initialized 
