@@ -2,7 +2,7 @@ import 'package:MyApp/core/models/agency.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'decorated_logo.dart';
+import '../widgets/agency_widgets/decorated_logo.dart';
 
 class AgencyHeader extends StatelessWidget {
   final Agency agency;

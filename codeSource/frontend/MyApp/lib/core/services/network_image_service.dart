@@ -1,11 +1,7 @@
 import 'dart:async';
-
-import 'package:MyApp/core/models/agency.dart';
-import 'package:MyApp/core/repositories/agency_repo.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../repositories/network_image_repo.dart';
-import '../models/employee.dart';
 import '../../locator.dart';
 
 class NetworkImageService {

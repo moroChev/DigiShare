@@ -38,6 +38,7 @@ class Login extends StatelessWidget {
                   child: Container(
                       margin: EdgeInsets.only(right: 20, left: 10),
                       child: TextField(
+                        obscureText: true,
                         controller: passwordController,
                         decoration: InputDecoration(hintText: 'Password'),
                       ),

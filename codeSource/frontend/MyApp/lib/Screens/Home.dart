@@ -40,7 +40,7 @@ class Home_State extends State<Home> {
                   future: _publications,
                   builder: (context, snapshot){
                     if (snapshot.hasError) {
-                      print("error in passing data"+snapshot.error);
+                      print("error in passing data"+snapshot.error.toString());
                      return Center( child:Text("Aucune Publication !") );
                       }      
                     return snapshot.hasData

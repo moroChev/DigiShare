@@ -31,4 +31,14 @@ class AgencyRepo{
     return agency;
   }
 
+  Future<List<Agency>> fetchAllAgencies() async {
+    String token = await storage.read(key: 'token');
+    String url = endpoint;
+    var response = await http.get(url, headers: {HttpHeaders.authorizationHeader: 'Bearer $token'});
+    var agencies;
+    if(response != null)
+      agencies = (json.decode(response.body) as List)?.map((agency) => Agency.fromJsonWithIdsInLists(agency))?.toList();
+    return agencies;
+  }
+
 }

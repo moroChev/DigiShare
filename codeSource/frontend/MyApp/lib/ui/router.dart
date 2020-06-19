@@ -4,6 +4,7 @@ import 'package:MyApp/Screens/ToPostScreen.dart';
 import 'package:MyApp/ui/views/home_view.dart';
 import 'package:MyApp/ui/views/profile_view.dart';
 import 'package:MyApp/ui/views/to_post_view.dart';
+import 'package:MyApp/ui/views/map_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -28,6 +29,8 @@ class Router {
         return MaterialPageRoute(builder: (_) => /* ProfileView(id: settings.arguments) */ Profil(employeeID: settings.arguments));
       case '/ToPostScreen':
         return MaterialPageRoute(builder: (_) => /* ToPostView() */ ToPostScreen());
+      case '/Map':
+        return MaterialPageRoute(builder: (_) => MapView());
       default:
         return MaterialPageRoute(
             builder: (_) => Scaffold(
