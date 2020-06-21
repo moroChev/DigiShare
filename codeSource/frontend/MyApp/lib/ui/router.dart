@@ -1,3 +1,6 @@
+
+import 'package:MyApp/ui/views/home_view.dart';
+import 'package:MyApp/ui/views/map_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:MyApp/ui/views/profil_view.dart';
@@ -23,6 +26,8 @@ class Router {
         return MaterialPageRoute(builder: (_) => ProfilView(idEmployee: settings.arguments));
      /*  case '/ToPostScreen':
         return MaterialPageRoute(builder: (_) => /* ToPostView() */ ToPostScreen()); */
+      case '/Map':
+        return MaterialPageRoute(builder: (_) => MapView());
       default:
         return MaterialPageRoute(
             builder: (_) => Scaffold(

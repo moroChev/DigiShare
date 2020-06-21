@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 import 'base_view.dart';
 import '../../core/viewmodels/agency_model.dart';
 import 'package:flutter/material.dart';
-import '../widgets/agency_widgets/agency_header.dart';
+import '../shared/agency_header.dart';
 import '../shared/divider_with_title.dart';
 import '../widgets/agency_widgets/agency_info.dart';
 import '../widgets/agency_widgets/subsidiaries_map_container.dart';

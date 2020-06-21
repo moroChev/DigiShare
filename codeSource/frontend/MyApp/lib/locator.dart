@@ -12,6 +12,7 @@ import 'package:MyApp/core/services/authentication_service.dart';
 import 'package:MyApp/core/services/network_image_service.dart';
 import 'package:MyApp/core/services/employee_service.dart';
 import 'package:MyApp/core/services/publication_service.dart';
+import 'package:MyApp/core/services/map_service.dart';
 
 import 'package:MyApp/core/viewmodels/home_model.dart';
 import 'package:MyApp/core/viewmodels/post_reactions_model.dart';
@@ -20,6 +21,7 @@ import 'package:MyApp/core/viewmodels/agency_model.dart';
 import 'package:MyApp/core/viewmodels/network_image_model.dart';
 import 'package:MyApp/core/viewmodels/profil_model.dart';
 import 'package:MyApp/core/viewmodels/to_post_model.dart';
+import 'package:MyApp/core/viewmodels/map_model.dart';
 
 
 
@@ -40,6 +42,7 @@ void setupLocator() {
   locator.registerLazySingleton(() => NetworkImageService());
   locator.registerLazySingleton(() => PublicationService());
   locator.registerLazySingleton(() => EmployeeService());
+  locator.registerLazySingleton(() => MapService());
 
   locator.registerFactory(() => LoginModel());
   locator.registerFactory(() => AgencyModel());
@@ -49,6 +52,5 @@ void setupLocator() {
   locator.registerFactory(() => PostReactionsModel());
   locator.registerLazySingleton(() => ToPostModel());
 
-
-  
+  locator.registerFactory(() => MapModel());
 }

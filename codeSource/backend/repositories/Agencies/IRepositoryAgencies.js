@@ -1,7 +1,7 @@
 class IRepositoryAgency{
 
-	// fetch all agencies with their employees
-    async getAgenciesWithEmployees(){};
+	// fetch all agencies without their subobjects
+    async getAllAgencies(){};
 
     // create a new agency
     async createAgency(agency){};

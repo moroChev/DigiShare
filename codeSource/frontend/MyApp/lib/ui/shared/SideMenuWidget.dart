@@ -26,18 +26,21 @@ Widget rootContainer(Employee employee, BuildContext context){
 
 return Column(
   children: <Widget>[
-    _header(employee),
+                _header(employee),
                 _home(context: context),
                 _myProfil(context: context,employee: employee),
                 _notifications(context: context),
                 _publier(context:context,employee: employee ),
                 _search(context: context),
                 _mySociete(context: context,employee: employee),
-              
-                Padding(
-                  padding: const EdgeInsets.only(top:100),
-                  child: _createFooterItem(context: context),
-                )
+                _map(context: context),
+
+                Expanded(
+                  child: Align(
+                      alignment: Alignment.bottomCenter,
+                      child: _createFooterItem(context: context),
+                  ),
+                ),
             
 ],
 );
@@ -223,6 +226,24 @@ Widget _mySociete({BuildContext context,Employee employee})
               );
 
 }
+
+
+  Widget _map({BuildContext context}){
+
+    return ListTile(
+      selected: true,
+      title: Text("Cart",style: TextStyle(color: Colors.black,fontFamily: "Times")),
+      leading: IconButton(
+        icon: Icon(Icons.map),
+        color: Color(0xFF455A64),
+      ),
+      onTap: (){
+        Navigator.pop(context);
+        Navigator.pushNamed(context,'/Map');
+      },
+    );
+
+  }
 
 
 

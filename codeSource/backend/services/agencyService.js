@@ -1,17 +1,17 @@
 const util     = require('util');
-//const agencyRepositoryMongo = require('../repositories/Agencies/RepositoryAgencyMongoDb');
-class ServiceAgency{
+
+class AgencyService{
 
     constructor(agencyRepo){
-        console.log('creating InStAnCe of ServiceAgency');
+        console.log('creating InStAnCe of AgencyService');
         this.agencyRepo = agencyRepo;
     }
 
-    // fetch all agencies with their employees
-    async getAgenciesWithEmployees(){
+    // fetch all agencies without their subobjects
+    async getAllAgencies(){
         try{
             let result;
-            result = await this.agencyRepo.getAgenciesWithEmployees(); 
+            result = await this.agencyRepo.getAllAgencies(); 
             return result;                      
         }catch(err){
             throw(err);
@@ -95,4 +95,4 @@ class ServiceAgency{
 
 }
 
-module.exports = ServiceAgency;
+module.exports = AgencyService;

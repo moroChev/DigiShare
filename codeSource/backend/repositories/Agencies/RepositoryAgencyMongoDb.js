@@ -10,18 +10,12 @@ class RespositoryAgencyMongoDb extends IRepositoryAgency{
         super();
     };
 
-    // fetch all agencies with their employees
-    async getAgenciesWithEmployees() {
+    // fetch all agencies without their subobjects
+    async getAllAgencies() {
         let result;
         try{
-            result = await Agency.find()
-                .populate(
-                    {
-                        path: 'employees',
-                        model: 'Employee'
-                    }
-                );
-                return result;
+            result = await Agency.find();
+            return result;
         }catch(err){
             throw(err);
         }
