@@ -1,16 +1,18 @@
-import 'package:MyApp/WebService/PublicationsController.dart';
-import 'package:MyApp/Widgets/EmployeeListTile.dart';
-import 'package:MyApp/entities/Employee.dart';
-import 'package:MyApp/entities/Publication.dart';
+/* import 'package:MyApp/WebService/PublicationsController.dart';
+import 'package:MyApp/core/models/employee.dart';
+import 'package:MyApp/core/models/publication.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import '../InheritedWidgets/UserModel.dart';
+import 'package:provider/provider.dart';
 import './Home.dart';
 import '../Widgets/SideMenuWidget.dart';
 import 'dart:io';
 import '../Widgets/CustumAppBar.dart';
-import '../Publications/Widgets/PostSettingsEnum.dart';
+import '../core/models/employee.dart';
+import '../core/enum/PostSettingsEnum.dart';
+import '../Widgets/EmployeeListTile.dart';
+
 
 class ToPostScreen extends StatefulWidget {
   Publication publication;
@@ -110,7 +112,7 @@ Widget _rowFive(){
 }
 
 /// the container of the post box so it contains profile tile, textfield and the image if one is selected
-  Widget _postBox() {
+  Widget _postBox() {/*  */
         print(" post box the future vient d'aariver...");
     return 
         Container(
@@ -119,8 +121,8 @@ Widget _rowFive(){
           width: 340,
           child: Wrap(
             children: <Widget>[
-              EmployeeListTileA(employee: UserModel.of(context).employee, agencyName: UserModel.of(context).employee.agency.name ),
-              _textBox(),
+          //    EmployeeListTileA(employee: UserModel.of(context).employee, agencyName: UserModel.of(context).employee.agency.name ),
+
               _showImage(),
             ],
           ),
@@ -159,7 +161,7 @@ Widget _rowFive(){
               print("publier !");
               Publication publication = _constructPublicationObjectToPost(
                                                          content:_contentController.text,
-                                                         employee: UserModel.of(context).employee
+                                                         employee: Provider.of<Employee>(context)
                                                          );
               bool createdWithSuccess = await PublicationsController.postPublication(
                                                          publication: publication,
@@ -276,3 +278,4 @@ Widget _rowFive(){
 
 }
 
+ */
