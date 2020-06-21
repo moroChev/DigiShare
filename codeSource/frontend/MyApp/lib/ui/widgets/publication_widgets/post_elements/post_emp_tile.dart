@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:strings/strings.dart';
 import 'package:MyApp/ui/views/profil_view.dart';
-import '../../../shared/emp_list_tile/employee_image.dart';
+import 'package:MyApp/ui/shared/emp_list_tile/employee_image.dart';
+import 'package:MyApp/ui/widgets/publication_widgets/post_elements/post_settings.dart';
 
 
 class EmployeeListTilePub extends StatelessWidget {
@@ -24,7 +25,7 @@ class EmployeeListTilePub extends StatelessWidget {
                   Navigator.push(context,MaterialPageRoute(builder: (context) => ProfilView(idEmployee: employee.id)));
                 },
       // here i am using the MyPopMenuForPost widget to check the user's rights        
-     //   trailing: PostSettingsWidget(publication: widget.publication, poster: widget.employee,),        
+        trailing: PostSettingsWidget(publication: publication, poster: employee,),        
         );
   }
 }

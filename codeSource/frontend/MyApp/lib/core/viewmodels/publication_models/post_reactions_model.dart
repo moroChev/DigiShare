@@ -1,17 +1,16 @@
 import 'package:MyApp/core/models/employee.dart';
-import 'package:MyApp/core/services/publication_service.dart';
+import 'package:MyApp/core/services/publication_service/pub_reactions_Src.dart';
 import 'package:MyApp/core/viewmodels/base_model.dart';
 import 'package:MyApp/core/models/publication.dart';
 import 'package:MyApp/core/enum/viewstate.dart';
 import 'package:flutter/cupertino.dart';
-import 'base_model.dart';
-import '../../locator.dart';
+import 'package:MyApp/locator.dart';
 import 'package:flutter/material.dart';
 
 
 class PostReactionsModel extends BaseModel{
 
-  final PublicationService _postService = locator<PublicationService>();
+  final PublicationReactionsService _postReactionsService = locator<PublicationReactionsService>();
   List<Employee> _employeesWhoLiked;
   Publication thePost;
   bool isLiked;
@@ -41,11 +40,11 @@ class PostReactionsModel extends BaseModel{
   }
 
   void addLike() {
-     this._postService.addLike(this.thePost.id);
+     this._postReactionsService.addLike(this.thePost.id);
   }
 
   void removeLike() {
-    this._postService.removeLike(this.thePost.id);
+    this._postReactionsService.removeLike(this.thePost.id);
   }
 
   Icon favoriteIcon() {
@@ -57,7 +56,7 @@ class PostReactionsModel extends BaseModel{
 
   Future getLikes(String publicationId) async {
     setState(ViewState.Busy);
-    this.thePost = await this._postService.getLikes(publicationId);
+    this.thePost = await this._postReactionsService.getLikes(publicationId);
     this._employeesWhoLiked=thePost.likesEmployees;
     setState(ViewState.Idle);
   }

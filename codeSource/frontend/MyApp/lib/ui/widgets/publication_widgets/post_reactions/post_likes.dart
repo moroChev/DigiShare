@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:MyApp/ui/shared/CustomAppBar.dart';
 import 'package:MyApp/ui/views/base_view.dart';
-import 'package:MyApp/core/viewmodels/post_reactions_model.dart';
 import 'package:MyApp/core/enum/viewstate.dart';
+import 'package:MyApp/ui/shared/CustomAppBar.dart';
 import 'package:MyApp/ui/shared/emp_list_tile/employee_list_tile.dart';
+import 'package:MyApp/core/viewmodels/publication_models/post_reactions_model.dart';
 
 class LikesWidget extends StatelessWidget {
 

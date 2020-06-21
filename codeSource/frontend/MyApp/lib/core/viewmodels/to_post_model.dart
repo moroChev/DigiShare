@@ -1,25 +1,27 @@
-import 'package:MyApp/core/models/employee.dart';
-import 'package:MyApp/core/models/publication.dart';
-import 'package:MyApp/core/services/publication_service.dart';
+
+import 'package:MyApp/core/services/publication_service/pub_global_Src.dart';
+import 'package:MyApp/core/services/publication_service/pub_settings_Src.dart';
 import 'package:MyApp/core/viewmodels/base_model.dart';
-import 'package:MyApp/locator.dart';
-import 'package:flutter/material.dart';
-import 'dart:io';
+import 'package:MyApp/core/models/publication.dart';
+import 'package:MyApp/core/models/employee.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:MyApp/core/enum/PostSettingsEnum.dart';
 import 'package:MyApp/core/enum/viewstate.dart';
+import 'package:flutter/material.dart';
+import 'package:MyApp/locator.dart';
+import 'dart:io';
 
 class ToPostModel extends BaseModel{
   
-  final                 _picker             = ImagePicker();
-  PublicationService    _publicationService = locator<PublicationService>();
-  TextEditingController _contentController  = TextEditingController();
-  bool                  _hasError           = false;
-  Image                 _imageTodDisplay;
-  bool                  _isNewPost;
-  File                  _image;
-  Publication           _post;
-  Employee              _user;
+  final                     _picker            = ImagePicker();
+  PublicationGlobalService  _pubGlobalSrc      = locator<PublicationGlobalService>();
+  PublicationSettingService _pubSettingSrc     = locator<PublicationSettingService>();
+  TextEditingController    _contentController  = TextEditingController();
+  bool                     _hasError           = false;
+  Image                    _imageTodDisplay;
+  bool                     _isNewPost;
+  File                     _image;
+  Publication              _post;
+  Employee                 _user;
 
 
   TextEditingController get contentController => this._contentController;
@@ -37,7 +39,7 @@ class ToPostModel extends BaseModel{
       _user = user;
       print('init data ... ${this._user.agency}');
       notifyListeners();
-      setState(ViewState.Idle);
+   setState(ViewState.Idle);
  }
 
 
@@ -59,16 +61,23 @@ class ToPostModel extends BaseModel{
  
   Future<bool> onPressCreateBtn() async {
    Publication publication = constructThePost(content: _contentController.text);
-   print("onPresse createBtn ${_contentController.text}");
-            bool isCreated = await _publicationService
-                                      .postPublication(
-                                        publication: publication,
-                                        imageUrl: _image,
-                                        requestType: _isNewPost ? RequestChoices.CREATE : RequestChoices.MODIFY
-                                        );
-    this._hasError         = ! isCreated ;
+   print("onPresse createBtn ${_contentController.text} and the post is new $_isNewPost");
+   bool result;
+  if(_isNewPost)
+   result = await _pubGlobalSrc.postPublication(publication: publication,image: _image);
+   else
+   result = await _pubSettingSrc.modifyPublication(publication: publication,image: _image);
+
+   this._hasError = result ? false : true;
+
     notifyListeners();
     return this._hasError;
+  }
+
+  onPressCancelIcon() {
+    this._image=null;
+    this._imageTodDisplay=null;
+    notifyListeners();
   }
               
 

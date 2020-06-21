@@ -11,14 +11,12 @@ class SideMenuWidget extends StatefulWidget {
 class _SideMenuWidgetState extends State<SideMenuWidget> {
 
   
-
   @override
   Widget build(BuildContext context) {
     print("in SideMenu so ${Provider.of<Employee>(context)?.agency?.id}");
-    return  Drawer(
-              
+    return  Drawer(         
               child:rootContainer(Provider.of<Employee>(context), context)
-        );
+            );
   }
 
 
@@ -119,7 +117,7 @@ return   ListTile(
             onPressed: () {
               Navigator.pop(context);
             Navigator.pushNamed(
-            context, '/Profile' , arguments: employee.id);
+            context, '/Profil' , arguments: employee.id);
             },
           ),
           onTap: () {
@@ -236,6 +234,9 @@ Widget _mySociete({BuildContext context,Employee employee})
       leading: IconButton(
         icon: Icon(Icons.map),
         color: Color(0xFF455A64),
+        onPressed: (){
+        Navigator.pop(context);
+        Navigator.pushNamed(context,'/Map');},
       ),
       onTap: (){
         Navigator.pop(context);

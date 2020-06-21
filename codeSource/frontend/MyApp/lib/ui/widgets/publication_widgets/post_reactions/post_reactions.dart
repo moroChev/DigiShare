@@ -1,17 +1,19 @@
 import 'package:MyApp/core/models/publication.dart';
-import 'package:MyApp/core/viewmodels/post_reactions_model.dart';
+import 'package:MyApp/core/viewmodels/publication_models/post_reactions_model.dart';
 import 'package:MyApp/ui/widgets/publication_widgets/post_reactions/post_likes.dart';
 import 'package:MyApp/ui/views/base_view.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:MyApp/core/models/employee.dart';
 
+
+
+
 class PostReactions extends StatelessWidget {
 
  final Publication publication;
 
  PostReactions({@required this.publication});
-
  
   @override
   Widget build(BuildContext context) {

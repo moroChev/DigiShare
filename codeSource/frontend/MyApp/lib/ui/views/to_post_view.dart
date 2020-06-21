@@ -25,6 +25,7 @@ class ToPostView extends StatelessWidget {
   Widget build(BuildContext context) {
     
     Employee user = Provider.of<Employee>(context);
+    
     return BaseView<ToPostModel>(
       onModelReady: (model)=>model.initData(post, user),
       builder: (context,model,child)=>
