@@ -4,6 +4,7 @@
   * NodeJs Express
   * Mongodb
   * flutter map inspired by leaflet api
+  * Socket I.O library
   
 ## Running the app:
 - After cloning the repo, cd to the backend directory
