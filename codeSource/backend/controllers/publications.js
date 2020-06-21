@@ -20,7 +20,7 @@ class PublicationController{
 
   ///Ok
   getAllPublications         = async (req, res, next) => {
-        console.log("controller pub");
+        console.log("controller pub "+util.inspect(req.headers));
         try {
           let publications =  await this.publicationService.getAllPublications();
           res.status(200).json(publications);

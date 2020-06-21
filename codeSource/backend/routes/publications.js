@@ -20,7 +20,7 @@ let publicationsController   = new PublicationsController(publicationService);
 router.use('/postsImages', express.static(path.join(__dirname, '../images/postsImages')));
 
 ///get all publications with employee who posted and his campagny
-router.get("/",auth, publicationsController.getAllPublications);
+router.get("/", publicationsController.getAllPublications);
 
 /// create a publication
 router.post("/", auth, multer.multerPosts, publicationsController.createPublication);
