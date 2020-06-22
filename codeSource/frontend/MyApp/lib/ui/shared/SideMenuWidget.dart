@@ -171,12 +171,12 @@ Widget _publier({BuildContext context,Employee employee}){
                     color: Color(0xFF455A64),
                     onPressed: () {
                       Navigator.pop(context);
-                      Navigator.pushNamed(context, '/ToPostScreen');
+                      Navigator.pushNamed(context, '/ToPostView');
                     },
                     ),
                     onTap: () {
                       Navigator.pop(context);
-                      Navigator.pushNamed(context, '/ToPostScreen');
+                      Navigator.pushNamed(context, '/ToPostView');
                   },
                
               );

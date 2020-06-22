@@ -29,7 +29,7 @@ class AgencyView extends StatelessWidget {
       onModelReady: (model) => model.getAgencyInfo(agencyId),
       builder: (context, model, child) => Scaffold(
         drawer: SideMenuWidget(),
-        appBar: CustomAppBar.getAppBar(context),
+        appBar: CustomAppBar(height: 60,),
         floatingActionButton: FloatingButton(),
         //App background
         backgroundColor: Colors.blueGrey[50],

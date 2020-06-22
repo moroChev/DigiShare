@@ -31,7 +31,7 @@ class ToPostView extends StatelessWidget {
       builder: (context,model,child)=>
        model.state == ViewState.Idle ? 
         Scaffold(
-        appBar: CustomAppBar.getAppBar(context),
+        appBar: CustomAppBar(height: 60,),
         drawer: SideMenuWidget(),
         body: SingleChildScrollView(      
         child: Column(

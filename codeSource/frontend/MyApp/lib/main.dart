@@ -24,12 +24,9 @@ class MyApp extends StatelessWidget {
       lazy: false,
       child: MaterialApp(
               title: 'Sign Up Screen ',
-              //debugShowCheckedModeBanner: false,
               theme: ThemeData(
                 primarySwatch: Colors.teal,
-                textTheme: TextTheme(
-                              body1: TextStyle( fontFamily: "Times" )
-                            ),
+                textTheme: TextTheme(body1: TextStyle( fontFamily: "Times" )),
               ),
               initialRoute: initialRoute,
               onGenerateRoute: Router.generateRoute,

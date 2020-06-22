@@ -31,7 +31,7 @@ class ProfilView extends StatelessWidget {
       builder: (context, model, child) => Scaffold(
         drawer: SideMenuWidget(),
         floatingActionButton: FloatingButton(),
-        appBar: CustomAppBar.getAppBar(context),
+        appBar: CustomAppBar(height: 60,),
         body: model.state == ViewState.Busy
             ? Center(child: CircularProgressIndicator())
               : Container(

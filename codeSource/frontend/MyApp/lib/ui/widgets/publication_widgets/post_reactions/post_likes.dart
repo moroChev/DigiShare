@@ -15,7 +15,7 @@ class LikesWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: CustomAppBar.getAppBar(context),
+        appBar: CustomAppBar(height: 60,),
         backgroundColor: Color(0xFFf4f6ff),
         body: BaseView<PostReactionsModel>(
                 onModelReady: (model) => model.getLikes(publicationId),

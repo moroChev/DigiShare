@@ -14,7 +14,7 @@ class MapView extends StatelessWidget {
     return BaseView<MapModel>(
       onModelReady: (model) => model.init(),
       builder: (context, model, child) => Scaffold(
-        appBar: CustomAppBar.getAppBar(context),
+        appBar: CustomAppBar(height: 60,),
 
         //App background
         backgroundColor: Colors.blueGrey[50],
