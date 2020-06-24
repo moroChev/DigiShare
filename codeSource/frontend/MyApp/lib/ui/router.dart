@@ -1,7 +1,10 @@
 import 'package:MyApp/Screens/Home.dart';
 import 'package:MyApp/Screens/Profil.dart';
 import 'package:MyApp/Screens/ToPostScreen.dart';
+import 'package:MyApp/ui/views/chat_users_view.dart';
+import 'package:MyApp/ui/views/chat_view.dart';
 import 'package:MyApp/ui/views/home_view.dart';
+import 'package:MyApp/ui/views/messages_view.dart';
 import 'package:MyApp/ui/views/profile_view.dart';
 import 'package:MyApp/ui/views/to_post_view.dart';
 import 'package:MyApp/ui/views/map_view.dart';
@@ -31,6 +34,12 @@ class Router {
         return MaterialPageRoute(builder: (_) => /* ToPostView() */ ToPostScreen());
       case '/Map':
         return MaterialPageRoute(builder: (_) => MapView());
+      case '/Messages':
+        return MaterialPageRoute(builder: (_) => MessagesView());
+      case '/ChatUsers':
+        return MaterialPageRoute(builder: (_) => ChatUsersView());
+      case '/Chat':
+        return MaterialPageRoute(builder: (_) => ChatView(toChatUser: settings.arguments));
       default:
         return MaterialPageRoute(
             builder: (_) => Scaffold(

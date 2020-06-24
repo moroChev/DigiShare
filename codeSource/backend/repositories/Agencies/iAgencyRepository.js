@@ -1,4 +1,4 @@
-class IRepositoryAgency{
+class IAgencyRepository{
 
 	// fetch all agencies without their subobjects
     async getAllAgencies(){};
@@ -17,4 +17,4 @@ class IRepositoryAgency{
     
 }
 
-module.exports = IRepositoryAgency;
+module.exports = IAgencyRepository;

@@ -1,0 +1,1 @@
+enum UserOnlineStatus { connecting, online ,not_online }

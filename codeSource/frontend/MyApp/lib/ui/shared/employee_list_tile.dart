@@ -7,7 +7,10 @@ import 'package:strings/strings.dart';
 
 class EmployeeListTile extends StatelessWidget {
   final Employee employee;
-  EmployeeListTile({@required this.employee});
+  final String subtitle;
+  final Widget trailing;
+  final Function onTap;
+  EmployeeListTile({@required this.employee, this.subtitle, this.trailing, this.onTap});
 
   // just reminder
   // things to take in consideration :
@@ -28,12 +31,13 @@ class EmployeeListTile extends StatelessWidget {
       title: Text(
           capitalize("${employee?.firstName}") + " " + capitalize("${employee?.lastName}"),
           style: TextStyle(color: Colors.black, fontFamily: "Times")),
-      subtitle: Container(),
-      onTap: () {
+      subtitle: subtitle == null ? Container() : Text(subtitle),
+      trailing: trailing == null ? Text(" ") : trailing,
+      onTap: onTap == null ? (){} : () => onTap() /*{
         Navigator.pushNamedAndRemoveUntil(
             context, '/Profile', ModalRoute.withName("/Home"),
             arguments: employee?.id);
-      },
+      }*/,
     );
   }
 }

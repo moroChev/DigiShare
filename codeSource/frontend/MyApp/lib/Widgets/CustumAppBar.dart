@@ -24,7 +24,7 @@ class CustomAppBar  {
                        },
      ),  
    */
-        
+
         backgroundColor: Color(0xFFCFD8DC),
         actions: <Widget>[
         /*****************************************************************************************/ 

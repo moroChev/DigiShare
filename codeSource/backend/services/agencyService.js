@@ -1,5 +1,3 @@
-const util     = require('util');
-
 class AgencyService{
 
     constructor(agencyRepo){

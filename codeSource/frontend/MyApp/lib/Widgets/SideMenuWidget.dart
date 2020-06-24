@@ -33,6 +33,7 @@ return Column(
                 _home(context: context),
                 _myProfil(context: context,employee: employee),
                 _notifications(context: context),
+                _chat(context: context),
                 _publier(context:context,employee: employee ),
                 _search(context: context),
                 _mySociete(context: context,employee: employee),
@@ -149,7 +150,7 @@ return  ListTile(
         );
 }
 
-Widget _chat({BuildContext context,Employee employee})
+Widget _chat({BuildContext context})
 {
 return      ListTile(
               selected: false,
@@ -157,12 +158,12 @@ return      ListTile(
               leading: IconButton(
                 icon: Icon(Icons.chat),
                 color: Color(0xFF455A64),
-                onPressed: () {
-                  print("notifications");
-                },
               ),
-               
-              );
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.pushNamed(context, '/Messages');
+              },
+  );
 }
 
 
@@ -178,13 +179,12 @@ Widget _publier({BuildContext context,Employee employee}){
                       Navigator.pop(context);
                       Navigator.pushNamed(context, '/ToPostScreen');
                     },
-                    ),
-                    onTap: () {
-                      Navigator.pop(context);
-                      Navigator.pushNamed(context, '/ToPostScreen');
-                  },
-               
-              );
+          ),
+          onTap: () {
+            Navigator.pop(context);
+            Navigator.pushNamed(context, '/ToPostScreen');
+          },
+  );
 
 }
 

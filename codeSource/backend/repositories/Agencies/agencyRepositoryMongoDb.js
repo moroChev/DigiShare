@@ -1,9 +1,8 @@
 const Agency   = require('../../models/Agency'),
-      IRepositoryAgency = require('./IRepositoryAgencies');
-      //util     = require('util');
+      IAgencyRepository = require('./iAgencyRepository');
       
 
-class RespositoryAgencyMongoDb extends IRepositoryAgency{
+class AgencyRepositoryMongoDb extends IAgencyRepository{
 
     constructor(){
         console.log('creating InStAnCe of RespositoryAgencyMongoDb');
@@ -83,7 +82,7 @@ class RespositoryAgencyMongoDb extends IRepositoryAgency{
     }
 }
 
-module.exports = RespositoryAgencyMongoDb;
+module.exports = AgencyRepositoryMongoDb;
 
 
 

@@ -52,7 +52,7 @@ class EmployeesSection extends StatelessWidget {
     for (Employee emp in employees) {
       //Single employee section
       Widget employee = Column(children: [
-        EmployeeListTile(employee: emp),
+        EmployeeListTile(employee: emp, ),
         Divider(height: 1, color: Colors.blueGrey[200]),
       ]);
       list.add(employee);

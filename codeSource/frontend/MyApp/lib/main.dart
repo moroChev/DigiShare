@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
       lazy: false,
       child: MaterialApp(
               title: 'Sign Up Screen ',
-              //debugShowCheckedModeBanner: false,
+              debugShowCheckedModeBanner: false,
               theme: ThemeData(
                 primarySwatch: Colors.teal,
                 textTheme: TextTheme(
