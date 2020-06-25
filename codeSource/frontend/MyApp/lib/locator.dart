@@ -1,6 +1,6 @@
 import 'package:get_it/get_it.dart';
-import 'package:MyApp/core/models/socket.dart';
 
+import 'package:MyApp/core/repositories/socket_repo.dart';
 import 'package:MyApp/core/repositories/agency_repo.dart';
 import 'package:MyApp/core/repositories/authentication_repo.dart';
 import 'package:MyApp/core/repositories/network_image_repo.dart';
@@ -41,8 +41,7 @@ GetIt locator = GetIt.instance;
 
 void setupLocator() {
 
-  locator.registerLazySingleton(() => Socket());
-
+  locator.registerLazySingleton(() => SocketRepo());
   locator.registerLazySingleton(() => AuthenticationRepo());
   locator.registerLazySingleton(() => AgencyRepo());
   locator.registerLazySingleton(() => NetworkImageRepo());

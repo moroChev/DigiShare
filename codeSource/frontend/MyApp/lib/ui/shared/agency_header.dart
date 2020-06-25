@@ -11,7 +11,7 @@ class AgencyHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 60),
+      padding: const EdgeInsets.only(top: 30),
       child: AspectRatio(
         aspectRatio: 5 / 4,
         child: Column(

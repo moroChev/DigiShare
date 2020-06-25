@@ -14,24 +14,36 @@ class ChatTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.center,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          Text(
-            capitalize(toChatUser.firstName + ' ' + toChatUser.lastName),
-            style: TextStyle(color: Colors.black45),
-          ),
-          Text(
-            _getStatusText(),
-            style: TextStyle(
-              fontSize: 14.0,
-              color: Colors.black26,
-            ),
-          ),
-        ],
+    return SliverAppBar(
+      iconTheme: IconThemeData(
+        color: Colors.black45,
       ),
+      backgroundColor: Color(0xFFF5F5F8),
+      leading: IconButton(
+        icon: Icon(Icons.arrow_back),
+        onPressed: () async {
+          Navigator.pop(context);
+          await Navigator.pushNamed(context, '/Messages');
+        },
+      ),
+      pinned: true,
+      floating: false,
+      expandedHeight: 100.0,
+      bottom: PreferredSize(
+        child: Text(
+          _getStatusText(),
+          style: TextStyle(
+            fontSize: 14.0,
+            color: Colors.black26,
+          ),
+        ),
+      ),
+      flexibleSpace: FlexibleSpaceBar(
+          centerTitle: true,
+          title: Text(
+            capitalize(toChatUser.firstName + ' ' + toChatUser.lastName),
+            style: TextStyle(fontSize: 16, color: Colors.black45),
+          )),
     );
   }
 

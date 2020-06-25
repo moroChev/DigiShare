@@ -24,9 +24,8 @@ class ShowImage extends StatelessWidget {
             Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[     
-                  SizedBox(
-                    height: 240,
-                    width: 320,
+                  AspectRatio(
+                    aspectRatio: 320/240,
                     child: Container(
                       padding: EdgeInsets.only(bottom: 10, top: 0),
                       decoration: BoxDecoration(borderRadius: BorderRadius.circular(20),border: Border.all(color: Colors.white, width: 1.0)),

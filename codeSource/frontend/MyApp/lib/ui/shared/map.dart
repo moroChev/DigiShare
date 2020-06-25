@@ -79,8 +79,8 @@ class Map extends StatelessWidget {
       builder: (builder) {
         return MaterialButton(
           onPressed: () {
-            Navigator.pushNamedAndRemoveUntil(
-                context, '/Agency', ModalRoute.withName("/Home"),
+            Navigator.pushReplacementNamed(
+                context, '/Agency',
                 arguments: model.id);
           },
           child: AgencyHeader(agency: model),

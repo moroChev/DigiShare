@@ -33,7 +33,7 @@ class LikesWidget extends StatelessWidget {
                             child: ListView.builder(
                               itemCount: model.employeesWhoLiked.length,
                               itemBuilder: (context,index){
-                                return EmployeeListTile(employee : model.employeesWhoLiked[index], agency: model.employeesWhoLiked[index].agency);
+                                return EmployeeListTile(employee : model.employeesWhoLiked[index], subtitle: model.employeesWhoLiked[index].agency.name);
                                 }
                             ),
                          ),

@@ -30,7 +30,7 @@ class DecoratedLogo extends StatelessWidget {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
                 image: DecorationImage(
-                  fit: BoxFit.cover,
+                  fit: BoxFit.fill,
                   image: model.image,
                 ),
                 border: Border.all(color: Colors.white, width: 6.0),
