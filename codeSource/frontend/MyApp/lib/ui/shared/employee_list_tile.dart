@@ -1,9 +1,9 @@
 import 'package:MyApp/core/models/employee.dart';
-import 'file:///C:/Users/Hp/Desktop/My-app/codeSource/frontend/MyApp/lib/ui/shared/employee_image.dart';
 import 'package:flutter/material.dart';
-import '../../Screens/Profil.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:strings/strings.dart';
+
+import 'emp_list_tile/employee_image.dart';
 
 class EmployeeListTile extends StatelessWidget {
   final Employee employee;

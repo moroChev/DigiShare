@@ -4,9 +4,11 @@ import 'core/models/employee.dart';
 import 'ui/router.dart';
 import 'core/services/authentication_service.dart';
 import 'locator.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 
-void main(){
+void main() async {
+  await DotEnv().load('.env');
   setupLocator();
   runApp(MyApp());
 }
@@ -25,9 +27,7 @@ class MyApp extends StatelessWidget {
               debugShowCheckedModeBanner: false,
               theme: ThemeData(
                 primarySwatch: Colors.teal,
-                textTheme: TextTheme(
-                              body1: TextStyle( fontFamily: "Times" )
-                            ),
+                textTheme: TextTheme(body1: TextStyle( fontFamily: "Times" )),
               ),
               initialRoute: initialRoute,
               onGenerateRoute: Router.generateRoute,

@@ -4,9 +4,10 @@ import 'dart:io';
 import 'package:MyApp/core/models/roomModel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class ChatRepo{
-  static const endpoint = 'http://192.168.43.107:3000/api/messages';
+  final endpoint = '${DotEnv().env['API_URL']}/messages';
   SharedPreferences storage;
 
   Future<Map<String,String>> header() async {

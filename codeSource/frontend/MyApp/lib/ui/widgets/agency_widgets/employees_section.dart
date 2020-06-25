@@ -1,14 +1,14 @@
-import 'package:MyApp/WebService/NetworkImageController.dart';
 import 'package:MyApp/core/enum/viewstate.dart';
 import 'package:MyApp/core/viewmodels/agency_model.dart';
 import 'package:MyApp/core/models/employee.dart';
 import 'package:MyApp/ui/views/base_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../../shared/employee_list_tile.dart';
-import '../../../Screens/Profil.dart';
+import '../../shared/emp_list_tile/employee_list_tile.dart';
 
 class EmployeesSection extends StatelessWidget {
+
+  
   final String agencyId;
   EmployeesSection({@required this.agencyId});
 

@@ -1,5 +1,5 @@
-const util                         = require('util');
-
+const util = require('util');
+const fs   = require('fs');
 
 class PublicationService{
 
@@ -49,9 +49,9 @@ class PublicationService{
 
     async deletePublication(id){
         try {
-            console.log("delete in service "+id);
             let deletedOne = await this._publicationRepo.findByIdAndDelete(id);
-            console.log("posted by id : "+deletedOne.postedBy);
+            const fileName =  deletedOne.imageUrl.split('/postsImages/')[1];
+            fs.unlink(`images/postsImages/${fileName}`,(err)=>{console.log('error in deleting the image');});
             let employee = await this._employeeRepo.findById_And_Pull(deletedOne.postedBy, { "publications" : id });
             return {'employee': employee};
         } catch (error) {

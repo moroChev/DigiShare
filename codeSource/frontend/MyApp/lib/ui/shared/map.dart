@@ -1,11 +1,11 @@
 import 'package:MyApp/core/models/agency.dart';
-import 'file:///C:/Users/Hp/Desktop/My-app/codeSource/frontend/MyApp/lib/ui/shared/agency_header.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:latlong/latlong.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:MyApp/ui/shared/agency_header.dart';
 
 class Map extends StatelessWidget {
   final List<Agency> agencies;

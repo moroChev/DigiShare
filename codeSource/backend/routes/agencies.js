@@ -19,6 +19,7 @@ let agencyController = new AgencyController(agencySvc);
 router.use('/logo', auth, express.static(path.join(__dirname, '../images/agenciesLogos')));
 
 //usual routes
+
 router.get("/", auth, (req,res,next) => agencyController.getAllAgencies(req,res,next));
 router.get("/:id", auth, (req,res,next) => agencyController.getAgencyById(req,res,next));
 

@@ -3,9 +3,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'dart:io'; //HttpHeaders access to add the authorization header
 import 'dart:convert';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class AgencyRepo{
-  static const endpoint = 'http://192.168.43.107:3000/api/agencies';
+  final endpoint = "${DotEnv().env['API_URL']}/agencies";
   // SharedPreferences api
   SharedPreferences storage;
 

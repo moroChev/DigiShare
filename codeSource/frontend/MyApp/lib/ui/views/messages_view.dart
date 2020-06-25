@@ -1,8 +1,8 @@
-import 'package:MyApp/Widgets/CustumAppBar.dart';
 import 'package:MyApp/core/enum/viewstate.dart';
 import 'package:MyApp/core/models/employee.dart';
 import 'package:MyApp/core/models/roomModel.dart';
 import 'package:MyApp/core/viewmodels/messages_model.dart';
+import 'package:MyApp/ui/shared/CustomAppBar.dart';
 import 'package:MyApp/ui/shared/employee_list_tile.dart';
 import 'package:provider/provider.dart';
 import '../../core/constantes/socket_consts.dart' as globals;
@@ -20,7 +20,7 @@ class MessagesView extends StatelessWidget {
       builder: (context, model, child) => Scaffold(
         backgroundColor: Colors.blueGrey[50],
         floatingActionButton: _floatingButton(context),
-        appBar: CustomAppBar.getAppBar(context),
+        appBar: CustomAppBar(key: key, height: 40),
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[

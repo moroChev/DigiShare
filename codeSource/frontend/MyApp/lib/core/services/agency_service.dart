@@ -8,6 +8,7 @@ import '../models/employee.dart';
 import '../../locator.dart';
 
 class AgencyService {
+  
   AgencyRepo _api = locator<AgencyRepo>();
 
   Future<Agency> getAgencyInfo(String agencyId) async {

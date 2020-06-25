@@ -8,6 +8,7 @@ import 'base_model.dart';
 import '../../locator.dart';
 
 class AgencyModel extends BaseModel {
+  
   final AgencyService _agencyService = locator<AgencyService>();
 
   Agency _agency;
@@ -35,4 +36,5 @@ class AgencyModel extends BaseModel {
     this._subsidiaries = await _agencyService.getAgencySubsidiaries(agencyId);
     setState(ViewState.Idle);
   }
+
 }

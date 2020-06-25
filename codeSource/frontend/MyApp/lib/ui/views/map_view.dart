@@ -1,8 +1,8 @@
-import 'package:MyApp/Widgets/CustumAppBar.dart';
 import 'package:MyApp/core/enum/viewstate.dart';
 import 'package:MyApp/core/viewmodels/map_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:MyApp/ui/shared/CustomAppBar.dart';
 
 import 'base_view.dart';
 import 'package:MyApp/ui/shared/map.dart';
@@ -14,7 +14,7 @@ class MapView extends StatelessWidget {
     return BaseView<MapModel>(
       onModelReady: (model) => model.init(),
       builder: (context, model, child) => Scaffold(
-        appBar: CustomAppBar.getAppBar(context),
+        appBar: CustomAppBar(height: 60,),
 
         //App background
         backgroundColor: Colors.blueGrey[50],

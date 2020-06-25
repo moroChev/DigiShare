@@ -20,13 +20,13 @@ let publicationsController   = new PublicationsController(publicationService);
 router.use('/postsImages', express.static(path.join(__dirname, '../images/postsImages')));
 
 ///get all publications with employee who posted and his campagny
-router.get("/",auth, publicationsController.getAllPublications);
+router.get("/", publicationsController.getAllPublications);
 
 /// create a publication
 router.post("/", auth, multer.multerPosts, publicationsController.createPublication);
 
 /// delete a publication has a middelware to verify the rights
-router.delete("/:id", auth, publicationsController.deletePublication);
+router.delete("/:id", publicationsController.deletePublication);
 
 /// get a single publication
 router.get("/:id", auth, publicationsController.getPublicationById);

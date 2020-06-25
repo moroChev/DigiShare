@@ -1,8 +1,6 @@
-import 'package:MyApp/Widgets/CustumAppBar.dart';
 import 'package:MyApp/core/enum/viewstate.dart';
-import 'file:///C:/Users/Hp/Desktop/My-app/codeSource/frontend/MyApp/lib/ui/widgets/agency_widgets/agency_info.dart';
-import 'file:///C:/Users/Hp/Desktop/My-app/codeSource/frontend/MyApp/lib/ui/widgets/agency_widgets/employees_section.dart';
 import 'package:flutter/cupertino.dart';
+import '../shared/CustomAppBar.dart';
 import '../../core/models/employee.dart';
 import 'package:provider/provider.dart';
 import 'base_view.dart';
@@ -10,7 +8,11 @@ import '../../core/viewmodels/agency_model.dart';
 import 'package:flutter/material.dart';
 import '../shared/agency_header.dart';
 import '../shared/divider_with_title.dart';
+import '../widgets/agency_widgets/agency_info.dart';
 import '../widgets/agency_widgets/subsidiaries_map_container.dart';
+import '../widgets/agency_widgets/employees_section.dart';
+import 'package:MyApp/ui/shared/SideMenuWidget.dart';
+import 'package:MyApp/ui/shared/floatingButton.dart';
 
 class AgencyView extends StatelessWidget {
   final String id;
@@ -26,8 +28,9 @@ class AgencyView extends StatelessWidget {
     return BaseView<AgencyModel>(
       onModelReady: (model) => model.getAgencyInfo(agencyId),
       builder: (context, model, child) => Scaffold(
-        appBar: CustomAppBar.getAppBar(context),
-
+        drawer: SideMenuWidget(),
+        appBar: CustomAppBar(height: 60,),
+        floatingActionButton: FloatingButton(),
         //App background
         backgroundColor: Colors.blueGrey[50],
         body: model.state == ViewState.Busy
