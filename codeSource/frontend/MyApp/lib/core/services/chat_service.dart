@@ -1,13 +1,13 @@
 import 'package:MyApp/core/models/chatMessageModel.dart';
 import 'package:MyApp/core/repositories/chat_repo.dart';
-import '../models/socket.dart';
+import '../repositories/socket_repo.dart';
 import '../constantes/socket_consts.dart' as globals;
 
 import '../../locator.dart';
 
 class ChatService {
   ChatRepo _api = locator<ChatRepo>();
-  Socket _socket = locator<Socket>();
+  SocketRepo _socket = locator<SocketRepo>();
 
   Future<List<ChatMessageModel>> getMessagesForRoom(String roomId) async {
     var fetchedRoom = await _api.fetchRoom(roomId);

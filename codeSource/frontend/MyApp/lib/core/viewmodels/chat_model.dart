@@ -25,26 +25,43 @@ class ChatModel extends BaseModel {
   TextEditingController _chatTextController;
   ScrollController _chatListController;
   Map<DateTime, Timer> _timers;
+  bool _isUserStatusChecked;
 
   List<ChatMessageModel> get chatMessages => _chatMessages;
   Employee get toChatUser => _toChatUser;
   UserOnlineStatus get userOnlineStatus => _userOnlineStatus;
   TextEditingController get chatTextController => _chatTextController;
   ScrollController get chatListController => _chatListController;
+  bool get isUserStatusChecked => _isUserStatusChecked;
 
   Future init(Employee fromChatUser, Employee toChatUser) async {
     setState(ViewState.Busy);
+
     _timers = new Map<DateTime, Timer>();
+    this._isUserStatusChecked = false;
     this._chatTextController = TextEditingController();
     this._chatListController = ScrollController(initialScrollOffset: 0);
     this._toChatUser = toChatUser;
     this._userOnlineStatus = UserOnlineStatus.connecting;
     this._chatMessages = List<ChatMessageModel>();
+
     await loadMessages(getChatId(fromChatUser.id, _toChatUser.id));
-    chatListScrollToBottom();
     _socketService.initSocketListeners(this.onMessageStatusChanged, this.onMessageReceive, this.onUserOnlineStatus);
-    _chatService.checkOnline(_toChatUser.id);
+    this.checkOnline();
+
     setState(ViewState.Idle);
+  }
+
+  void checkOnline() {
+    // wait one second after emitting the checkOnline event and then check if user status is checked, if not repeat the process
+    // because it might send event and receive response from the server and the socket doesn't unregister its old listeners with callbacks associated to the previous modelView
+    // and then we loose the response to this action event
+    _chatService.checkOnline(_toChatUser.id);
+    Timer(Duration(seconds: 1), () {
+      if(isUserStatusChecked == false){
+        checkOnline();
+      }
+    });
   }
 
   void onMessageStatusChanged(ChatMessageModel chatMessageModel){
@@ -53,6 +70,7 @@ class ChatModel extends BaseModel {
 
   void onUserOnlineStatus(ChatMessageModel chatMessageModel){
     setState(ViewState.Busy);
+    this._isUserStatusChecked = true;
     this._userOnlineStatus = chatMessageModel.toUserOnlineStatus
         ? UserOnlineStatus.online
         : UserOnlineStatus.not_online;
@@ -81,13 +99,13 @@ class ChatModel extends BaseModel {
   Future loadMessages(String chatId) async {
     setState(ViewState.Busy);
     this._chatMessages = await _chatService.getMessagesForRoom(chatId);
-    chatListScrollToBottom();
     for(ChatMessageModel msg in _chatMessages){
       if(msg.from == _toChatUser.id && msg.status != globals.STATUS_MASSAGE_SEEN) {
         _chatService.sendMessageSeen(msg);
       }
     }
     setState(ViewState.Idle);
+    chatListScrollToBottom();
   }
 
   String getChatId(fromId, toId) {

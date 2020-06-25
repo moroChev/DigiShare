@@ -1,6 +1,5 @@
 import 'package:MyApp/core/enum/viewstate.dart';
 import 'package:MyApp/core/models/employee.dart';
-import 'package:MyApp/core/services/authentication_service.dart';
 import 'package:MyApp/core/services/chat_users_service.dart';
 import 'package:MyApp/core/services/socket_service.dart';
 
