@@ -8,6 +8,7 @@ const express                    = require('express'),
 
 
 let router                       = express.Router();
+
 let employeeRepo                 = new EmployeeRepositoryMongoDb();
 let employeeService              = new EmployeeService(employeeRepo);
 let employeeController           = new EmployeeController(employeeService);

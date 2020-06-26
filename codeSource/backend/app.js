@@ -4,12 +4,14 @@ const express             = require('express'),
       routerPublications  = require('./routes/publications'),
       routerEmployees     = require('./routes/employees'),
       routerAgencies      = require('./routes/agencies'),
-      routerAuth          = require('./routes/auth');
+      routerAuth          = require('./routes/auth'),
+      NotificationChannel = require('./routes/realtime channels/notifications');
 
 let app = express();
 
 mongoose.connect('mongodb://localhost/digi_share',{ useNewUrlParser: true, useCreateIndex: true, useFindAndModify: false, useUnifiedTopology: true});
 
+let notificationChannel = new NotificationChannel(app.get('io'));
 
 app.use(bodyParser.json());
 
@@ -19,7 +21,7 @@ app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
     next();
   });
-//app.use('/images', express.static(path.join(__dirname, 'images')));
+
 app.use('/api/auth',routerAuth);
 app.use('/api/publications', routerPublications);  
 app.use('/api/employees', routerEmployees);

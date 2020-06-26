@@ -34,7 +34,7 @@ router.get("/:id", auth, publicationsController.getPublicationById);
 /// get all publications's likes
 router.get("/:id/likes", auth, publicationsController.getPublicationLikes);
 
-/// add like to publications
+/// add like to publication
 router.post("/:id/likes", auth, publicationsController.addlikePublication);
 
 //remove a like to a given publication of a given employee
