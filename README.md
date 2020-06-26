@@ -7,8 +7,8 @@
   * Socket I.O library
   
 ## Running the app:
+- Install nodejs, flutter and add dart and flutter plugins to your ide (see flutter documentation)
 - After cloning the repo, cd to the backend directory
-- Install flutter and add dart and flutter plugins to your ide (see flutter documentation)
 - Install express, bcrypt and body-parser dependecies with the following commands : ( npm install --save express , npm install --save bcrypt , npm install --save body-parser , it may ask you to install other dependencies , proceed the same as express and the others.)
 - run the nodejs server (node server or nodemon server)
 - then u can use the API documentation to get the database initialized to start using the app (you can use postman)
