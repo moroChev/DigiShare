@@ -1,3 +1,4 @@
+import 'package:MyApp/core/repositories/notifications_repo/notifications_repo.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'core/models/employee.dart';
@@ -9,6 +10,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 void main() async {
   await DotEnv().load('.env');
+  NotificationRepo.createSocket();
   setupLocator();
   runApp(MyApp());
 }

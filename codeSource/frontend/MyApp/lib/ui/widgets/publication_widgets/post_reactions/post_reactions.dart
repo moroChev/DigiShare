@@ -1,6 +1,6 @@
 import 'package:MyApp/core/models/publication.dart';
 import 'package:MyApp/core/viewmodels/publication_models/post_reactions_model.dart';
-import 'package:MyApp/ui/widgets/publication_widgets/post_reactions/post_likes.dart';
+import 'package:MyApp/ui/widgets/publication_widgets/post_reactions/post_likes_list.dart';
 import 'package:MyApp/ui/views/base_view.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

@@ -9,6 +9,7 @@ import 'package:MyApp/core/repositories/publications_repo/pub_utility_repo.dart'
 import 'package:MyApp/core/repositories/publications_repo/pub_settings_repo.dart';
 import 'package:MyApp/core/repositories/publications_repo/pub_reactions_repo.dart';
 import 'package:MyApp/core/repositories/publications_repo/pub_global_repo.dart';
+import 'package:MyApp/core/repositories/notifications_repo/notifications_repo.dart';
 
 import 'package:MyApp/core/services/agency_service.dart';
 import 'package:MyApp/core/services/authentication_service.dart';
@@ -42,6 +43,8 @@ void setupLocator() {
   locator.registerLazySingleton(() => AgencyRepo());
   locator.registerLazySingleton(() => NetworkImageRepo());
   locator.registerLazySingleton(() => EmployeeRepo());
+  locator.registerLazySingleton(() => NotificationRepo());
+  
   
   locator.registerLazySingleton(() => PubUtilityRepo());
   locator.registerLazySingleton(() => PublicationGlobalRepo());

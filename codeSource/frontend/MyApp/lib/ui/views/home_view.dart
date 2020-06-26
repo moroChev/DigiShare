@@ -1,9 +1,10 @@
+import 'package:MyApp/ui/shared/named_icon.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import './base_view.dart';
 import '../../core/viewmodels/home_model.dart';
-import '../shared/CustomAppBar.dart';
 import '../../core/enum/viewstate.dart';
+import 'package:MyApp/core/services/Search_emp_service.dart';
 import '../widgets/publication_widgets/single_post.dart';
 import 'package:MyApp/ui/shared/SideMenuWidget.dart';
 import 'package:MyApp/ui/shared/floatingButton.dart';
@@ -35,7 +36,7 @@ class HomeView extends StatelessWidget {
                     title: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: <Widget>[ 
-                        FaIcon(FontAwesomeIcons.solidBell),
+                        NamedIcon( iconData: FontAwesomeIcons.solidBell,notificationCount: 4,onTap: ()=>myfunction(),),
                         SearchBar(),
                         ],
                       ),
@@ -61,7 +62,9 @@ class HomeView extends StatelessWidget {
 
 
 
-
+void myfunction(){
+  print("rien de special walo ...");
+}
 
 }
 
