@@ -1,7 +1,8 @@
 import 'package:MyApp/core/models/agency.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:MyApp/ui/widgets/agency_widgets/decorated_logo.dart';
+
+import 'package:MyApp/ui/shared/decorated_logo.dart';
 
 class AgencyHeader extends StatelessWidget {
   final Agency agency;
@@ -10,7 +11,7 @@ class AgencyHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 60),
+      padding: const EdgeInsets.only(top: 30),
       child: AspectRatio(
         aspectRatio: 5 / 4,
         child: Column(

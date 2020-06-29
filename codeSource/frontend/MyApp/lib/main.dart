@@ -10,7 +10,6 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 void main() async {
   await DotEnv().load('.env');
-  NotificationRepo.createSocket();
   setupLocator();
   runApp(MyApp());
 }
@@ -26,6 +25,7 @@ class MyApp extends StatelessWidget {
       lazy: false,
       child: MaterialApp(
               title: 'Sign Up Screen ',
+              debugShowCheckedModeBanner: false,
               theme: ThemeData(
                 primarySwatch: Colors.teal,
                 textTheme: TextTheme(body1: TextStyle( fontFamily: "Times" )),

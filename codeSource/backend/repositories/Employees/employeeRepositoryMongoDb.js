@@ -20,7 +20,7 @@ class EmployeeRepositoryMongoDb extends IEmployeeRepository{
     async findAllWithAgency(){
         console.log('in finding ALL employees');
         try {
-            let employee = await Employee.find().populate('agency');
+            let employee = await Employee.find().populate('agency').sort({'firstName': 'asc', 'lastName': 'asc'});
             return employee;
         } catch (error) {
             console.log('error in finding all employees');

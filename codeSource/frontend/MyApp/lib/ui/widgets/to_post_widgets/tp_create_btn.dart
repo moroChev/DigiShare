@@ -7,7 +7,7 @@ class CreateBtn extends StatelessWidget {
   Widget build(BuildContext context) {
     return ButtonTheme(
             height: 50,
-            minWidth: 140,
+            minWidth: MediaQuery.of(context).size.width/2 - 20,
             child: RaisedButton(
               color: Color(0xFF0DC1DD),
               textColor: Colors.white,
@@ -19,7 +19,7 @@ class CreateBtn extends StatelessWidget {
                // else  Navigator.pushReplacementNamed(context, '/Home');
                 print('hasError $hasError');
                 },
-              child: Text("Publier"),
+              child: Text("Publier", textAlign: TextAlign.center),
         ),
      );
   }

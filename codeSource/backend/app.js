@@ -6,7 +6,9 @@ const express             = require('express'),
       routerAgencies      = require('./routes/agencies'),
       routerAuth          = require('./routes/auth'),
       NotificationChannel = require('./routes/realtime channels/notifications');
+      routerMessages      = require('./routes/messages');
 
+// Creating express instance
 let app = express();
 
 mongoose.connect('mongodb://localhost/digi_share',{ useNewUrlParser: true, useCreateIndex: true, useFindAndModify: false, useUnifiedTopology: true});
@@ -26,6 +28,7 @@ app.use('/api/auth',routerAuth);
 app.use('/api/publications', routerPublications);  
 app.use('/api/employees', routerEmployees);
 app.use('/api/agencies', routerAgencies);
+app.use('/api/messages', routerMessages);
 
 
 

@@ -18,11 +18,10 @@ class PublicationBox extends StatelessWidget {
           child: Container(
             padding: EdgeInsets.symmetric(vertical: 15),
             decoration: _boxDecoration(),
-            height: 420,
-            width: 340,
-            child: Wrap(
+            height: MediaQuery.of(context).size.height - 190,
+            child: ListView(
               children: <Widget>[
-                EmployeeListTile(employee: user, agency: user?.agency),
+                EmployeeListTile(employee: user, subtitle: user?.agency?.name),
                 PostTextField(),
                 ShowImage(),
               ],

@@ -29,7 +29,6 @@ class ProfilView extends StatelessWidget {
     return BaseView<ProfilModel>(
       onModelReady: (model)=>model.fetchProfilData(idEmployee),
       builder: (context, model, child) => Scaffold(
-        drawer: SideMenuWidget(),
         floatingActionButton: FloatingButton(),
         appBar: CustomAppBar(height: 60,),
         body: model.state == ViewState.Busy

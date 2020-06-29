@@ -11,7 +11,6 @@ class FloatingButton extends StatelessWidget {
         ),
         child: Icon(Icons.add, color: Colors.blueGrey[100],),
         onPressed: (){
-          Navigator.pop(context);
           Navigator.push(context, MaterialPageRoute(builder: (context)=>ToPostView())); 
         });
   }

@@ -1,0 +1,11 @@
+enum NotificationType {
+  NEW_PUBLICATION,
+  APPROVAL,
+  NEW_LOCATION,
+  NEW_POSITION
+}
+
+enum NOTIFICATIONSETTING {
+  REMOVE,
+  HIDE
+}

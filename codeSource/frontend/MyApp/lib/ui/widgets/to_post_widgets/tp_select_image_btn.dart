@@ -1,4 +1,5 @@
 import 'package:MyApp/core/viewmodels/to_post_model.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -11,7 +12,7 @@ class SelectImageBtn extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
               height: 50,
-              width: 160,
+              width: MediaQuery.of(context).size.width/2 - 20,
               child: RaisedButton(
                 color: Color(0xFF303960),
                 textColor: Colors.white,
@@ -19,7 +20,7 @@ class SelectImageBtn extends StatelessWidget {
                 onPressed: () { 
                    Provider.of<ToPostModel>(context,listen: false).getImage(ImageSource.gallery);
                   },
-                child: Text("Selectionner image"),
+                child: Text("Selectionner image", textAlign: TextAlign.center),
               ),
     );
   }

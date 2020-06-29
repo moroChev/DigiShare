@@ -21,6 +21,15 @@ class PublicationGlobalService {
     return posts;
   }
 
+  Future<Publication> fetchSinglePost(String publicationId) async {
+    try {
+      Publication pub = await this._postGlobal.getSinglePublication(publicationId);
+      return pub;
+    } catch (e) {
+      throw(e);
+    }
+  }
+
 
   
   Future<bool> postPublication({Publication publication,File image}) async {

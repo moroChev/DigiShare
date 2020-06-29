@@ -1,30 +1,71 @@
 import 'package:flutter/material.dart';
-import 'package:MyApp/core/models/employee.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:strings/strings.dart';
 import 'package:MyApp/ui/shared/emp_list_tile/employee_image.dart';
+import 'package:MyApp/core/models/notification.dart' as myNotification;
+import 'package:MyApp/ui/views/base_view.dart';
+import 'package:MyApp/core/viewmodels/notification_models/notification_single_model.dart';
+import 'package:MyApp/core/enum/notificationType.dart';
+import 'package:intl/intl.dart';
+
 
 class NotificationTile extends StatelessWidget {
-   
-   final Employee employee;
-   final String text;
+  final myNotification.Notification notification;
 
-  NotificationTile({@required this.employee,@required this.text});
+  NotificationTile({@required this.notification});
 
   @override
   Widget build(BuildContext context) {
-
-    return ListTile(
-      leading: EmployeeImage(imageUrl: employee.imageUrl),
-      title: Text(
-          capitalize("${employee?.firstName}") + " " + capitalize("${employee?.lastName}"),
-          style: TextStyle(color: Colors.black, fontFamily: "Times")),
-      subtitle: Text("$text",style: TextStyle(fontFamily: "Times"),),
-      onTap: () {
-  /*       Navigator.pushNamedAndRemoveUntil(
-            context, '/Profil', ModalRoute.withName("/Home"),
-            arguments: employee?.id); */
-      },
+    return BaseView<SingleNotificationModel>(
+          onModelReady: (model)=>model.initData(notification, context),
+          builder:(context,model,child)=> Ink(
+            color: notification.isChecked ? Colors.white : Color(0xFFE5F2FA),
+            child: Column(
+              children: <Widget>[
+                ListTile(
+                  leading: EmployeeImage(imageUrl: notification.notifier.imageUrl),
+                  title: notificationContent(model),
+                  subtitle: Text(DateFormat('EEE hh:mm aaa').format(notification.date)),
+                  isThreeLine: true,
+                  onTap: () => model.onTap(),
+                  trailing: notificationSettings(model),
+                ),
+                Divider(
+                  indent: 80,
+                ),
+              ],
+            ),
+          ),
     );
   }
+
+
+Widget notificationContent(SingleNotificationModel model){
+  return RichText(
+                text: TextSpan(
+                  style: new TextStyle(color: Colors.black, fontFamily: "Times"),
+                  children: <TextSpan>[
+                    TextSpan(text: capitalize(notification.notifier.firstName +' ' +notification.notifier.lastName),style: TextStyle(fontWeight: FontWeight.bold)),
+                    TextSpan(text: model.notifText),
+                  ],
+                ),
+          );
+}
+
+
+Widget notificationSettings(SingleNotificationModel model){
+  return PopupMenuButton<NOTIFICATIONSETTING>(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+          icon: Icon(Icons.more_horiz),
+          onSelected: model.applySettings,
+          itemBuilder: (BuildContext context){
+            return model.listOfChoices();
+          }
+  );
+}
+
+
+
+
+
+ 
 }

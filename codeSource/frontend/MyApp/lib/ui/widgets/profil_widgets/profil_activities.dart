@@ -16,7 +16,7 @@ class ProfilActivities extends StatelessWidget {
     return Container(
       height: 70.0,
       margin: EdgeInsets.all(8.0),
-      child: user.id == employee.id ? rowForActuelUser() : rowForNotActuelUser(),
+      child: user.id == employee.id ? rowForActuelUser() : rowForNotActuelUser(context),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
         color: Color(0xFFFF9F9F9),
@@ -53,7 +53,7 @@ return Row(
 
 
 
-Widget rowForNotActuelUser(){
+Widget rowForNotActuelUser(BuildContext context){
  return Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
@@ -80,8 +80,10 @@ Widget rowForNotActuelUser(){
                 height: 20,
                 child: IconButton(
                   icon: FaIcon(FontAwesomeIcons.envelopeOpenText),
-                  onPressed: () {
-                    print('get a message');
+                  onPressed: () async{
+                    print('message icon is clicked ...!');
+                     Navigator.pop(context);
+                    await Navigator.pushNamed(context, '/Chat', arguments: employee);
                   },
                   color: Colors.black38,
                 ),

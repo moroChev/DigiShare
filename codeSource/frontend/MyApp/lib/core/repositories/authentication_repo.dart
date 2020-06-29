@@ -1,14 +1,12 @@
 import '../models/employee.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-
 class AuthenticationRepo{
-  final String endpoint = '${DotEnv().env['API_URL']}/auth';
-
-  FlutterSecureStorage storage = FlutterSecureStorage();
+  final endpoint = '${DotEnv().env['API_URL']}/auth';
+  SharedPreferences storage;
 
   Future<Employee> attemptLogIn(String login, String password) async {
     String url = "$endpoint/login";
@@ -19,8 +17,10 @@ class AuthenticationRepo{
     {
       print('${this.runtimeType.toString()}:---> authenticated successfully');
       Map jwt = jsonDecode(res.body);
-      storage.write(key: 'userId', value: jwt['user']['_id']);
-      storage.write(key: 'token', value: jwt['token']);
+      storage = await SharedPreferences.getInstance();
+      storage.setString('token', jwt['token']);
+      storage.setString('userId', jwt['user']['_id']);
+      print('token is : ${jwt['token']}');
       return Employee.fromJsonWithPostsIdAndAgency(jwt['user']);
     }else{
       print(':---> login request failed !!!!!!!!!!!!!!!!');

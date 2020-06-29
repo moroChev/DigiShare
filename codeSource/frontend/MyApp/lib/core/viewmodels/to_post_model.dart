@@ -46,7 +46,8 @@ class ToPostModel extends BaseModel{
   getImage(ImageSource source) async {
   final pickedImage      = await _picker.getImage(source: source);
         _image           = File(pickedImage.path);
-        _imageTodDisplay =  Image.file( _image, height: 220, width: 350);
+        _imageTodDisplay = Image.file( _image, height: 220, width: 350);
+        print("get Image is called ...");
       notifyListeners();
   }
 

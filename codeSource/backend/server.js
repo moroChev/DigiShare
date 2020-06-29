@@ -1,6 +1,8 @@
 const http = require('http');
 const app = require('./app');
-const socketIO = require('socket.io');
+const socketIO = require("socket.io");
+const socketRouter = require('./socket');
+const socketConsts = require('./socketUtils/socket_consts');
 
 const normalizePort = val => {
   const port = parseInt(val, 10);
@@ -13,7 +15,7 @@ const normalizePort = val => {
   }
   return false;
 };
-const port = normalizePort(process.env.PORT || '3000');
+const port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
 
 const errorHandler = error => {
@@ -36,10 +38,16 @@ const errorHandler = error => {
   }
 };
 
+// Creating http server instance
 const server = http.createServer(app);
-// creation of the socket server
-const io     = socketIO(server);
-app.set('io',io);
+
+// Creating socket io instance
+var io = socketIO(server);
+//listening to ON_CONNECTION event
+io.sockets.on(socketConsts.ON_CONNECTION, function (socket) {
+  console.log("************** User is COnnected ********************");
+  socketRouter.onEachUserConnection(socket);
+});
 
 server.on('error', errorHandler);
 server.on('listening', () => {
@@ -48,14 +56,6 @@ server.on('listening', () => {
   console.log('Listening on ' + bind);
 });
 
-
-
-
-
-
 server.listen(port);
-
-
-
 
 module.exports = server;

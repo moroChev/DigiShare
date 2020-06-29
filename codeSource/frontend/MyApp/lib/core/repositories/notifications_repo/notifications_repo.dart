@@ -1,26 +1,68 @@
-import 'package:socket_io_client/socket_io_client.dart' as IO;
-import 'package:flutter_dotenv/flutter_dotenv.dart';
+//import 'package:socket_io_client/socket_io_client.dart' as IO;
+import 'dart:convert';
 
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:MyApp/core/repositories/publications_repo/pub_utility_repo.dart';
+import 'package:MyApp/locator.dart';
+import 'package:MyApp/core/models/notification.dart';
+import 'package:http/http.dart' as http;
+
+import 'package:shared_preferences/shared_preferences.dart';
 
 class NotificationRepo{
   
+ PubUtilityRepo _pubUtility = locator<PubUtilityRepo>();
+ final String _notificationUrl = "${DotEnv().env['API_URL']}/notifications";
+   // SharedPreferences api
+  SharedPreferences storage;
 
-  static createSocket(){
-    // Dart client
-    IO.Socket socket = IO.io('http://localhost:3000/api/employees');
+  
+
+Future<List<Notification>> getNotifications() async {
+   Map header = await this._pubUtility.header();
+   String url = this._notificationUrl;
+   print('the url for notif is $url');
+   final response  = await http.get(url,headers: header);
+   if(response.statusCode == 200){
+     return parseNotifications(response.body);
+   } else{
+     throw Exception('Failed to load Notifications Data');
+   }
+ }
+
+ Future putAllNotifsAsSeen() async {
+   Map header = await this._pubUtility.header();
+   String url = this._notificationUrl;
+   print('the url for notif is $url');
+   final response  = await http.put(url,headers: header);
+   if(response.statusCode == 200){
+     return true;
+   } else{
+     return false;
+   }
+ }
+
+ Future putNotifAsChecked(notifId) async {
+   Map header = await this._pubUtility.header();
+   String url = '${this._notificationUrl}/$notifId';
+   print('the url for notif is $url');
+   final response  = await http.put(url,headers: header);
+   if(response.statusCode == 200){
+     return true;
+   } else{
+     return false;
+   }
+ }
 
 
-    /* socket.on('connect', (_) {
-     print('connect ............ ******* Socket *******');
-     socket.emit('msg', 'test');
-    }); */
+ List<Notification> parseNotifications(String responseBody){
+   List<dynamic> list = jsonDecode(responseBody);
+   List<Notification> mylist =list.map((e) => Notification.fromJson(e)).toList();
+   mylist.forEach((element) {print(element);});
+   return mylist;
+ }
 
-    socket.on('event', (data) => print(data));
-    socket.on('disconnect', (_) => print('disconnect'));
-    socket.on('fromServer', (_) => print(_));
 
-    print('Creation du socket');
-
-    }
+ 
 
 }

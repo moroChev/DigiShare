@@ -75,7 +75,7 @@ class SearchEmployee extends SearchDelegate<Employee>{
                             itemCount: employeesFromSnapShot.length,
                             itemBuilder: (context,index){
                             // return CircularProgressIndicator();
-                              return EmployeeListTile(employee: employeesFromSnapShot[index], agency: employeesFromSnapShot[index].agency);
+                              return EmployeeListTile(employee: employeesFromSnapShot[index], subtitle: employeesFromSnapShot[index].agency.name);
                               }
                             );
                       }else if(snapshot.hasError){
@@ -105,7 +105,7 @@ class SearchEmployee extends SearchDelegate<Employee>{
                           return ListView.builder(
                             itemCount: employeesFromSnapShot.length,
                             itemBuilder: (context,index){
-                              return EmployeeListTile(employee: employeesFromSnapShot[index], agency: employeesFromSnapShot[index].agency);
+                              return EmployeeListTile(employee: employeesFromSnapShot[index], subtitle: employeesFromSnapShot[index].agency.name);
                               }
                             );
                       }else if(snapshot.hasError){

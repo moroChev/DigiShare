@@ -1,6 +1,6 @@
+import 'package:MyApp/ui/shared/SideMenuWidget.dart';
 import 'package:flutter/material.dart';
 import './searchBar.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 
 
@@ -26,7 +26,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
            SearchBar(),
         /***********************************************************************************/ 
      
-        ],
+          ],
         );
   }
 

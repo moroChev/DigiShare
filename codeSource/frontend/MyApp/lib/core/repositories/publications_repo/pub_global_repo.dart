@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:MyApp/core/models/publication.dart';
 import 'package:http/http.dart' as http;
@@ -16,12 +17,25 @@ PubUtilityRepo _pubRepoUtility = locator<PubUtilityRepo>();
 Future<List<Publication>> fetchPublications() async {
     Map header     = await this._pubRepoUtility.header();
     final response = await http.get(this._pubRepoUtility.pubUrl, headers: header);
+    List<Publication> posts ;
     if (response.statusCode == 200) {
-      return this._pubRepoUtility.parsePublications(response.body);
-    } else {
-      throw Exception('Failed to load publications Data');
-    }
+      posts= this._pubRepoUtility.parsePublications(response.body);
+    } 
+    return posts;
   }
+
+Future<Publication> getSinglePublication(String publicationId) async {
+  Map header = await this._pubRepoUtility.header();
+  String url = '${this._pubRepoUtility.pubUrl}/$publicationId'; 
+  final response = await http.get(url,headers: header);
+  Publication post;
+  if(response.statusCode==200){
+    Map pub = jsonDecode(response.body);
+    print('aprés avoir fetché la single post here we are going to parse that $pub');
+    post = Publication.fromJson(pub);
+  }
+  return post;
+} 
 
   
 Future<bool> createPublication({ Publication publication, File image}) async {

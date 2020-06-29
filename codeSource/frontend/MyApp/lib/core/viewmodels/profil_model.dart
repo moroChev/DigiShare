@@ -18,7 +18,6 @@ class ProfilModel extends BaseModel{
 
   fetchProfilData(String idEmployee) async {
     setState(ViewState.Busy);
-    NotificationRepo.createSocket();
     this._employee = await this._employeeService.fetchProfilData(idEmployee: idEmployee);
     print("the employee profil .. ${this._employee}");
     setState(ViewState.Idle);

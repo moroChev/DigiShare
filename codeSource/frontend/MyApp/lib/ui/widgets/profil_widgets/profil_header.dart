@@ -1,5 +1,5 @@
 import 'package:MyApp/core/models/employee.dart';
-import 'package:MyApp/ui/widgets/profil_widgets/decorated_image.dart';
+import 'package:MyApp/ui/shared/decorated_logo.dart';
 import 'package:flutter/material.dart';
 import 'package:strings/strings.dart';
 
@@ -27,7 +27,7 @@ class ProfilHeader extends StatelessWidget {
                 borderRadius: BorderRadius.all(Radius.circular(20)),
                 elevation: 15.0,
                 color: Colors.white,
-                child: DecoratedImage(imageUrl: employee.imageUrl),
+                child: DecoratedLogo(imageUrl: employee.imageUrl),
               ),
             ),
             //SizedBox(height: 10,),

@@ -24,7 +24,7 @@ class ShowImage extends StatelessWidget {
             Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[     
-                  SizedBox(
+                   SizedBox(
                     height: 240,
                     width: 320,
                     child: Container(
