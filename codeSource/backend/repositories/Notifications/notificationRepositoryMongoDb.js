@@ -1,5 +1,6 @@
 const INotificationRepository = require('./iNotificationRepository');
 const Notification            = require('../../models/Notification');
+const util                    = require('util'); 
 
 class NotificationRepositoryMongoDb extends INotificationRepository{
 
@@ -16,12 +17,28 @@ class NotificationRepositoryMongoDb extends INotificationRepository{
         }
     }
 
+    async findWhere(object){
+        try {
+            let notifications = await Notification.find(object)
+                                                   .populate([
+                                                         {path:'notifier'},
+                                                         {path:'publication'}
+                                                        ],);
+            
+            return notifications;
+        } catch (error) {
+            console.log('eroro in find where');
+            throw(error);
+        }
+    }
+
      /// creation of a new Notification
     async create(notification){
         try {
-            let notification = await Notification.create(notification);
-            return notification;
+            let newNotification = await Notification.create(notification);
+            return newNotification;
         } catch (error) {
+            console.log('error in notif repo create notif');
             throw(error);
         }
     }
@@ -48,6 +65,15 @@ class NotificationRepositoryMongoDb extends INotificationRepository{
             console.log('error in set publication');
             throw(error);   
         }
+     }
+
+     async updateMany(filter,modificationObject){
+         try {
+             let notifs = await Notification.updateMany(filter,{$set: modificationObject},{ safe: true, new: true});
+             return notifs
+         } catch (error) {
+             throw(error);
+         }
      }
 
 }

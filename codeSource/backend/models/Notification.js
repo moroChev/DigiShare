@@ -7,7 +7,6 @@ const mongoose = require('mongoose');
  * that are already checked and some others aren't checked yet
  * In these case we have O(n*m) space complexity !
  * 
-
  * 
  * in case of Digi Share App we have four notifications types:
  * 1) An employee gonna publish a publication : newPubication,
@@ -15,11 +14,14 @@ const mongoose = require('mongoose');
  * 3) An employee gonna change his work location ( agency changing ) : newLocation,
  * 4) A publication gonna be approved
  * 
+ * 
  * Every Notification must have four informations
  * 1) The employee who made the action
  * 2) The notification type (newPublication, newPosition, newLocation, approval)
  * 3) The timesTamp of the notification
- * 4) is The notification checked or not yet
+ * 4) Is The notification checked or not yet
+ * 5) The employee to whom the notification must be send
+ * 
  * 
  * adding to the must have informations we have :
  * In case of newPublication or approval we must store the publication id in order to get it after
@@ -33,13 +35,18 @@ const notificationSchema = new mongoose.Schema({
  
     notificationType: { type:String, required:true },
     date: { type: Date, default: Date.now },
-    isChecked: { type:Boolean, default:false },
-    employee: {
-        type: mongoose.Schema.Types.ObjectId,
+    isChecked: { type:Boolean, default:false },  /// is true once the user is checking the notif object
+    isSeen : { type:Boolean, default:false },   /// is true once the user see it and not check it
+    notifier: {
+        type: mongoose.Schema.Types.ObjectId,   /// it's the employee who the made the action of the notification
+        ref: "Employee"
+    },
+    notified:{
+        type: mongoose.Schema.Types.ObjectId,   /// it's the employee to whom the notification is sent
         ref: "Employee"
     },
     publication: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,   /// the Publication object if it'is about a publication 
         ref: "Publication"  
     }
 });

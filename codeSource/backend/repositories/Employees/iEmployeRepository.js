@@ -12,6 +12,10 @@ class IEmployeeRepository{
     findAllWithAgency(){};
 
 
+    /// find employees where their fields satisfied that object
+    findWhere(object){};
+
+
     findByLoginWithAgency(login){};
 
 
@@ -42,6 +46,11 @@ class IEmployeeRepository{
 
     /// search by firstname or lastname or position or mail
     search(search){};
+
+
+    
+
+
 
 
 }

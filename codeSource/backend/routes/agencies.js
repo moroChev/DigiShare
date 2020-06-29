@@ -1,18 +1,12 @@
 const express                = require('express'),
       auth                   = require('../middleware/auth'),
-      multer                 = require('../middleware/multer_config');
-      path                   = require('path');
-
-const AgencyRepositoryMongo = require('../repositories/Agencies/agencyRepositoryMongoDb'),
-      AgencyService       = require('../services/agencyService'),
-      AgencyController    = require('../controllers/agencies') ;
+      multer                 = require('../middleware/multer_config'),
+      path                   = require('path'),
+    { agencyController }     = require('../utility/modulesInjection');
 
 
-//Dependencies injection ( no need for that )
+    
 let router = express.Router();
-let agencyRepo = new AgencyRepositoryMongo();
-let agencySvc = new AgencyService(agencyRepo);
-let agencyController = new AgencyController(agencySvc);
 
 
 //route to get agencies logos

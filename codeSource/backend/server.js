@@ -15,7 +15,7 @@ const normalizePort = val => {
   }
   return false;
 };
-const port = normalizePort(process.env.PORT || '3000');
+const port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
 
 const errorHandler = error => {
@@ -45,7 +45,6 @@ const server = http.createServer(app);
 var io = socketIO(server);
 //listening to ON_CONNECTION event
 io.sockets.on(socketConsts.ON_CONNECTION, function (socket) {
-  console.log("************** User is COnnected ********************");
   socketRouter.onEachUserConnection(socket);
 });
 

@@ -1,7 +1,8 @@
 class EmployeeService{
 
-    constructor(employeeRepos){
+    constructor(employeeRepos,notificationRepo){
         this._employeeRepo = employeeRepos;
+        this._notificationRepo = notificationRepo;
     }
 
     async createEmployee(employee){
@@ -30,6 +31,7 @@ class EmployeeService{
             throw(error);
         }
     }
+
     
     async getEmployeePublications(id){
         try {

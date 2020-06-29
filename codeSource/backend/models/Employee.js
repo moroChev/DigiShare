@@ -22,14 +22,7 @@ const employeeSchema = new mongoose.Schema({
             type: mongoose.Schema.Types.ObjectId,
             ref: "Publication"  
         }
-    ],
-    notifications:[
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Notification" 
-        }
-    ]// list of publications
-    
+    ], 
 });
 
 // add indexs for search feature

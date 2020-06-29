@@ -10,7 +10,7 @@ class PublicationRepositoryMongoDb extends IPublicationRepository{
     async findById(id){
         try{
             console.log("in repo .... "+id);
-            let pub = await Publication.findById(id);
+            let pub = await Publication.findById(id).populate({ path: 'postedBy', populate : { path : 'agency' } });
             return pub;
         } catch (error) {
             throw(error);

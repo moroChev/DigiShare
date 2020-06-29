@@ -28,6 +28,17 @@ class EmployeeRepositoryMongoDb extends IEmployeeRepository{
         }
     }
 
+
+    async findWhere(object){
+        try {
+            let employees = await Employee.find(object);
+            return employees;
+        } catch (error) {
+            console.log("error in finding employees where "+util.inspect(object));
+            throw(error);
+        }
+    }
+
     async create(employee){
         try {
             let newEmployee= await Employee.create(employee);

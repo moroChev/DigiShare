@@ -1,11 +1,13 @@
 const util = require('util');
-const fs   = require('fs');
+const pubUtil = require('../utility/publicationUtils');
+const notifTypes = require('../utility/notificationType');
 
 class PublicationService{
 
-    constructor(publicationRepo, employeeRepo){
+    constructor(publicationRepo, employeeRepo,notifCtrl){
      this._publicationRepo = publicationRepo;
-     this._employeeRepo   = employeeRepo;  
+     this._employeeRepo   = employeeRepo;
+     this._notificationController = notifCtrl; 
     }
 
     async getPublicationById(id){
@@ -38,7 +40,7 @@ class PublicationService{
         try {
             let newPost  = await this._publicationRepo.create(publication);
             let employee = await this._employeeRepo.findById_And_AddToSet(newPost.postedBy, { "publications": newPost._id });
-            console.log("created Post and new one is "+newPost);
+            await this.notifyObservers(newPost,notifTypes.NEW_PUBLICATION);
             return {"publication": newPost, "postedBy": employee};
         } catch (error) {
             console.log('error in service create Publication');
@@ -50,8 +52,7 @@ class PublicationService{
     async deletePublication(id){
         try {
             let deletedOne = await this._publicationRepo.findByIdAndDelete(id);
-            const fileName =  deletedOne.imageUrl.split('/postsImages/')[1];
-            fs.unlink(`images/postsImages/${fileName}`,(err)=>{console.log('error in deleting the image');});
+            pubUtil.removePostImage(deletedOne.imageUrl);
             let employee = await this._employeeRepo.findById_And_Pull(deletedOne.postedBy, { "publications" : id });
             return {'employee': employee};
         } catch (error) {
@@ -112,6 +113,20 @@ class PublicationService{
        } catch (error) {
            throw(error);
        }
+   }
+
+   async notifyObservers(publication,notifType){
+       try{
+           console.log(util.inspect(publication)+"and the notif type is "+notifType);
+           if(notifType==notifTypes.NEW_PUBLICATION){
+                await this._notificationController.newPublicationNotif(publication);
+            }
+            else if(notifType==notifTypes.APPROVAL){
+                await this._notificationController.approvalPublicationNotif(publication);
+            }
+        }catch(error){
+            throw(error);
+        }
    }
 
 }

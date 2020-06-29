@@ -1,6 +1,5 @@
-const Employee    = require('../models/Employee'),
-      Publication = require('../models/Publication'),
-      util        = require('util');
+const util        = require('util'),
+      digiUtil    = require('../utility/globalUtil');
 
 
 class EmployeeController{
@@ -10,7 +9,7 @@ class EmployeeController{
 
     createEmployee = async (req,res,next)=>{
         try {
-            let employee = await this.employeeFromRequest(req);
+            let employee = await digiUtil.employeeObjectFromRequest(req);
             let newEmployee = this._employeeService.createEmployee(employee);
             res.status(201).json(newEmployee);
         } catch (error) {
@@ -49,7 +48,6 @@ class EmployeeController{
     }
 
 
-
     modifyEmployee = async (req,res,next)=>{}
 
     ///Ok
@@ -63,7 +61,7 @@ class EmployeeController{
         }
     }
 
-    employeeFromRequest(req){
+  /*   employeeFromRequest(req){
         return req.file ?  {
                         imageUrl: `${req.protocol}://${req.get('host')}/api/employees/profilesImages/${req.file.filename}`,
                        ...req.body
@@ -72,7 +70,9 @@ class EmployeeController{
                     {
                         ...req.body
                     };
-    }
+    } */
+
+
 
 }    
 

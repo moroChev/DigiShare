@@ -12,6 +12,15 @@ class INotificationRepository{
     findById(id){}
 
 
+    /// find notifications where their fields satisfied that object
+    findWhere(object){}
+
+
+    /// find all documents which they passn't the fliter 
+    /// and and update them with the Modification boject
+    updateMany(filter,modificationObject){}
+
+
     /// find a notification by id and delete
     findByIdAndDelete(id){}
 

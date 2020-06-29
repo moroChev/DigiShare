@@ -1,13 +1,15 @@
 const SocketController = require('./socketUtils/socket_controller');
 const socketConsts = require('./socketUtils/socket_consts');
 const SocketServices = require('./socketUtils/socket_services');
-const SocketRepo = require('./socketUtils/socket_repo');
+
 const MessageRepositoryMongo = require('./repositories/Messages/messageRepositoryMongoDb');
 const RoomRepositoryMongo = require('./repositories/Rooms/roomRepositoryMongoDb');
 const MessageService = require('./services/messageService');
 
+const {socketRepo,notificationController} = require('./utility/modulesInjection');
+
 //Dependencies injection ( no need for that )
-let socketRepo = new SocketRepo();
+//let socketRepo = new SocketRepo();
 let socketServices = new SocketServices();
 let messageRepo = new MessageRepositoryMongo();
 let roomRepo = new RoomRepositoryMongo();
@@ -32,6 +34,8 @@ exports.onEachUserConnection = (socket)=>{
 	onCheckOnline(socket);
 
 	onDisconnect(socket);
+
+	notificationController.setSocket(socket);
 }
 
 function onCheckOnline(socket) {

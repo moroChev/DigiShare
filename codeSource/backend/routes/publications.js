@@ -1,20 +1,12 @@
-const express                = require('express'),    
-      auth                   = require('../middleware/auth'),
-      multer                 = require('../middleware/multer_config'),
-      publicationMiddelware  = require('../middleware/publicationMiddleware'),
-      path                   = require('path'),
-      EmployeeRepo           = require('../repositories/Employees/employeeRepositoryMongoDb'),
-      PublicationRepo        = require('../repositories/Publications/publicationRepositoryMongoDb'),
-      PublicationService     = require('../services/publicationService'),
-      PublicationsController = require('../controllers/publications');
+const express                  = require('express'),    
+      auth                     = require('../middleware/auth'),
+      multer                   = require('../middleware/multer_config'),
+      publicationMiddelware    = require('../middleware/publicationMiddleware'),
+      path                     = require('path'),
+      {publicationsController} = require('../utility/modulesInjection');
 
 let router                   = express.Router();
 
-
-let employeeRepo             = new EmployeeRepo();
-let publicationRepo          = new PublicationRepo();
-let publicationService       = new PublicationService(publicationRepo,employeeRepo);
-let publicationsController   = new PublicationsController(publicationService);
 
 //route to get posts images (one by one)
 router.use('/postsImages', express.static(path.join(__dirname, '../images/postsImages')));
@@ -29,12 +21,12 @@ router.post("/", auth, multer.multerPosts, publicationsController.createPublicat
 router.delete("/:id", publicationsController.deletePublication);
 
 /// get a single publication
-router.get("/:id", auth, publicationsController.getPublicationById);
+router.get("/:id", publicationsController.getPublicationById);
 
 /// get all publications's likes
 router.get("/:id/likes", auth, publicationsController.getPublicationLikes);
 
-/// add like to publication
+/// add like to publications
 router.post("/:id/likes", auth, publicationsController.addlikePublication);
 
 //remove a like to a given publication of a given employee
