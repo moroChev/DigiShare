@@ -10,19 +10,22 @@ class PublicationRepositoryMongoDb extends IPublicationRepository{
     async findById(id){
         try{
             console.log("in repo .... "+id);
-            let pub = await Publication.findById(id).populate({ path: 'postedBy', populate : { path : 'agency' } });
+            let pub = await Publication.findById(id).populate( [
+                                                                { path: 'approvedBy', populate : { path : 'agency' } },
+                                                                { path: 'postedBy', populate : { path : 'agency' } }
+                                                            ]);
             return pub;
         } catch (error) {
             throw(error);
         }
     }
 
-    /// getting all the publications with employees agencies
-    async find_And_Employees_Agencies(){
+    /// getting all the approved publications with employees agencies
+    async find_And_Employees_Agencies(object){
         console.log("repository pub");
         try {
             let publications;
-                publications = await Publication.find() 
+                publications = await Publication.find(object) 
                                                 .populate(
                                                 [
                                                     { path: 'approvedBy', populate : { path : 'agency' } },

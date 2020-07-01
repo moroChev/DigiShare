@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const publicationSchema = new mongoose.Schema({
 
     date: { type: Date, default: Date.now },
-    content: { type: String, required: true },
+    content: { type: String, required: false },
     imageUrl: { type: String, required: false },
     isApproved : { type: Boolean, default: false },
     approvedBy : {

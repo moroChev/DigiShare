@@ -1,5 +1,6 @@
 //import 'package:socket_io_client/socket_io_client.dart' as IO;
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:MyApp/core/repositories/publications_repo/pub_utility_repo.dart';
@@ -21,7 +22,6 @@ class NotificationRepo{
 Future<List<Notification>> getNotifications() async {
    Map header = await this._pubUtility.header();
    String url = this._notificationUrl;
-   print('the url for notif is $url');
    final response  = await http.get(url,headers: header);
    if(response.statusCode == 200){
      return parseNotifications(response.body);
@@ -33,27 +33,31 @@ Future<List<Notification>> getNotifications() async {
  Future putAllNotifsAsSeen() async {
    Map header = await this._pubUtility.header();
    String url = this._notificationUrl;
-   print('the url for notif is $url');
    final response  = await http.put(url,headers: header);
-   if(response.statusCode == 200){
-     return true;
-   } else{
-     return false;
-   }
+   return isResponseOk(response);
  }
 
  Future putNotifAsChecked(notifId) async {
    Map header = await this._pubUtility.header();
    String url = '${this._notificationUrl}/$notifId';
-   print('the url for notif is $url');
-   final response  = await http.put(url,headers: header);
-   if(response.statusCode == 200){
-     return true;
-   } else{
-     return false;
-   }
+   http.Response response  = await http.put(url,headers: header);
+   return isResponseOk(response);
  }
 
+ Future deleteNotification(notifId) async {
+   Map header = await this._pubUtility.header();
+   String url = '${this._notificationUrl}/$notifId';
+   http.Response response  = await http.delete(url,headers: header);
+   return isResponseOk(response);
+ }
+
+  bool isResponseOk(http.Response response){
+    if(response.statusCode == 200){
+        return true;
+      } else{
+        return false;
+      }
+  }
 
  List<Notification> parseNotifications(String responseBody){
    List<dynamic> list = jsonDecode(responseBody);

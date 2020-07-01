@@ -34,7 +34,7 @@ class PublicationController{
     createPublication        = async (req,res,next)=>{
         try {
             let publication = pubUtils.publicationObjectFromRequest(req);
-            console.log("create Post in controller "+publication);
+            console.log("create Post in controller "+util.inspect(publication));
             let newPublication = await this.publicationService.createPublication(publication);
             res.status(201).json(newPublication);
         } catch (error) {

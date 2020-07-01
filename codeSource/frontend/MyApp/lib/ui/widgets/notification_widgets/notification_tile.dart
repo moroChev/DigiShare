@@ -9,32 +9,36 @@ import 'package:intl/intl.dart';
 
 
 class NotificationTile extends StatelessWidget {
-  final myNotification.Notification notification;
 
+  final myNotification.Notification notification;
+  
   NotificationTile({@required this.notification});
 
   @override
   Widget build(BuildContext context) {
-    return BaseView<SingleNotificationModel>(
-          onModelReady: (model)=>model.initData(notification, context),
-          builder:(context,model,child)=> Ink(
-            color: notification.isChecked ? Colors.white : Color(0xFFE5F2FA),
-            child: Column(
-              children: <Widget>[
-                ListTile(
-                  leading: EmployeeImage(imageUrl: notification.notifier.imageUrl),
-                  title: notificationContent(model),
-                  subtitle: Text(DateFormat('EEE hh:mm aaa').format(notification.date)),
-                  isThreeLine: true,
-                  onTap: () => model.onTap(),
-                  trailing: notificationSettings(model),
+    
+     return BaseView<SingleNotificationModel>(
+              onModelReady: (model)=>model.initData(this.notification, context),
+              builder:(context,model,child)=> model.isHidden ? 
+              Container(height: 0,width: 0,) 
+              :Ink(
+                color: notification.isChecked ? Colors.white : Color(0xFFE5F2FA),
+                child:  Column(
+                  children: <Widget>[
+                    ListTile(
+                      leading: EmployeeImage(imageUrl: this.notification.notifier.imageUrl),
+                      title: notificationContent(model),
+                      subtitle: Text(DateFormat('EEE hh:mm aaa').format(this.notification.date)),
+                      isThreeLine: true,
+                      onTap: () => model.onTap(),
+                      trailing: notificationSettings(model),
+                    ),
+                    Divider(
+                      indent: 80,
+                    ),
+                  ],
                 ),
-                Divider(
-                  indent: 80,
-                ),
-              ],
-            ),
-          ),
+              ),
     );
   }
 

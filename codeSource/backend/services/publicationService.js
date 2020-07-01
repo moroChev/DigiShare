@@ -24,9 +24,9 @@ class PublicationService{
         console.log("Service pub");
         try {
             let publications;
-            publications = await this._publicationRepo.find_And_Employees_Agencies();
+            publications = await this._publicationRepo.find_And_Employees_Agencies({"isApproved":true});
             /// sorting the publications by date
-            let publicationsSortedByDate = publications.sort((pubA,pubB)=>  pubB.date - pubA.date )
+            let publicationsSortedByDate = publications.sort((pubA,pubB)=>  pubB.date - pubA.date );
             return publicationsSortedByDate;
         } catch (error) {
             console.log('error in service');
@@ -36,7 +36,7 @@ class PublicationService{
 
 
     async createPublication(publication){
-        console.log("Service creation post !"+publication);
+        console.log("Service creation post !"+util.inspect(publication));
         try {
             let newPost  = await this._publicationRepo.create(publication);
             let employee = await this._employeeRepo.findById_And_AddToSet(newPost.postedBy, { "publications": newPost._id });
@@ -108,7 +108,9 @@ class PublicationService{
                isApproved: isApproved,
                 approvedBy: employeeId 
             }
+            console.log(util.inspect(approval));
            let publication = await this._publicationRepo.findById_And_Set(id,approval);
+           await this.notifyObservers(publication,notifTypes.APPROVAL);
            return publication;
        } catch (error) {
            throw(error);

@@ -9,6 +9,7 @@ let router                       = express.Router();
 router.get("/", notificationController.getEmployeeNotifications);
 router.put("/", notificationController.putAllNotificationsAsSeen);
 router.put("/:id", notificationController.putNotificationAsChecked);
+router.delete("/:id",notificationController.deleteNotification);
 
 
 

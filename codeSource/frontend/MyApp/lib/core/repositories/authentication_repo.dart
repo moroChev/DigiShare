@@ -20,7 +20,7 @@ class AuthenticationRepo{
       storage = await SharedPreferences.getInstance();
       storage.setString('token', jwt['token']);
       storage.setString('userId', jwt['user']['_id']);
-      print('token is : ${jwt['token']}');
+      print('the user Id is : ${jwt['user']['_id']} and token is : ${jwt['token']}');
       return Employee.fromJsonWithPostsIdAndAgency(jwt['user']);
     }else{
       print(':---> login request failed !!!!!!!!!!!!!!!!');

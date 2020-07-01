@@ -3,6 +3,7 @@ const app = require('./app');
 const socketIO = require("socket.io");
 const socketRouter = require('./socket');
 const socketConsts = require('./socketUtils/socket_consts');
+const { notificationController } = require('./utility/modulesInjection');
 
 const normalizePort = val => {
   const port = parseInt(val, 10);
@@ -47,6 +48,8 @@ var io = socketIO(server);
 io.sockets.on(socketConsts.ON_CONNECTION, function (socket) {
   socketRouter.onEachUserConnection(socket);
 });
+
+notificationController.setSocketIOServer(io);
 
 server.on('error', errorHandler);
 server.on('listening', () => {

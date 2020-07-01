@@ -26,6 +26,7 @@ class Notification{
 
 
   factory Notification.fromJson(Map<String,dynamic>json){
+    print("trying to parse the notif");
       return Notification(
         id : json['_id'] as String,
         notificationType: json['notificationType'] as String,

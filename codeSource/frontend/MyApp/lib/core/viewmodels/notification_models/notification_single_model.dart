@@ -12,22 +12,40 @@ class SingleNotificationModel extends BaseModel{
   final NotificationService _notifSrv = locator<NotificationService>();
   myNotification.Notification _notification;
   BuildContext _context;
-  final Map<String, String> _notifText = {
-    'NEW_PUBLICATION':
-        ' a publié une nouvelle publication et demande son approbation',
-    'APPROVAL': ' a approuvé votre publication'
-  };
+  bool _isHidden;
+  
 
-  String get notifText => this._notifText[this._notification.notificationType];
+  String get notifText => this.notifContent();
+  bool get isHidden => this._isHidden;
 
 
-  initData(notification,context){
-    this._notification=notification;
+  initData(notificationA,context){
+    this._isHidden = false;
+    this._notification=notificationA;
     this._context=context;
+  }
+
+  String notifContent(){
+    String text;
+    switch (this._notification.notificationType) {
+      case 'NEW_PUBLICATION': { text = ' demande l\'approbation de sa publication '+this.publicationText();} break;
+      case 'APPROVAL': { text= ' a approuvé votre publication '+this.publicationText();} break;
+    }
+    return text;
+  }
+
+
+ String publicationText() {
+    String text = this._notification.publication?.content;
+    if (text.trim().isEmpty) return " ";
+    else if(text.length>8)
+    return ': « '+text.substring(0,8) + '...';
+    else
+    return ': « $text »‎ .';
   }
   
     
-  
+  /// onTap notification tile we want to redirect the user to a screen
   void onTap() {
     switch (this._notification.notificationType) {
       case 'NEW_PUBLICATION': redirectToPost(); break;
@@ -51,7 +69,7 @@ List<PopupMenuItem<NOTIFICATIONSETTING>> listOfChoices(){
 void applySettings(NOTIFICATIONSETTING choice){
 
   switch(choice){
-    case NOTIFICATIONSETTING.REMOVE   : { print("remove est appelé")   ;   } break;
+    case NOTIFICATIONSETTING.REMOVE   : { print("remove est appelé")  ; deleteNotification();   } break;
     case NOTIFICATIONSETTING.HIDE     : { print("hide est appeale")    ;    } break;
   }
 
@@ -60,7 +78,16 @@ void applySettings(NOTIFICATIONSETTING choice){
 redirectToPost()async{
 Navigator.pushNamed(this._context, '/SinglePostView',arguments: this._notification.publication?.id);
  bool result = await this._notifSrv.putNotifAsChecked(this._notification.id);
- print("is puted Checked : $result");
+ this._notification.isChecked = result;
+ notifyListeners();
+}
+
+
+deleteNotification() async {
+bool result = await this._notifSrv.deleteNotification(this._notification.id);
+this._isHidden = result;
+print('is Hidden : $isHidden and result $result');
+notifyListeners();
 }
 
 

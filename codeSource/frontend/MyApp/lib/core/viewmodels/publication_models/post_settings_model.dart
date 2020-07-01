@@ -84,10 +84,11 @@ void removePublication() async {
 }
 
 void approvePublication() async {
-
+ print('the post Before isApproved : ${this.publication.isApproved}');
   this._publication.isApproved = ! this.publication.isApproved;
-  notifyListeners();
-  bool isApp = await this._postSettingSrc.approvePublication(this._publication.id, ! this._publication.isApproved, this._user.id);
+  print('the post After isApproved : ${this.publication.isApproved}');
+  bool isApp = await this._postSettingSrc.approvePublication(this._publication.id, this._publication.isApproved, this._user.id);
+   notifyListeners();
   print("is Approved : $isApp");                     
 }
 

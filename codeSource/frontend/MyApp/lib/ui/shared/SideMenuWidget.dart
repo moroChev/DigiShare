@@ -24,7 +24,7 @@ class SideMenuWidget extends StatelessWidget {
             children: <Widget>[
               _listTile(context: context, title: "Acceuil", leadingIcon: Icons.home, onTap: listTileOnTap(context, "/Home", null)),
               _listTile(context: context, title: "Mon Profil", leadingIcon: Icons.portrait, onTap: listTileOnTap(context, "/Profil", employee.id)),
-              _listTile(context: context, title: "Notifications", leadingIcon: Icons.notifications, onTap: () {print("Notification");}),
+              _listTile(context: context, title: "Notifications", leadingIcon: Icons.notifications, onTap: listTileOnTap(context, "/Notifications", null)),
               _listTile(context: context, title: "Messages", leadingIcon: Icons.chat, onTap: listTileOnTap(context, "/Messages", null)),
               _listTile(context: context, title: "Publier", leadingIcon: Icons.public, onTap: listTileOnTap(context, "/ToPostView", null)),
               _listTile(context: context, title: "Chercher", leadingIcon: Icons.search, onTap: () {}),
@@ -68,9 +68,7 @@ class SideMenuWidget extends StatelessWidget {
           ),
         ),
         accountName: Text(
-          capitalize("${employee?.firstName}") +
-              " " +
-              capitalize("${employee?.lastName}"),
+          capitalize(employee.firstName+' '+employee.lastName),
           style: TextStyle(
               color: Colors.black,
               fontFamily: "Times",

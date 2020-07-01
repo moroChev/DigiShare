@@ -1,4 +1,6 @@
 const globalUtils = require('../utility/globalUtil');
+const util = require('util');
+const { json } = require('body-parser');
 
 class NotificationController{
 
@@ -13,11 +15,24 @@ class NotificationController{
         console.log('i set the socket with success ..');
     }
 
+    setSocketIOServer(io){
+        this._io = io;
+    }
+
     getEmployeeNotifications = async (req,res,next)=>{
         try {
             let userId = globalUtils.returnUserIdFromHeader(req);
             let notifications = await this._notifService.getEmployeeNotifications(userId);
             res.status(200).json(notifications);
+        } catch (error) {
+            res.status(500).json(error);
+        }
+    }
+
+    deleteNotification = async (req,res,next)=>{
+        try {
+            let result = await this._notifService.deleteNotification(req.params.id);
+            res.status(200).json({'message':true});
         } catch (error) {
             res.status(500).json(error);
         }
@@ -45,31 +60,44 @@ class NotificationController{
 
    async newPublicationNotif(publication){
         try {
-            let notifiedUsers = await this._notifService.newPublicationNotification(publication);
-            notifiedUsers.notified.forEach(employee => this.notifyOnUserConnected(employee));
+            let notifsAndUsers = await this._notifService.newPublicationNotification(publication);
+            notifsAndUsers.forEach(notifAndUser => this.notifyOnUserConnected(notifAndUser));
         } catch (error) {
             console.log('error in cTrl notif newPublicationNotif')
             throw(error);
         }
     }
 
-    approvalPublicationNotif(publication){
-
+   async approvalPublicationNotif(publication){
+        try {
+            let notifAndUser = await this._notifService.approvalPublicationNotif(publication);
+            this.notifyOnUserConnected(notifAndUser);
+        } catch (error) {
+            console.log('error in cTrl notif approvalPublicationNotif')
+            throw(error);
+        }
     }
 
 
-    notifyOnUserConnected(employee){
-        console.log('i want to send a notification to '+employee._id)
-        if(this._socketRepo.userMap.has(employee._id)){
-            console.log(employee._id+"gonna receive it now ..");
-         //   this.sendNotificationToConnectedSocket(this.userMap.get(`${employee._id}`));
+  notifyOnUserConnected(notifAndUser){
+        let userId = notifAndUser.notified._id.toString();
+        let myNotif = notifAndUser.notification;
+        let isUserConnected = this._socketRepo.userMap.has(userId);
+        if(isUserConnected){
+                console.log(userId+"gonna receive it now .. "+myNotif);
+                this.sendNotificationToConnectedSocket(this._socketRepo.userMap.get(userId),myNotif);
+        }
+        else{
+                console.log('userNot connected');
         }
     }
 
 
     sendNotificationToConnectedSocket(to_user_socket_id, notification) {
-        console.log('i am sending the notification to the connected user ...');
-		this._socket.to(`${to_user_socket_id}`).emit('notification', this.stringifyToJson(notification));
+        let socketId= to_user_socket_id.socket_id.toString();
+        let notifStrinfied = JSON.stringify(notification);
+        console.log('i am sending the notification to the connected user ... now socketid is : '+socketId);
+		this._io.to(socketId).emit('notification', notifStrinfied);
 	}
 
 }

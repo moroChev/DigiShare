@@ -199,4 +199,13 @@ class SocketRepo {
     }
     _socket.emit(globals.EVENT_MESSAGE_SEEN, [chatMessageModel.toJson()]);
   }
+
+  setOnNotificationReceived(Function onNotifReceived,Function onNotifRsvdCallback) async {
+     bool isConnected = await _socket.isConnected();
+      print('${this.runtimeType.toString()} before i reveived something $isConnected');
+     _socket.on(globals.ON_NOTIFICATION, (data) { 
+      print('${this.runtimeType.toString()} after i reveived something ${data==null}');
+      onNotifReceived(data, onNotifRsvdCallback);
+    }); 
+  }
 }

@@ -22,19 +22,31 @@ class NotificationService{
                 'notifier': publication.postedBy,
                 'publication': publication._id
             }
-            let employees = await this.selectWhoCanApprove(notifObject.notifier); 
-            employees.forEach(async employee=> await this.createNotifForAnEmployee(employee,notifObject));
-            console.log(util.inspect(notifObject));
-            let notifAndNotified = {
-                'notification': notifObject,
-                'notified':employees
-            }
-            return notifAndNotified;
+            let employees = await this.selectWhoCanApprove(notifObject.notifier);
+            let listNotifsUsers = await this.createNotifForListEmps(employees,notifObject);   
+            return listNotifsUsers;
         } catch (error) {
             console.log("error in newPublicationNotification");
             throw(error);
         }
     };
+
+    async approvalPublicationNotif(publication){
+        try {
+            let notifObject = {
+                'notificationType': notifType.APPROVAL,
+                'notifier': publication.approvedBy,
+                'publication': publication._id
+            }
+            let notified = await this._employeeRepo.findById(publication.postedBy);
+            let notifAndNotified = await this.createNotifForAnEmployee(notified,notifObject);
+            notifAndNotified.notifier=publication.approvedBy
+            return notifAndNotified;
+        } catch (error) {
+            console.log("error in approvalNotification");
+            throw(error);
+        }
+    }
 
     async selectWhoCanApprove(notifierId) {
         try {
@@ -47,13 +59,27 @@ class NotificationService{
             throw(error);
         }
     }
+
+    async createNotifForListEmps(employees,notifObject){
+        let notifsAndUsers = [];
+        for(var i=0; i<employees.length; i++){
+            let myNotif = await this.createNotifForAnEmployee(employees[i],notifObject);
+            notifsAndUsers.push(myNotif);
+        }
+        return notifsAndUsers;
+    }
+
+
     async createNotifForAnEmployee(employee,notif){
         try {
-            console.log("creat notif for employee"+employee.lastName);
             notif.notified = employee._id;
-            console.log("just before saving the notif"+util.inspect(notif));
             let notification = await this._notificationRepo.create(notif);
-            console.log(util.inspect(notification));
+            let notifAndUser = {
+                'notification': notification,
+                'notified':employee
+            }
+            console.log(notifAndUser);
+            return notifAndUser;
         } catch (error) {
             console.log("error in createNotif for an employee");
             throw(error);
@@ -88,6 +114,15 @@ class NotificationService{
             throw(error);
         }
  
+    }
+
+    async deleteNotification(id){
+        try {
+            let notif = await this._notificationRepo.findByIdAndDelete(id);
+            return notif != null ? true : false;
+        } catch (error) {
+            throw(error);
+        }
     }
 
 }

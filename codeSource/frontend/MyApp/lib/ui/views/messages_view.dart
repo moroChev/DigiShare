@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 import '../../core/constantes/socket_consts.dart' as globals;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'base_view.dart';
 
@@ -125,7 +126,7 @@ class MessagesView extends StatelessWidget {
           borderRadius: BorderRadius.circular(15),
         ),
         child: Icon(
-          Icons.add,
+          FontAwesomeIcons.facebookMessenger,
           color: Colors.blueGrey[100],
         ),
         onPressed: () async {

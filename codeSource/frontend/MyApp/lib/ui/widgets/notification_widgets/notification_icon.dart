@@ -10,7 +10,7 @@ class NotificationIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
+print('Notification Icon ');
     return BaseView<NotificationModel>(
       onModelReady: (model) => model.getNotSeenNotifications(),
       builder: (context, model, child) =>  InkWell(

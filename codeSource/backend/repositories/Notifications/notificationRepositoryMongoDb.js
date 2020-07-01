@@ -36,6 +36,11 @@ class NotificationRepositoryMongoDb extends INotificationRepository{
     async create(notification){
         try {
             let newNotification = await Notification.create(notification);
+            newNotification = await newNotification.populate([
+                                                            {path:'notifier'},
+                                                            {path:'publication'}
+                                                        ]).execPopulate();
+      console.log("the fresh notif is : "+util.inspect(newNotification));
             return newNotification;
         } catch (error) {
             console.log('error in notif repo create notif');

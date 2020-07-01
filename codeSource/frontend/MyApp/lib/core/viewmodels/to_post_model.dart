@@ -64,12 +64,16 @@ class ToPostModel extends BaseModel{
    Publication publication = constructThePost(content: _contentController.text);
    print("onPresse createBtn ${_contentController.text} and the post is new $_isNewPost");
    bool result;
-  if(_isNewPost)
-   result = await _pubGlobalSrc.postPublication(publication: publication,image: _image);
-   else
-   result = await _pubSettingSrc.modifyPublication(publication: publication,image: _image);
+   if(_image == null && publication.content.trim().isEmpty )
+   this._hasError = true;
+   else {
+     if(_isNewPost)
+        result = await _pubGlobalSrc.postPublication(publication: publication,image: _image);
+     else
+        result = await _pubSettingSrc.modifyPublication(publication: publication,image: _image);
 
-   this._hasError = result ? false : true;
+     this._hasError = result ? false : true;
+   }
 
     notifyListeners();
     return this._hasError;

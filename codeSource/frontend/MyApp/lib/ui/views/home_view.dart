@@ -25,8 +25,19 @@ class HomeView extends StatelessWidget {
                     child: Center(
                       child: CircularProgressIndicator(),
                     ),
-                  )
-                : SliverList(
+                  )    
+                :
+                 model.publications?.length == 0 || model.publications == null
+                    ? SliverFillRemaining(
+                        child: Center(
+                          child: Text(
+                            "Bienvenue Dans MyApp",
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      )
+                :
+                 SliverList(
                     delegate: SliverChildBuilderDelegate(
                       (BuildContext context, int index) {
                         return SinglePublicationWidget(

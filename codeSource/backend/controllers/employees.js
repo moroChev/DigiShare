@@ -61,17 +61,6 @@ class EmployeeController{
         }
     }
 
-  /*   employeeFromRequest(req){
-        return req.file ?  {
-                        imageUrl: `${req.protocol}://${req.get('host')}/api/employees/profilesImages/${req.file.filename}`,
-                       ...req.body
-                    }
-                : 
-                    {
-                        ...req.body
-                    };
-    } */
-
 
 
 }    

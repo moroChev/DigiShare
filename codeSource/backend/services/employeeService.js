@@ -26,6 +26,8 @@ class EmployeeService{
    async getEmployeeById(id){
         try {
             let employee = await this._employeeRepo.findByIdWithPublications_And_Agency(id);
+            let aprovedPosts = employee.publications.filter((publication)=> publication.isApproved );
+            employee.publications = aprovedPosts;
             return employee;
         } catch (error) {
             throw(error);
@@ -36,6 +38,8 @@ class EmployeeService{
     async getEmployeePublications(id){
         try {
             let employee = await this._employeeRepo.findByIdWithPublications(id);
+            let aprovedPosts = employee.publications.filter((publication)=> publication.isApproved );
+            employee.publications = aprovedPosts;
             return employee;
         } catch (error) {
             throw(error);

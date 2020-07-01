@@ -10,6 +10,7 @@ const String ON_MESSAGE_RECEIVED = 'receive_message';
 const String IS_USER_ONLINE_EVENT = 'check_online';
 const String EVENT_SINGLE_CHAT_MESSAGE = 'single_chat_message';
 const String EVENT_MESSAGE_SEEN = 'message_seen';
+const String ON_NOTIFICATION = 'notification';
 
 // Status
 const int STATUS_MASSAGE_SENDING = 10000;

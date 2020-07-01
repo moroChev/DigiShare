@@ -40,6 +40,8 @@ class NotificationsView extends StatelessWidget {
                  SliverList(
                     delegate: SliverChildBuilderDelegate(
                       (BuildContext context, int index) {
+                        print('__________________________________________________________________________________________');
+                        print('SliverChildBuilder index : $index : ${model.notifications[index]?.publication?.content}');
                         return NotificationTile(notification: model.notifications[index],);
                       },
                       childCount: model.notifications?.length,
