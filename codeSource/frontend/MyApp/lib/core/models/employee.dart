@@ -25,7 +25,18 @@ class Employee{
     Agency agency;
 
 
-    Employee({this.id,this.publicationsObjects,this.publicationsIds,this.imageUrl,this.firstName,this.lastName,this.email,this.position,this.canApprove,this.agency});
+    Employee({
+      this.id,
+      this.publicationsObjects,
+      this.publicationsIds,
+      this.imageUrl,
+      this.firstName,
+      this.lastName,
+      this.email,
+      this.position,
+      this.canApprove,
+      this.agency
+    });
 
     Employee.initial()
         :  id = '',

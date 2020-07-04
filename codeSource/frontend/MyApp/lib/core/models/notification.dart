@@ -39,7 +39,7 @@ class Notification{
   }
 
   @override
-   String toString() => "Notif Id :$id , notifType : $notificationType , notifier : $notifier, isChecked : $isChecked";
+   String toString() => "Notif Id :$id, notifType : $notificationType , notifier : $notifier, isChecked : $isChecked";
   
 
 }

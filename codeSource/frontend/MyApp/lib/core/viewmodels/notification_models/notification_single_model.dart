@@ -26,10 +26,13 @@ class SingleNotificationModel extends BaseModel{
   }
 
   String notifContent(){
-    String text;
+    print(" Notification Type : ${this._notification.notificationType}");
+    String text=" ";
     switch (this._notification.notificationType) {
       case 'NEW_PUBLICATION': { text = ' demande l\'approbation de sa publication '+this.publicationText();} break;
       case 'APPROVAL': { text= ' a approuvé votre publication '+this.publicationText();} break;
+      case 'LIKE': { text = ' a aimé votre publication '+this.publicationText();} break;
+      case 'COMMENT': { text = ' a commenté votre publication '+this.publicationText();} break;
     }
     return text;
   }
@@ -37,7 +40,7 @@ class SingleNotificationModel extends BaseModel{
 
  String publicationText() {
     String text = this._notification.publication?.content;
-    if (text.trim().isEmpty) return " ";
+    if (text == null || text.trim().isEmpty) return " ";
     else if(text.length>8)
     return ': « '+text.substring(0,8) + '...';
     else
@@ -50,6 +53,8 @@ class SingleNotificationModel extends BaseModel{
     switch (this._notification.notificationType) {
       case 'NEW_PUBLICATION': redirectToPost(); break;
       case 'APPROVAL': redirectToPost(); break;
+      case 'LIKE': redirectToPost(); break;
+      case 'COMMENT': redirectToPost(); break;
     }
   }
 
@@ -76,6 +81,7 @@ void applySettings(NOTIFICATIONSETTING choice){
 }
 
 redirectToPost()async{
+//Navigator.pop(this._context);
 Navigator.pushNamed(this._context, '/SinglePostView',arguments: this._notification.publication?.id);
  bool result = await this._notifSrv.putNotifAsChecked(this._notification.id);
  this._notification.isChecked = result;

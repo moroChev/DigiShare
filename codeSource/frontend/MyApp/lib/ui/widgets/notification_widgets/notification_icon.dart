@@ -30,7 +30,10 @@ print('Notification Icon ');
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Icon(FontAwesomeIcons.solidBell),
+                  model.notSeenNotifCount > 0 ?
+                   Icon(FontAwesomeIcons.solidBell , color: Color(0xFFfdd835) )
+                  :
+                   Icon(FontAwesomeIcons.solidBell),
                 ],
               ),
               model.notSeenNotifCount > 0 ? 

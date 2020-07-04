@@ -6,6 +6,7 @@ import 'package:MyApp/ui/views/base_view.dart';
 import 'package:MyApp/core/viewmodels/notification_models/notification_single_model.dart';
 import 'package:MyApp/core/enum/notificationType.dart';
 import 'package:intl/intl.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 
 class NotificationTile extends StatelessWidget {
@@ -28,14 +29,23 @@ class NotificationTile extends StatelessWidget {
                     ListTile(
                       leading: EmployeeImage(imageUrl: this.notification.notifier.imageUrl),
                       title: notificationContent(model),
-                      subtitle: Text(DateFormat('EEE hh:mm aaa').format(this.notification.date)),
+                      subtitle: Row(
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(2, 8, 8, 4),
+                            child: notificationIcon(),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(2, 8, 8, 4),
+                            child: Text(DateFormat('EEE hh:mm aaa').format(this.notification.date)),
+                          ),
+                        ],
+                      ),
                       isThreeLine: true,
                       onTap: () => model.onTap(),
                       trailing: notificationSettings(model),
                     ),
-                    Divider(
-                      indent: 80,
-                    ),
+                    Divider(indent: 80 ),
                   ],
                 ),
               ),
@@ -68,7 +78,16 @@ Widget notificationSettings(SingleNotificationModel model){
 }
 
 
-
+Widget notificationIcon(){
+  Icon icon;
+  switch (this.notification.notificationType) {
+    case 'LIKE': icon = Icon(Icons.favorite, color: Colors.red[200],size: 18.0,); break;
+    case 'COMMENT': icon = Icon(FontAwesomeIcons.comment,color: Colors.green[300],size: 18.0,); break;
+    case 'APPROVAL': icon = Icon(FontAwesomeIcons.check,color: Colors.blue[300],size: 18.0,); break;
+    case 'NEW_PUBLICATION': icon =Icon(FontAwesomeIcons.plusCircle,color: Colors.green[300],size: 18.0,);break;
+  }
+  return icon;
+}
 
 
  

@@ -17,73 +17,82 @@ class Publication{
   Employee approvedBy;
   Employee postedBy;
   List<String> likesIds;
-  List<String> dislikesIds;
   List<Employee> likesEmployees;
-  List<Employee> dislikesEmployees;
-  String date;
+  DateTime date;
+  List<String> commentsIds;
 
-  Publication({this.id,this.isApproved, this.content, this.imageUrl, this.approvedBy, this.postedBy ,this.date, this.likesIds, this.dislikesIds, this.likesEmployees,this.dislikesEmployees} );
+  Publication({
+               this.id,
+               this.isApproved,
+               this.content,
+               this.imageUrl,
+               this.approvedBy,
+               this.postedBy,
+               this.date, 
+               this.likesIds, 
+               this.likesEmployees,
+               this.commentsIds
+               });
 
 
 
-           factory Publication.fromJson(Map<String, dynamic> json) {
-                  
-                print("Publications From Json approuvedBy : ..... A .... ${json['_id']} and his index is : $nbrPosts");
-                   nbrPosts++;
-                return Publication(
-                  isApproved: json['isApproved'] as bool,
-                  id: json['_id'] as String,
-                  content: json['content'] as String,
-                  imageUrl: json['imageUrl'] as String,
-                  approvedBy: json['approvedBy']==null ? null : Employee.fromJsonWithPostsIdAndAgency(json['approvedBy']),
-                  postedBy: json['postedBy']==null ? null : Employee.fromJsonWithPostsIdAndAgency(json['postedBy']),
-                  date: json['date'] as String,
-                  likesIds: (json['likes'] as List)?.map((e) => e as String)?.toList(),
-                  dislikesIds: (json['dislikes'] as List)?.map((e) => e as String)?.toList(),
-                );
-              }
+    factory Publication.fromJson(Map<String, dynamic> json) {
+          
+        print("Publications From Json approuvedBy : ..... A .... ${json['_id']} and his index is : $nbrPosts");
+            nbrPosts++;
+        return Publication(
+          id: json['_id'] as String,
+          content: json['content'] as String,
+          imageUrl: json['imageUrl'] as String,
+          isApproved: json['isApproved'] as bool,
+          approvedBy: json['approvedBy']==null ? null : Employee.fromJsonWithPostsIdAndAgency(json['approvedBy']),
+          postedBy: json['postedBy']==null ? null : Employee.fromJsonWithPostsIdAndAgency(json['postedBy']),
+          date: json['date'] == null ? null : DateTime.parse(json['date'].toString()),
+          likesIds: (json['likes'] as List)?.map((e) => e as String)?.toList(),
+          commentsIds: (json['comments'] as List)?.map((e) => e as String)?.toList()
+        );
+      }
 
               
-           factory Publication.fromJsonWithIdsNoObjects(Map<String, dynamic> json) {
-                  
-                print("Publications From Json approuvedBy : ..... A .... ${json['_id']} and his index is : $nbrPosts");
-                   nbrPosts++;
-                return Publication(
-                  isApproved: json['isApproved'] as bool,
-                  id: json['_id'] as String,
-                  content: json['content'] as String,
-                  imageUrl: json['imageUrl'] as String,
-                  date: json['date'] as String,
-                  likesIds: (json['likes'] as List)?.map((e) => e as String)?.toList(),
-                  dislikesIds: (json['dislikes'] as List)?.map((e) => e as String)?.toList(),
-                );
-              }
+      factory Publication.fromJsonWithIdsNoObjects(Map<String, dynamic> json) {
+            
+          print("Publications From Json approuvedBy : ..... A .... ${json['_id']} and his index is : $nbrPosts");
+              nbrPosts++;
+          return Publication(
+            id: json['_id'] as String,
+            content: json['content'] as String,
+            imageUrl: json['imageUrl'] as String,
+            isApproved: json['isApproved'] as bool,
+            date: json['date'] == null ? null : DateTime.parse(json['date'].toString()),
+            likesIds: (json['likes'] as List)?.map((e) => e as String)?.toList(),
+            commentsIds: (json['comments'] as List)?.map((e) => e as String)?.toList(),
+          );
+        }
 
 
-            factory Publication.fromJsonWithLikesObjects(Map<String,dynamic> json)
-            {
-               return Publication(
-                  isApproved: json['isApproved'] as bool,
-                  id: json['_id'] as String,
-                  content: json['content'] as String,
-                  imageUrl: json['imageUrl'] as String,
-                  date: json['date'] as String,
-                  likesEmployees: (json['likes'] as List)?.map((e) => Employee.fromJsonWithPostsIdAndAgency(e) )?.toList()
-                );
-            }  
+      factory Publication.fromJsonWithLikesObjects(Map<String,dynamic> json)
+      {
+          return Publication(
+            id: json['_id'] as String,
+            content: json['content'] as String,
+            imageUrl: json['imageUrl'] as String,
+            isApproved: json['isApproved'] as bool,
+            date: json['date'] == null ? null : DateTime.parse(json['date'].toString()),
+            likesEmployees: (json['likes'] as List)?.map((e) => Employee.fromJsonWithPostsIdAndAgency(e) )?.toList()
+          );
+      }  
 
 
 
-            factory Publication.fromJsonWithoutEmployees(Map<String,dynamic> json){
-              return Publication(
-                          id: json['_id'] as String,
-                          isApproved: json['isApproved'] as bool,
-                          content: json['content'] as String,
-                          imageUrl: json['imageUrl'] as String,
-                          date: json['date'] as String
-              );
-
-            }
+      factory Publication.fromJsonWithoutEmployees(Map<String,dynamic> json){
+        return Publication(
+                    id: json['_id'] as String,
+                    content: json['content'] as String,
+                    imageUrl: json['imageUrl'] as String,
+                    isApproved: json['isApproved'] as bool,
+                    date: json['date'] == null ? null : DateTime.parse(json['date'].toString()),
+        );
+      }
 
     @override
     String toString() => "${this.isApproved} - ${this.content} - ${this.date} - posted by is : ${this.postedBy.toString()} ";
@@ -91,42 +100,6 @@ class Publication{
 }
 
 
-/* 
-  factory Publication.fromJson(Map<String, dynamic> json) {
-                  
-                print("Publications From Json approuvedBy : ..... A .... ");
-
-                return Publication(
-                  isApproved: json['isApproved'] as bool,
-                  content: json['content'] as String,
-                  imageUrl: json['imageUrl'] as String,
-                  approvedBy: json['approvedBy'] == null
-                      ? Employee()
-                      : Employee.fromJsonWithoutPostsAndAgency(json['approvedBy'] as Map<String, dynamic>),
-                  postedBy: json['postedBy'] == null
-                      ? Employee()
-                      : Employee.fromJsonWithoutPostsAndAgency(json['postedBy'] as Map<String, dynamic>),
-                  date: json['date'] as String,
-                  likes: (json['likes'] as List)?.map((e) => e as String)?.toList(),
-                  dislikes: (json['dislikes'] as List)?.map((e) => e as String)?.toList(),
-                );
-}
-
-
-  factory Publication.fromJsonWithoutEmployees(Map<String,dynamic> json){
-    return Publication(
-                isApproved: json['isApproved'] as bool,
-                content: json['content'] as String,
-                imageUrl: json['imageUrl'] as String,
-                date: json['date'] as String
-    );
-
-  }
-
-    @override
-    String toString() => "${this.isApproved} - ${this.content} - ${this.date} - posted by is : ${this.postedBy.toString()} ça marche";
-
- */
 
   
 

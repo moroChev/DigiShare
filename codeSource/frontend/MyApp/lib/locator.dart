@@ -27,8 +27,6 @@ import 'package:MyApp/core/services/chat_users_service.dart';
 import 'package:MyApp/core/services/notificationsService.dart';
 
 import 'package:MyApp/core/viewmodels/home_model.dart';
-import 'package:MyApp/core/viewmodels/publication_models/post_reactions_model.dart';
-import 'package:MyApp/core/viewmodels/publication_models/post_settings_model.dart';
 import 'package:MyApp/core/viewmodels/login_model.dart';
 import 'package:MyApp/core/viewmodels/agency_model.dart';
 import 'package:MyApp/core/viewmodels/network_image_model.dart';
@@ -84,8 +82,6 @@ void setupLocator() {
   locator.registerFactory(() => NetworkImageModel());
   locator.registerFactory(() => ProfilModel());
   locator.registerFactory(() => HomeModel());
-  locator.registerFactory(() => PostReactionsModel());
-  locator.registerFactory(() => PostSettingsModel());
   locator.registerFactory(() => ToPostModel());
   locator.registerFactory(() => MapModel());
   locator.registerFactory(() => ChatUsersModel());

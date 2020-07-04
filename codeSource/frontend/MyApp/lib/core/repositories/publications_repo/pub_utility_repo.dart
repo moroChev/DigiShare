@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:MyApp/core/models/publication.dart';
+import 'package:MyApp/core/models/comment.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
@@ -52,6 +53,18 @@ class PubUtilityRepo {
     } catch (err) {
       print(err.toString());
       return new List<Publication>();
+    }
+  }
+
+  List<Comment> parseComments(String response) {
+    try {
+      List<dynamic> list = jsonDecode(response);
+      List<Comment> myList =
+          list.map((e) => Comment.fromJson(e)).toList();
+      return myList;
+    } catch (err) {
+      print(err.toString());
+      return new List<Comment>();
     }
   }
 }

@@ -1,6 +1,7 @@
 import 'package:MyApp/core/models/employee.dart';
 import 'package:MyApp/core/models/publication.dart';
 import 'package:MyApp/ui/shared/emp_list_tile/employee_list_tile.dart';
+import 'package:MyApp/ui/views/base_view.dart';
 import 'package:MyApp/ui/widgets/publication_widgets/post_elements/post_Text.dart';
 import 'package:MyApp/ui/widgets/publication_widgets/post_elements/post_settings.dart';
 import 'package:MyApp/ui/widgets/publication_widgets/post_reactions/post_reactions.dart';
@@ -8,6 +9,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import './post_elements/post_image_deco.dart';
+import 'package:MyApp/core/viewmodels/publication_models/post_single_model.dart';
+
+import 'package:provider/provider.dart';
 
 class SinglePublicationWidget extends StatelessWidget {
   final Publication publication;
@@ -17,41 +21,44 @@ class SinglePublicationWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.all(8.0),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        color: Colors.white,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey[200].withOpacity(0.5),
-            spreadRadius: 5,
-            blurRadius: 7,
-            offset: Offset(0, 3),
-          ),
-        ],
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.max,
-        children: <Widget>[
-          EmployeeListTile(
-            employee: poster,
-            subtitle: poster?.agency?.name,
-            trailing: PostSettingsWidget(
-              publication: publication,
-              poster: poster,
+    Employee user = Provider.of<Employee>(context);
+    return BaseView<SinglePostModel>(
+          onModelReady: (model)=>model.initData(publication, poster,user,context),
+          builder:(context,model,child) => model.isHidden ? Container(height: 0,width: 0,)
+          : Container(
+        margin: EdgeInsets.all(4.0),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          border: Border.all(color: publication.isApproved ? Colors.white : Color(0xFFbdbdbd), width: 2.0),
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey[300].withOpacity(0.5),
+              spreadRadius: 5,
+              blurRadius: 7,
+              offset: Offset(0, 3),
             ),
-            onTap: () {
-              Navigator.pushNamed(context, '/Profil', arguments: poster.id);
-            },
-          ),
-          _postContent(),
-          Divider(
-            indent: 20,
-            endIndent: 20,
-          ),
-          PostReactions(publication: publication),
-        ],
+          ],
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          children: <Widget>[
+            EmployeeListTile(
+              employee: poster,
+              subtitle: poster?.agency?.name,
+              trailing: PostSettingsWidget(),
+              onTap: () {
+                Navigator.pushNamed(context, '/Profil', arguments: poster.id);
+              },
+            ),
+            _postContent(),
+            Divider(
+              indent: 20,
+              endIndent: 20,
+            ),
+            PostReactions(),
+          ],
+        ),
       ),
     );
   }
