@@ -19,7 +19,13 @@ const publicationSchema = new mongoose.Schema({
             type: mongoose.Schema.Types.ObjectId,
             ref: "Employee",
         }
-    ]
+    ],
+    comments: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Comment",
+        }
+    ],
 });
 
 

@@ -10,6 +10,10 @@ const EmployeeRepositoryMongoDb       = require('../repositories/Employees/emplo
       AgencyService                   = require('../services/agencyService'),
       AgencyController                = require('../controllers/agencies'),
 
+      CommentRepositoryMongo          = require('../repositories/Comments/commentRepositoryMongoDb'),
+      CommentService                  = require('../services/commentService'),
+      CommentController               = require('../controllers/comments'), 
+
       AuthController                  = require('../controllers/auth'),
       AuthService                     = require('../services/authService'),
       
@@ -27,6 +31,7 @@ let employeeRepo             = new EmployeeRepositoryMongoDb();
 let notifRepo                = new NotificationRepoMongoDb();
 let publicationRepo          = new PublicationRepo();
 let agencyRepo               = new AgencyRepositoryMongo();
+let commentRepo              = new CommentRepositoryMongo();
 
 
 let employeeService          = new EmployeeService(employeeRepo,notifRepo);
@@ -39,6 +44,9 @@ let notificationController   = new NotificationController(notificationService,so
 
 let publicationService       = new PublicationService(publicationRepo,employeeRepo,notificationController);
 let publicationsController   = new PublicationsController(publicationService);
+
+let commentService           = new CommentService(commentRepo,publicationRepo,notificationController);
+let commentController        = new CommentController(commentService);
 
 
 let agencySvc                = new AgencyService(agencyRepo);
@@ -56,5 +64,6 @@ module.exports = {
     agencyController: agencyController,
     authController: authController,
     notificationController: notificationController,
+    commentController: commentController,
     socketRepo: socketRepo
 }      

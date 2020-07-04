@@ -5,7 +5,7 @@ const express             = require('express'),
       routerEmployees     = require('./routes/employees'),
       routerAgencies      = require('./routes/agencies'),
       routerAuth          = require('./routes/auth'),
-      routerMessages      = require('./routes/messages'),
+      routerMessages      = require('./routes/messages'), 
       routerNotifications = require('./routes/notifications');
 
 // Creating express instance

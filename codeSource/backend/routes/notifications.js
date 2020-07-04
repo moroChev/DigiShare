@@ -4,7 +4,7 @@ const express                    = require('express'),
 
 
 let router                       = express.Router();
-
+//router.use(auth);
 
 router.get("/", notificationController.getEmployeeNotifications);
 router.put("/", notificationController.putAllNotificationsAsSeen);

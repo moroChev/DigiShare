@@ -48,6 +48,38 @@ class NotificationService{
         }
     }
 
+    async likePublicationNotif(publication,likerId){
+        try {
+            let notifObject = {
+                'notificationType': notifType.LIKE,
+                'notifier': likerId,
+                'publication': publication._id,
+            }
+            let notified = await this._employeeRepo.findById(publication.postedBy);
+            let notifAndNotified = await this.createNotifForAnEmployee(notified,notifObject);
+            return notifAndNotified;
+        } catch (error) {
+            throw(error);
+        }
+    }
+
+
+    async commentPublicationNotif(publication,commentatorId){
+        try {
+            let notifObject = {
+                'notificationType': notifType.COMMENT,
+                'notifier': commentatorId,
+                'publication': publication._id,
+            }
+            let notified = await this._employeeRepo.findById(publication.postedBy);
+            let notifAndNotified = await this.createNotifForAnEmployee(notified,notifObject);
+            return notifAndNotified;
+        } catch (error) {
+            throw(error);
+        }
+    }
+
+   // this method takes the notifierId to find the agencyId and then find the employees who can approve
     async selectWhoCanApprove(notifierId) {
         try {
             let notifier = await this._employeeRepo.findById(notifierId);
@@ -76,7 +108,7 @@ class NotificationService{
             let notification = await this._notificationRepo.create(notif);
             let notifAndUser = {
                 'notification': notification,
-                'notified':employee
+                'notified': employee
             }
             console.log(notifAndUser);
             return notifAndUser;

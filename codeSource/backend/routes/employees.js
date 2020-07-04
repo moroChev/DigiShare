@@ -9,6 +9,7 @@ let router                       = express.Router();
 
 //route to get profile image
 router.use('/profilesImages', express.static(path.join(__dirname, '../images/profilesImages')));
+//router.use(auth);
 
 router.get("/", employeeController.getAllEmployees);
 // not tested yet ...

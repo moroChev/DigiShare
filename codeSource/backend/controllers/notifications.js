@@ -78,6 +78,25 @@ class NotificationController{
         }
     }
 
+    async likePublicationNotif(publication,likerId){
+        try {
+            let notifAndUser = await this._notifService.likePublicationNotif(publication,likerId);
+            this.notifyOnUserConnected(notifAndUser);
+        } catch (error) {
+            throw(error);
+        }
+
+    }
+
+    async commentPublicationNotif(publication,commentatorId){
+        try {
+            let notifAndUser = await this._notifService.commentPublicationNotif(publication,commentatorId);
+            this.notifyOnUserConnected(notifAndUser);
+        } catch (error) {
+            throw(error);
+        }
+    }
+
 
   notifyOnUserConnected(notifAndUser){
         let userId = notifAndUser.notified._id.toString();

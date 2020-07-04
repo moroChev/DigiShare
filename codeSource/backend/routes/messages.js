@@ -14,10 +14,10 @@ let messageRepo = new MessageRepositoryMongo();
 let roomRepo = new RoomRepositoryMongo();
 let messageSvc = new MessageService(messageRepo, roomRepo);
 let messageController = new MessageController(messageSvc);
+router.use(auth);
 
-
-router.get("/room/:id", auth, (req,res,next) => messageController.getRoomByChatId(req,res,next));
-router.get("/:id", auth, (req,res,next) => messageController.getAllRoomsForUser(req,res,next));
+router.get("/room/:id",  (req,res,next) => messageController.getRoomByChatId(req,res,next));
+router.get("/:id",  (req,res,next) => messageController.getAllRoomsForUser(req,res,next));
 
 
 module.exports = router;

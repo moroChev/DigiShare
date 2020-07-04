@@ -1,6 +1,7 @@
 const util = require('util');
 const pubUtil = require('../utility/publicationUtils');
 const notifTypes = require('../utility/notificationType');
+const globalUtil = require('../utility/globalUtil');
 
 class PublicationService{
 
@@ -76,6 +77,7 @@ class PublicationService{
     async addlikePublication(id,employeeId){ 
         try {
             let publication = await this._publicationRepo.findById_And_AddToSet(id,{ "likes" : employeeId });
+            await this.notifyObservers(publication,notifTypes.LIKE,employeeId);
             return publication;
         } catch (error) {
             throw(error)
@@ -117,14 +119,14 @@ class PublicationService{
        }
    }
 
-   async notifyObservers(publication,notifType){
+   async notifyObservers(publication,notifType, notifierId){
        try{
-           console.log(util.inspect(publication)+"and the notif type is "+notifType);
            if(notifType==notifTypes.NEW_PUBLICATION){
                 await this._notificationController.newPublicationNotif(publication);
-            }
-            else if(notifType==notifTypes.APPROVAL){
+            }else if(notifType==notifTypes.APPROVAL){
                 await this._notificationController.approvalPublicationNotif(publication);
+            }else if(notifType==notifTypes.LIKE){
+                await this._notificationController.likePublicationNotif(publication,notifierId);
             }
         }catch(error){
             throw(error);
