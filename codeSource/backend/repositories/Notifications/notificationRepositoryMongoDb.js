@@ -81,6 +81,15 @@ class NotificationRepositoryMongoDb extends INotificationRepository{
          }
      }
 
+     async deleteMany(object){
+         try {
+             let notifications = await Notification.deleteMany(object);
+             return notifications;
+         } catch (error) {
+             throw(error);
+         }
+     }
+
 }
 
 

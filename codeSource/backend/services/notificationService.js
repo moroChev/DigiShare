@@ -157,6 +157,18 @@ class NotificationService{
         }
     }
 
+    async deleteAllNotifications(userId){
+        try {
+            let filter = {
+                "notified":userId
+            }
+            let notifs = await this._notificationRepo.deleteMany(filter);
+            return notifs;
+        } catch (error) {
+            throw(error);
+        }
+    }
+
 }
 
 module.exports = NotificationService; 

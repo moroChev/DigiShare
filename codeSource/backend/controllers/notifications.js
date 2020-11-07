@@ -41,7 +41,7 @@ class NotificationController{
     putAllNotificationsAsSeen = async (req,res,next)=>{
         try{
             let userId = globalUtils.returnUserIdFromHeader(req);
-            let notifs = this._notifService.putAllNotifsAsSeen(userId);
+            let notifs = await this._notifService.putAllNotifsAsSeen(userId);
             res.status(200).json({'withSuccess':true});
         } catch (error) {
             res.status(500).json(error);
@@ -50,8 +50,18 @@ class NotificationController{
 
     putNotificationAsChecked = async (req,res,next)=>{
         try {
-            let notif = this._notifService.putNotifAsChecked(req.params.id);
+            let notif = await this._notifService.putNotifAsChecked(req.params.id);
             res.status(200).json({'withSuccess':true});
+        } catch (error) {
+            res.status(500).json(error);
+        }
+    }
+
+    deleteAllNotifications = async (req,res,next) => {
+        try {
+            let userId = globalUtils.returnUserIdFromHeader(req);
+            let notifs = await this._notifService.deleteAllNotifications(userId);
+            res.status(200).json(notifs);
         } catch (error) {
             res.status(500).json(error);
         }

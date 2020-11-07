@@ -42,10 +42,11 @@ class CommentService{
         }
     }
 
-    async deleteComment(commentId){
+    async deleteComment(id,commentId){
         try {
             let comment = await this._commentRepo.findByIdAndDelete(commentId);
-            let publication = await this._publicationRepo.findById_And_Pull(id, { "comments" : comment._id });
+            console.log('DeleteComment Service : '+commentId+" post id : "+id);
+            let publication = await this._publicationRepo.findById_And_Pull(id, { "comments" : commentId });
             return comment;
         } catch (error) {
             throw(error);

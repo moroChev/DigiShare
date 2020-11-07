@@ -30,6 +30,9 @@ class INotificationRepository{
     /// object params in form : {isChecked : true || false }
     findById_And_Set(id, object){}
 
+    /// delete all matched documents
+    deleteMany(object){}
+
 
 }
 

@@ -43,7 +43,9 @@ class CommentController{
     deleteComment = async (req,res,next)=>{
         try {
             let commentId = req.params.commentId;
-            let comment = await this.commentSerivce.deleteComment(commentId);
+            let publicationId = req.params.id;
+            console.log('DeleteComment Ctrl : '+commentId+" publication id : "+publicationId);
+            let comment = await this.commentSerivce.deleteComment(publicationId,commentId);
             res.status(200).json(comment);
         } catch (error) {
             res.status(500).json(error);
