@@ -51,10 +51,16 @@ class NotificationModel extends BaseModel{
     notifyListeners();
   }
 
-    markAsSeenAllNotSeen(){
+  markAsSeenAllNotSeen(){
     this._notSeenNotifCount = 0;
     notifyListeners();
     this._notifSrv.putAllNotifsAsSeen();
+  }
+
+  deleteAllNotifications(){
+    this._notifications = [];
+    this._notifSrv.deleteAllNotifications();
+    notifyListeners();
   }
 
 
