@@ -88,7 +88,7 @@ class PublicationReactionsRepo{
     if(response.statusCode==201)
        return true;
     else
-       throw false;
+       return false;
   }
 
   Future<bool> editComment(String publicationId,Comment comment) async {
@@ -98,21 +98,23 @@ class PublicationReactionsRepo{
       "text": comment.text,
       "commentator":comment.commentator.id,
     };
+    print('${this.runtimeType.toString()} $url and the body : ${body.toString()}');
     final response = await http.put(url, body: jsonEncode(body), headers: header);
     if(response.statusCode==201 || response.statusCode==200)
        return true;
     else
-       throw false;
+       return false;
   }  
 
   Future<bool> deleteComment(String publicationId, String commentId) async {
     String url     = "${this._pubRepoUtility.pubUrl}/$publicationId/comments/$commentId";
     Map header     = await this._pubRepoUtility.header();
+    print('${this.runtimeType.toString()} Delete Comment $url ');
     final response = await http.delete(url, headers: header);
     if(response.statusCode==201 || response.statusCode==200)
        return true;
     else
-       throw false;
+       return false;
   } 
 
 }
