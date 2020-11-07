@@ -2,7 +2,7 @@ import 'package:MyApp/core/repositories/notifications_repo/notifications_repo.da
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'core/models/employee.dart';
-import 'ui/router.dart';
+import 'ui/router.dart' as Router;
 import 'core/services/authentication_service.dart';
 import 'locator.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -30,8 +30,8 @@ class MyApp extends StatelessWidget {
                 primarySwatch: Colors.teal,
                 textTheme: TextTheme(body1: TextStyle( fontFamily: "Times" )),
               ),
-              initialRoute: initialRoute,
-              onGenerateRoute: Router.generateRoute,
+              initialRoute: Router.initialRoute,
+              onGenerateRoute: Router.Router.generateRoute,
       ),
 
     );

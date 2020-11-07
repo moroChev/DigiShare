@@ -3,9 +3,16 @@ import 'package:MyApp/core/repositories/publications_repo/pub_reactions_repo.dar
 import 'package:MyApp/locator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:MyApp/core/models/comment.dart';
+import 'package:MyApp/core/repositories/socket_repo.dart';
 
 class PublicationReactionsService {
   PublicationReactionsRepo _postReactions = locator<PublicationReactionsRepo>();
+  SocketRepo _socket = locator<SocketRepo>();
+
+
+  initSocket(Function onCommentCallBack) async {
+    await this._socket.setOnNotificationReceived(onCommentReceived, onCommentCallBack);
+  }
   // SharedPreferences api
   SharedPreferences storage;
 
@@ -41,14 +48,8 @@ class PublicationReactionsService {
     return publication;
   }
 
-  /*************** Comments **********************/ 
+  ///////////////////// Comments //////////////////// 
 
- /*  
- router.get('/:id/comments', commentController.getAllComments);
- router.post('/:id/comments',commentController.addComment);
- router.put('/:id/comments/:commentId',commentController.editComment);
- router.delete('/:id/comments/:commentId',commentController.deleteComment);
-  */
 
   Future<List<Comment>> getComments(String publicationId) async {
     try {
@@ -67,16 +68,24 @@ class PublicationReactionsService {
   }
 
   Future<bool> editComment(String publicationId,Comment comment) async {
-    
+    print('${this.runtimeType.toString()} $publicationId and $comment');
       bool isEdited = await this._postReactions.editComment(publicationId, comment);
       return isEdited;
 
   }
 
-  Future<bool> deleteComment(String publicationId ,Comment comment) async {
-    String commentId = comment.id;
+  Future<bool> deleteComment(String publicationId ,String commentId) async {
+    //String commentId = comment.id;
     bool isDeleted = await this._postReactions.deleteComment(publicationId,commentId);
     return isDeleted;
+  }
+
+  void onCommentReceived(data,callback){
+    
+    print('${this.runtimeType.toString()} OnReceived comment reteched');
+    Comment comment = Comment.fromJson(data);
+    print('${this.runtimeType.toString()} i reveived a $comment');
+    callback(comment);   
   }
 
 

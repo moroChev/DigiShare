@@ -19,7 +19,6 @@ class PostCommentIcon extends StatelessWidget {
               children: <Widget>[
                 InkWell(
                   child: Icon(FontAwesomeIcons.comment,color: Colors.grey[400],size: 20.0,),
-                //  onTap: ()=>print('PostCommentIcon ..... $pubId'),
                   onTap: () => Navigator.pushNamed(context, '/SinglePostView',arguments: pubId),
                 ),
                 Container(

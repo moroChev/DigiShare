@@ -40,11 +40,16 @@ class NotificationService{
     return result;
   }
 
+  Future<bool> deleteAllNotifications() async {
+    bool result = await this.notifRepo.deleteAllNotifications();
+    return result;
+  }
+
   void onNotificationReceived(data,callback){
     
-    print('${this.runtimeType.toString()} i reveived something Before');
+    print('${this.runtimeType.toString()} OnReceivedNotification retched');
     myNotification.Notification notification = myNotification.Notification.fromJson(data);
-    print('${this.runtimeType.toString()} i reveived something $notification');
+    print('${this.runtimeType.toString()} i reveived a notification $notification');
     callback(notification);   
   }
 

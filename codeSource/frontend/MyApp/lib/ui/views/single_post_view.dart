@@ -10,6 +10,7 @@ import 'package:provider/provider.dart';
 import 'package:MyApp/core/models/employee.dart';
 
 class SinglePostView extends StatelessWidget {
+  
   final String publicationId;
 
   SinglePostView({@required this.publicationId});
@@ -24,7 +25,10 @@ class SinglePostView extends StatelessWidget {
           : Scaffold(
               backgroundColor: Color(0xFFF5F5F8),
               bottomSheet: model.publication.isApproved
-                  ? BottomCommentArea()
+                  ? BottomCommentArea(
+                                  singleComment: model.singleComment,
+                                  commentTextCtrl: model.commentTextController,
+                                  )
                   : Container(height: 0, width: 0),
               body: model.publication == null
                   ? Center(

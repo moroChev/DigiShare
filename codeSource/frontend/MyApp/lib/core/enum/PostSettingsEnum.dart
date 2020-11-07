@@ -9,3 +9,9 @@ enum RequestChoices{
   CREATE,
   MODIFY
 }
+
+
+enum COMMENTSETTING {
+  REMOVE,
+  EDIT
+}

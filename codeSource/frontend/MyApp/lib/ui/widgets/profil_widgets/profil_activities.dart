@@ -76,20 +76,16 @@ Widget rowForNotActuelUser(BuildContext context){
           Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              SizedBox(
-                height: 20,
-                child: IconButton(
-                  icon: FaIcon(FontAwesomeIcons.envelopeOpenText),
+              IconButton(
+                  icon: FaIcon(FontAwesomeIcons.envelopeOpenText,size: 20,),
                   onPressed: () async{
-                    print('message icon is clicked ...!');
                      Navigator.pop(context);
                     await Navigator.pushNamed(context, '/Chat', arguments: employee);
                   },
                   color: Colors.black38,
                 ),
-              ),
               Padding(
-                padding: const EdgeInsets.only(bottom: 12),
+                padding: const EdgeInsets.only(bottom: 6),
                 child: Text("message", style: TextStyle(fontFamily: "Times")),
               ),
             ],

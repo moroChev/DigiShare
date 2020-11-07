@@ -7,8 +7,10 @@ import 'package:MyApp/core/viewmodels/publication_models/post_single_model.dart'
 
 class PostSettingsWidget extends StatelessWidget {
 
-
- PostSettingsWidget();
+ final List<PopupMenuItem<SETTINGCHOICES>> listOfChoices;
+ final Function onSelected;
+ final Icon icon;
+ PostSettingsWidget({@required this.listOfChoices,@required this.onSelected,@required this.icon});
 
   @override
   Widget build(BuildContext context) {
@@ -17,10 +19,13 @@ class PostSettingsWidget extends StatelessWidget {
     ////////////////////////////////////////////////////////
     return  PopupMenuButton<SETTINGCHOICES>(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-          icon: Icon(Icons.expand_more),
-          onSelected: Provider.of<SinglePostModel>(context, listen: false).applySettings,
+         // icon: Icon(Icons.expand_more),
+          icon: icon,
+          onSelected: onSelected,
+        //  onSelected: Provider.of<SinglePostModel>(context, listen: false).applySettings,
           itemBuilder: (BuildContext context){
-            return Provider.of<SinglePostModel>(context, listen: false).listOfChoices();
+            return listOfChoices;
+           // return Provider.of<SinglePostModel>(context, listen: false).listOfChoices();
           }
     );
 

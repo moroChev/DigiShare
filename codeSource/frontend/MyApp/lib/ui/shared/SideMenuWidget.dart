@@ -1,5 +1,6 @@
 import 'package:MyApp/core/models/employee.dart';
 import 'package:MyApp/core/viewmodels/home_model.dart';
+import 'package:MyApp/ui/shared/emp_list_tile/employee_image.dart';
 import 'package:provider/provider.dart';
 import 'package:strings/strings.dart';
 import 'package:flutter/material.dart';
@@ -19,18 +20,53 @@ class SideMenuWidget extends StatelessWidget {
     return Column(
       children: <Widget>[
         _header(employee),
+      //  colorsBar(),
         Expanded(
           child: ListView(
-            children: <Widget>[
-              _listTile(context: context, title: "Acceuil", leadingIcon: Icons.home, onTap: listTileOnTap(context, "/Home", null)),
-              _listTile(context: context, title: "Mon Profil", leadingIcon: Icons.portrait, onTap: listTileOnTap(context, "/Profil", employee.id)),
-              _listTile(context: context, title: "Notifications", leadingIcon: Icons.notifications, onTap: listTileOnTap(context, "/Notifications", null)),
-              _listTile(context: context, title: "Messages", leadingIcon: Icons.chat, onTap: listTileOnTap(context, "/Messages", null)),
-              _listTile(context: context, title: "Publier", leadingIcon: Icons.public, onTap: listTileOnTap(context, "/ToPostView", null)),
-              _listTile(context: context, title: "Chercher", leadingIcon: Icons.search, onTap: () {}),
-              _listTile(context: context, title: "Ma Societe", leadingIcon: Icons.group_work, onTap: listTileOnTap(context, "/Agency", employee.agency.id)),
-              _listTile(context: context, title: "DigiShare Map", leadingIcon: Icons.map, onTap: listTileOnTap(context, "/Map", null)),
-              SizedBox(height: 100,),
+            children: <Widget>[ 
+              _listTile(
+                  context: context,
+                  title: "Acceuil",
+                  leadingIcon: Icons.home,
+                  onTap: listTileOnTap(context, "/Home", null)),
+              _listTile(
+                  context: context,
+                  title: "Mon Profil",
+                  leadingIcon: Icons.portrait,
+                  onTap: listTileOnTap(context, "/Profil", employee.id)),
+              _listTile(
+                  context: context,
+                  title: "Notifications",
+                  leadingIcon: Icons.notifications,
+                  onTap: listTileOnTap(context, "/Notifications", null)),
+              _listTile(
+                  context: context,
+                  title: "Messages",
+                  leadingIcon: Icons.chat,
+                  onTap: listTileOnTap(context, "/Messages", null)),
+              _listTile(
+                  context: context,
+                  title: "Publier",
+                  leadingIcon: Icons.public,
+                  onTap: listTileOnTap(context, "/ToPostView", null)),
+              _listTile(
+                  context: context,
+                  title: "Chercher",
+                  leadingIcon: Icons.search,
+                  onTap: () {}),
+              _listTile(
+                  context: context,
+                  title: "Ma Societe",
+                  leadingIcon: Icons.group_work,
+                  onTap: listTileOnTap(context, "/Agency", employee.agency.id)),
+              _listTile(
+                  context: context,
+                  title: "DigiShare Map",
+                  leadingIcon: Icons.map,
+                  onTap: listTileOnTap(context, "/Map", null)),
+              SizedBox(
+                height: 100,
+              ),
             ],
           ),
         ),
@@ -43,9 +79,6 @@ class SideMenuWidget extends StatelessWidget {
   }
 
   Widget _header(Employee employee) {
-    ImageProvider _imageProvider = (employee?.imageUrl != null)
-        ? NetworkImage(employee?.imageUrl)
-        : AssetImage("asset/img/person.png");
     return DrawerHeader(
       decoration: BoxDecoration(
         boxShadow: [
@@ -60,29 +93,7 @@ class SideMenuWidget extends StatelessWidget {
           fit: BoxFit.cover,
         ),
       ),
-      child: UserAccountsDrawerHeader(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: new AssetImage("asset/img/backgroundCloud.jpg"),
-            fit: BoxFit.cover,
-          ),
-        ),
-        accountName: Text(
-          capitalize(employee.firstName+' '+employee.lastName),
-          style: TextStyle(
-              color: Colors.black,
-              fontFamily: "Times",
-              fontWeight: FontWeight.w200,
-              fontStyle: FontStyle.italic),
-        ),
-        accountEmail: Text(
-          "${employee?.email}",
-          style: TextStyle(color: Color(0xFFFFCDD2), fontFamily: "Times"),
-        ),
-        currentAccountPicture: CircleAvatar(
-          backgroundImage: _imageProvider,
-        ),
-      ),
+      child: headerContent(employee),
     );
   }
 
@@ -112,9 +123,10 @@ class SideMenuWidget extends StatelessWidget {
   Widget _createFooterItem({BuildContext context}) {
     return Column(
       children: <Widget>[
-        Divider(height: 5, color: Colors.black45, indent: 30, endIndent: 30,),
+        Divider(height: 5,color: Colors.black45,indent: 30,endIndent: 30),
         ListTile(
-          title: Row(
+          title:
+              Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Icon(Icons.lock_outline),
@@ -126,10 +138,53 @@ class SideMenuWidget extends StatelessWidget {
           ),
           onTap: () {
             model.logout();
-            Navigator.pushNamedAndRemoveUntil(context, '/SignIn', ModalRoute.withName('/'));
+            Navigator.pushNamedAndRemoveUntil(
+                context, '/SignIn', ModalRoute.withName('/'));
           },
         ),
       ],
     );
   }
+
+  Widget headerContent(Employee employee){
+    return Container(
+      child:Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: <Widget>[
+          Row(
+            children: <Widget>[    
+            Padding(padding: EdgeInsets.only(left: 10),
+            child: employee.imageUrl != null ?  EmployeeImage(imageUrl: employee.imageUrl)
+            : AssetImage("asset/img/person.png") ,
+            )
+          ],),
+          Row(
+            children: <Widget>[
+            Padding(
+              padding: EdgeInsets.only(left: 70),
+              child: Text(
+                    capitalize(employee.firstName) + ' ' + capitalize(employee.lastName),
+                    style: TextStyle(
+                        color: Colors.white70,
+                        fontFamily: "Times",
+                        fontSize: 20,),
+                  ),
+            ),
+          ],),
+          Row(
+            children: <Widget>[
+            Padding(
+              padding: EdgeInsets.only(left: 70),
+              child: Text(
+                      "${employee?.email}",
+                      style: TextStyle(color: Colors.white60,fontSize: 10),
+                    ),
+            ),
+          ],)
+        ],
+      )
+    );
+  }
+
+ 
 }

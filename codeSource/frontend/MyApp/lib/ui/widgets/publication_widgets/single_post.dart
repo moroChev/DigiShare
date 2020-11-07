@@ -1,5 +1,6 @@
 import 'package:MyApp/core/models/employee.dart';
 import 'package:MyApp/core/models/publication.dart';
+import 'package:MyApp/core/enum/PostSettingsEnum.dart';
 import 'package:MyApp/ui/shared/emp_list_tile/employee_list_tile.dart';
 import 'package:MyApp/ui/views/base_view.dart';
 import 'package:MyApp/ui/widgets/publication_widgets/post_elements/post_Text.dart';
@@ -14,6 +15,7 @@ import 'package:MyApp/core/viewmodels/publication_models/post_single_model.dart'
 import 'package:provider/provider.dart';
 
 class SinglePublicationWidget extends StatelessWidget {
+  
   final Publication publication;
   final Employee poster;
 
@@ -46,7 +48,11 @@ class SinglePublicationWidget extends StatelessWidget {
             EmployeeListTile(
               employee: poster,
               subtitle: poster?.agency?.name,
-              trailing: PostSettingsWidget(),
+              trailing: PostSettingsWidget(
+                icon: Icon(Icons.expand_more),
+                onSelected: model.applySettings,
+                listOfChoices: listOfChoices(user),
+              ),
               onTap: () {
                 Navigator.pushNamed(context, '/Profil', arguments: poster.id);
               },
@@ -74,4 +80,36 @@ class SinglePublicationWidget extends StatelessWidget {
           )
         : PostText(content: publication?.content);
   }
+
+
+
+
+  List<PopupMenuItem<SETTINGCHOICES>> listOfChoices(Employee user){
+
+    List<PopupMenuItem<SETTINGCHOICES>> mychoices = [
+           PopupMenuItem(value: SETTINGCHOICES.HIDE,child: Text("Masquer"),)
+       ];
+
+if(this.poster.id == user.id){
+
+  mychoices.addAll([
+          PopupMenuItem(value: SETTINGCHOICES.MODIFY,child: Text("Modifier",style: TextStyle(fontFamily: "Times"))),
+          PopupMenuItem(value: SETTINGCHOICES.REMOVE,child: Text("Supprimer",style: TextStyle(fontFamily: "Times")))
+          ]);
+  }
+
+if(user.canApprove && user.agency.id == poster.agency.id){
+  if(publication.isApproved){
+     mychoices.add(PopupMenuItem(value: SETTINGCHOICES.APPROVE,child: Text("Disapprouver",style: TextStyle(fontFamily: "Times"))));
+  }else{
+     mychoices.add(PopupMenuItem(value: SETTINGCHOICES.APPROVE,child: Text("Approuver",style: TextStyle(fontFamily: "Times"))));
+  }
+}
+    return mychoices;
+} 
+
+
+
+
+
 }

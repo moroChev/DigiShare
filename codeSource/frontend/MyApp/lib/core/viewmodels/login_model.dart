@@ -14,13 +14,15 @@ class LoginModel extends BaseModel {
 
   Future<bool> login(String login, String password) async {
     setState(ViewState.Busy);
-    var loggedInUser = await _authenticationService.login(login, password);
-    var success = loggedInUser != null;
-    if(success){
-      await _socketService.connectToSocket(loggedInUser);
-    }else{
-      errorMessage = "Failed to authenticate: login and/or password are incorrect";
-    }
+
+      var loggedInUser = await _authenticationService.login(login, password);
+      var success = loggedInUser != null;
+      if(success){
+        await _socketService.connectToSocket(loggedInUser);
+      }else{
+        errorMessage = "Failed to authenticate: login and/or password are incorrect";
+      }
+
     setState(ViewState.Idle);
     return success;
   }

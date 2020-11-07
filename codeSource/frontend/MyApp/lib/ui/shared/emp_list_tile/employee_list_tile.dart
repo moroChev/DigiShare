@@ -16,7 +16,7 @@ class EmployeeListTile extends StatelessWidget {
     return ListTile(
       leading: EmployeeImage(imageUrl: employee.imageUrl),
       title: Text(
-          capitalize(employee.firstName + " " + employee.lastName),
+          capitalize(employee.firstName) + ' ' + capitalize(employee.lastName),
           style: TextStyle(color: Colors.black, fontFamily: "Times")),
       subtitle: subtitle == null ? Container() : Text(subtitle),
       trailing: trailing == null ? Text(" ") : trailing,

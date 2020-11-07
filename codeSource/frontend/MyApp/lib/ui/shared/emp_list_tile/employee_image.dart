@@ -18,8 +18,8 @@ class EmployeeImage extends StatelessWidget {
               height: 80.0,
               width: 60.0,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15),
-                border: Border.all(color: Colors.white, width: 1.0),
+                borderRadius: BorderRadius.circular(10),
+             //   border: Border.all(color: Colors.white, width: 1.0),
               ),
               child: Center(
                 child: CircularProgressIndicator(),

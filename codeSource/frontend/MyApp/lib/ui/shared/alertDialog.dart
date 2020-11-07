@@ -13,8 +13,10 @@ class OurAlertDialog {
     List<FlatButton> ourButtons = new List<FlatButton>();
     btnsTextPath.forEach(
           (key, value) => ourButtons.add(new FlatButton(
+            color: Color(0xFF0DC1DD),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15),),
             onPressed: () => Navigator.pushReplacementNamed(context, value),
-            child: Text(key)
+            child: Text(key,style: TextStyle(color: Colors.white))
               )
             )
        );
@@ -27,11 +29,12 @@ class OurAlertDialog {
         barrierDismissible: false, // user must tap button!
         builder: (BuildContext context) {
           return AlertDialog(
-              title: Text(title ?? ' '),
+            backgroundColor: Color(0xFF303960),
+              title: Text(title ?? ' ', style: TextStyle(color: Colors.white),),
               content: SingleChildScrollView(
                 child: ListBody(
                   children: <Widget>[
-                    Text(content),
+                    Text(content, style: TextStyle(color: Colors.white)),
                   ],
                 ),
               ),
