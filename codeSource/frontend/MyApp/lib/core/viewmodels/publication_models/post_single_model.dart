@@ -30,6 +30,7 @@ class SinglePostModel extends BaseModel {
   int _nbrOfComments;
   TextEditingController _commentTextController;
   List<Comment> _comments;
+  Comment _singleComment;
 
   Publication    get publication => this._publication; 
   Employee       get poster      => this._poster;
@@ -38,10 +39,13 @@ class SinglePostModel extends BaseModel {
   bool           get isHidden    => this._isHidden;
   bool           get isLiked     => this._isLiked;
   int            get nbrOfLikes  => this._nbrOfLikes;
-  int            get nbrOfComments => this._nbrOfComments;
-  List<Comment>  get comments    => this._comments;
   List<Employee> get employeesWhoLiked => this._employeesWhoLiked;
+  
+  List<Comment>  get comments      => this._comments;
+  int            get nbrOfComments => this._nbrOfComments;
+  Comment        get singleComment => this._singleComment;
   TextEditingController get commentTextController => this._commentTextController;
+  set singleComment(Comment myComment) => this._singleComment = myComment;
 
 
 
@@ -58,39 +62,18 @@ class SinglePostModel extends BaseModel {
 
   Future getSinglePublication(String publicationId,Employee user) async {
     setState(ViewState.Busy);
+    this._singleComment=null;
     this._user=user;
     this._commentTextController = TextEditingController();
     this._publication = await this._postGlobalService.fetchSinglePost(publicationId);
     this._comments= await this._postReactionsService.getComments(publicationId);
+    await this._postReactionsService.initSocket(onCommentReceived);
     print('get Single publications from singleModel');
     setState(ViewState.Idle);
   }
 
   /// ************* Settings **************
   
-List<PopupMenuItem<SETTINGCHOICES>> listOfChoices(){
-
-    List<PopupMenuItem<SETTINGCHOICES>> mychoices = [
-           PopupMenuItem(value: SETTINGCHOICES.HIDE,child: Text("Masquer"),)
-       ];
-
-if(this._poster.id == this._user.id){
-
-  mychoices.addAll([
-          PopupMenuItem(value: SETTINGCHOICES.MODIFY,child: Text("Modifier",style: TextStyle(fontFamily: "Times"))),
-          PopupMenuItem(value: SETTINGCHOICES.REMOVE,child: Text("Supprimer",style: TextStyle(fontFamily: "Times")))
-          ]);
-  }
-
-if(this._user.canApprove && this._user.agency.id == this._poster.agency.id){
-  if(this._publication.isApproved){
-     mychoices.add(PopupMenuItem(value: SETTINGCHOICES.APPROVE,child: Text("Disapprouver",style: TextStyle(fontFamily: "Times"))));
-  }else{
-     mychoices.add(PopupMenuItem(value: SETTINGCHOICES.APPROVE,child: Text("Approuver",style: TextStyle(fontFamily: "Times"))));
-  }
-}
-    return mychoices;
-} 
 
 
 
@@ -134,8 +117,9 @@ void hidePublication() async {
 }
 
 
-/// *********** Réactions ****************
-/// Likes
+/// ***************** Réactions ******************** ///
+
+/////////////////// Likes ////////////////////
  onPressLikeIcon(){
     if(this.isLiked){
         this._nbrOfLikes--;
@@ -171,15 +155,78 @@ void hidePublication() async {
     setState(ViewState.Idle);
   } 
 
-  /// Comments 
+  ///////////////////// Comments //////////////////// 
+  
    addComment() async {
      print("Add Comment");
-     Comment comment = Comment(text: this._commentTextController.text,commentator: this._user,date: DateTime.now());
+     Comment newComment = Comment(text: this._commentTextController.text,commentator: this._user,date: DateTime.now());
+     this._comments.add(newComment);
+     this._commentTextController.text=" ";
+     this._singleComment=null;
+     notifyListeners();
+     bool isAdded = await this._postReactionsService.addComment(this._publication.id, newComment);
+   }
+
+   // onComment Received on real time
+   onCommentReceived(Comment comment){
      this._comments.add(comment);
+     notifyListeners();
+   }
+
+   editComment() async {
+     this._commentTextController.text = this._singleComment.text;
+     notifyListeners();
+   }
+
+   saveEditingComment()async{
+     print('Save Editing Comment ${this._publication.id}');
+     this._singleComment.text=this._commentTextController.text;
+     int indexOfTheEditedcomment = this._comments.indexOf(this._singleComment);
+     this._comments[indexOfTheEditedcomment] = this._singleComment;
+     bool isEdited = await this._postReactionsService.editComment(this._publication.id, this._singleComment);
+     this._singleComment=null;
+     this._commentTextController.text=" ";
+     print('Save Editing Comment ${this._publication.id} $isEdited');
+     notifyListeners();
+   }
+
+   cancelEditingComment() async {
+     print('Cancel Editing .....');
+     this.singleComment=null;
      this._commentTextController.text=" ";
      notifyListeners();
-     bool isAdded = await this._postReactionsService.addComment(this._publication.id, comment);
+     print('Cancel Editing ...123..');
    }
+
+   deleteComment() async {
+     print('Delete Comment $singleComment id : ${this._singleComment.id}');
+     bool isEdited = await this._postReactionsService.deleteComment(this._publication.id, this._singleComment.id);
+     this._comments.removeWhere((element) => element.id == this._singleComment.id);
+     this.singleComment=null;
+     this._nbrOfComments=this._comments.length;
+     notifyListeners();
+   }
+
+
+   List<PopupMenuItem<COMMENTSETTING>> commentSettingsChoices(Comment comment){
+     this._singleComment=comment;
+    List<PopupMenuItem<COMMENTSETTING>> mychoices =[
+          PopupMenuItem(value: COMMENTSETTING.EDIT,child: Text("Modifier",style: TextStyle(fontFamily: "Times"))),
+          PopupMenuItem(value: COMMENTSETTING.REMOVE,child: Text("Supprimer",style: TextStyle(fontFamily: "Times")))
+          ];
+    return mychoices;
+} 
+
+ onTapCommentSettings(COMMENTSETTING choice){
+   switch(choice){
+    case COMMENTSETTING.EDIT   : { print("Modifier Comment est appelé"); editComment(); } break;
+    case COMMENTSETTING.REMOVE : { print("remove comment est appelé 3"); deleteComment(); } break;
+  }
+
+}
+
+
+  
 
 
 }
