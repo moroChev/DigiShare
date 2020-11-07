@@ -51,6 +51,13 @@ Future<List<Notification>> getNotifications() async {
    return isResponseOk(response);
  }
 
+ Future deleteAllNotifications() async {
+   Map header = await this._pubUtility.header();
+   String url = this._notificationUrl;
+   final response  = await http.delete(url,headers: header);
+   return isResponseOk(response);
+ }
+
   bool isResponseOk(http.Response response){
     if(response.statusCode == 200){
         return true;
