@@ -1,5 +1,5 @@
 # My-App
--Used technologies:
+- Used technologies:
   * flutter
   * NodeJs Express
   * Mongodb
