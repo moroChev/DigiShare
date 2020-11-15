@@ -7,17 +7,14 @@
   * Socket I.O library
 ## Some Features 
 
-| ![authentification](./gifs/Authentification.gif) | ![feed](./gifs/Feed.gif) 
-| Authentification | Feed
-
-| ![comments](./gifs/Comments.gif) | ![notifications](./gifs/Approve_publication.gif)
-|  Comments | Notifications & Approval of publications
-
-| ![private_message](./gifs/Private_message.gif) | ![searching](./gifs/Searching.gif)
-| Chat & messaging | Searching
-
-| ![new_publication](./gifs/New_publication.gif)
-| publish
+| ![authentification](./gifs/Authentification.gif) |              ![feed](./gifs/Feed.gif)            |
+|                Authentification                  |                          Feed                    |
+|      ![comments](./gifs/Comments.gif)            | ![notifications](./gifs/Approve_publication.gif) |
+|                   Comments                       |      Notifications & Approval of publications    |
+| ![private_message](./gifs/Private_message.gif)   |         ![searching](./gifs/Searching.gif)       |
+|             Chat & messaging                     |                   Searching                      |
+| ![new_publication](./gifs/New_publication.gif)   |
+|                   publish                        |
 
 ## Running the app:
 - Install Node.js, Flutter and then add them to your environnement variables (see flutter & node.js documentation)
