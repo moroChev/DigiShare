@@ -7,10 +7,9 @@
   * Socket I.O library
 ## Some Features 
 
-| ![authentification](./gifs/Authentification.gif) <br/> Authentification | ![feed](./gifs/Feed.gif) <br/> Feed |
-|-------------------------------------------------------------------------|-------------------------------------| 
-|      ![comments](./gifs/Comments.gif) <br/> Comments | ![notifications](./gifs/Approve_publication.gif) <br/> Notifications & Approval of publications|
-| ![private_message](./gifs/Private_message.gif) <br/> Chat & messaging | ![searching](./gifs/Searching.gif) <br/> Searching |
+| ![authentification](./gifs/Authentification.gif) <br/> Authentification | ![feed](./gifs/Feed.gif) <br/> Feed | ![comments](./gifs/Comments.gif) <br/> Comments |
+|------------------------------------|--------------------------------------|---------------------------------------|
+| ![notifications](./gifs/Approve_publication.gif) <br/> Notifications & Approval of publications| ![private_message](./gifs/Private_message.gif) <br/> Chat & messaging | ![searching](./gifs/Searching.gif) <br/> Searching |
 | ![new_publication](./gifs/New_publication.gif) <br/> publish   |
 
 ## Running the app:
